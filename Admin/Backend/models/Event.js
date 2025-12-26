@@ -57,4 +57,10 @@ ImageSchema.pre('save', function(next) {
   next();
 });
 
+
+ImageSchema.post('save', function(doc, next) {
+  console.log('Document saved:', doc._id);
+  next();
+});
+
 module.exports = mongoose.model('Image', ImageSchema);
