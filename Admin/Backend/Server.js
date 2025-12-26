@@ -30,7 +30,7 @@ app.get('/',(req,res)=>{
 
 app.use('/api/video', VideoRoute);
 app.use('/api/event', EventRoute);
-app.use('/api/english', PromiseRoute);
+app.use('/api/promise', PromiseRoute);
 
 
 
