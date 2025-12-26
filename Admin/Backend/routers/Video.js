@@ -3,7 +3,7 @@ const router = express.Router();
 const Video = require('../models/Video');
 
 // POST: Upload video (expects JSON)
-router.post('/video', async (req, res) => {
+router.post('/upload', async (req, res) => {
   try {
     const { title, url, duration } = req.body;
     if (!title || !url)
