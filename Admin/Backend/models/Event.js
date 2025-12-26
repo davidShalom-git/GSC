@@ -30,20 +30,17 @@ const ImageSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-
   image: {
     type: String,
     default: function() {
- 
       return `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     },
     unique: true
   }
 }, {
   timestamps: true,
-  collection: 'images' 
+  collection: 'images'
 });
-
 
 ImageSchema.index({ name: 1 });
 ImageSchema.index({ uploadedAt: -1 });
@@ -58,9 +55,9 @@ ImageSchema.pre('save', function(next) {
 });
 
 
-ImageSchema.post('save', function(doc, next) {
+ImageSchema.post('save', function(doc) {
   console.log('Document saved:', doc._id);
-  next();
+ 
 });
 
 module.exports = mongoose.model('Image', ImageSchema);
