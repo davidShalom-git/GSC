@@ -1,162 +1,247 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Video, Calendar, Heart } from 'lucide-react';
 
-const Upload = () => {
-
-    const [promise,setPromise] = useState<File | null>(null)
-    const [Video,setVideo] = useState({
+const ChurchAdminPanel = () => {
+    const [promise, setPromise] = useState<File | null>(null);
+    const [video, setVideo] = useState({
         title: "",
         url: ""
-    })
-
-   const [event, setEvent] = useState<File | null>(null); 
-
-    const GetVideoData = (e:React.ChangeEvent<HTMLInputElement>) => {
-        setVideo({...Video,[e.target.name]: e.target.value})
-    }
-
-    const handleVideo = async() => {
-
-        const response = await fetch('http://localhost:1995/api/video/upload',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify(Video)
-        })
-        
-        if(!response.ok){
-            throw new Error("Failed to Upload the Video")
-        }
-
-        const data = await response.json()
-
-        if(!data){
-            throw new Error("No Data Found")
-        }
-
-        console.log(data)
-    }
-
-    const handleVideoSubmit = async(e: React.FormEvent) => {
-        e.preventDefault();
-        await handleVideo();
-    }
-
-  const getEventData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    setEvent(file);
-}
-
-const handleEvent = async () => {
-    if (!event) return;
-    
-    const formData = new FormData();
-    formData.append('image', event); 
-    
-    const response = await fetch('http://localhost:1995/api/event/upload', {
-        method: 'POST',
-        body: formData 
     });
-    
-    return response;
-}
+    const [event, setEvent] = useState<File | null>(null);
+    const [uploadStatus, setUploadStatus] = useState<{ [key: string]: string }>({});
 
-const handleEventSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    try {
-        const response = await handleEvent();
-        if (response?.ok) {
-            console.log('Upload successful!');
-        } else {
-            console.error('Upload failed');
+    const GetVideoData = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setVideo({ ...video, [e.target.name]: e.target.value });
+    };
+
+    const handleVideo = async () => {
+        try {
+            setUploadStatus({ ...uploadStatus, video: 'uploading' });
+            const response = await fetch('http://localhost:1995/api/video/upload', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(video)
+            });
+
+            if (!response.ok) throw new Error("Failed to Upload the Video");
+
+            const data = await response.json();
+            if (!data.success) throw new Error(data.message);
+            setUploadStatus({ ...uploadStatus, video: 'success' });
+            setVideo({ title: "", url: "" });
+            setTimeout(() => setUploadStatus({ ...uploadStatus, video: '' }), 3000);
+        } catch (error) {
+            setUploadStatus({ ...uploadStatus, video: 'error' });
+            console.error('Error uploading:', error);
         }
-    } catch (error) {
-        console.error('Error uploading:', error);
-    }
-}
+    };
 
 
-const getPromiseDetails = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const getEventData = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files ? e.target.files[0] : null;
+        setEvent(file);
+    };
 
-    const file = e.target.files?e.target.files[0] : null
-    setPromise(file)
-}
+    const handleEvent = async () => {
+        if (!event) return;
 
-const handlePromise = async() => {
-    if(!promise) return;
+        try {
+            setUploadStatus({ ...uploadStatus, event: 'uploading' });
+            const formData = new FormData();
+            formData.append('image', event);
 
-    const formData = new FormData()
-    formData.append('image',promise)
+            const response = await fetch('http://localhost:1995/api/event/upload', {
+                method: 'POST',
+                body: formData
+            });
 
-    const response = await fetch('http://localhost:1995/api/promise/pro',{
-        method:'POST',
-        body: formData
-    })
-
-    return response;
-}
-
-const handlePromiseSubmit = async(e:React.FormEvent) => {
-    e.preventDefault();
-
-   try {
-    const response = await handlePromise();
-    if(response?.ok){
-        console.log('Upload Successful');
-    }
-    else{
-        console.error('Upload Failed');
-    }
-   } catch (error) {
-    console.error('Error uploading:',error);
-   }
-}
+            if (response?.ok) {
+                setUploadStatus({ ...uploadStatus, event: 'success' });
+                setEvent(null);
+                setTimeout(() => setUploadStatus({ ...uploadStatus, event: '' }), 3000);
+            } else {
+                setUploadStatus({ ...uploadStatus, event: 'error' });
+            }
+        } catch (error) {
+            setUploadStatus({ ...uploadStatus, event: 'error' });
+            console.error('Error uploading:', error);
+        }
+    };
 
 
-  return (
-  
-      <>
-        <h1 className='bg-black text-white text-4xl text-center mt-10 p-4 w-[50%] mx-auto'>Admin Panel</h1>
+
+    const getPromiseDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files ? e.target.files[0] : null;
+        setPromise(file);
+    };
+
+    const handlePromise = async () => {
+        if (!promise) return;
+
+        try {
+            setUploadStatus({ ...uploadStatus, promise: 'uploading' });
+            const formData = new FormData();
+            formData.append('image', promise);
+
+            const response = await fetch('http://localhost:1995/api/promise/pro', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response?.ok) {
+                setUploadStatus({ ...uploadStatus, promise: 'success' });
+                setPromise(null);
+                setTimeout(() => setUploadStatus({ ...uploadStatus, promise: '' }), 3000);
+            } else {
+                setUploadStatus({ ...uploadStatus, promise: 'error' });
+            }
+        } catch (error) {
+            setUploadStatus({ ...uploadStatus, promise: 'error' });
+            console.error('Error uploading:', error);
+        }
+    };
 
 
-      <div className='grid grid-cols-1 lg:grid-cols-3 w-[90%] mx-auto p-10 gap-4'>
+
+    const StatusMessage = ({ status }: { status: string }) => {
+        if (status === 'uploading') return <p className="text-blue-600 text-sm mt-2">Uploading...</p>;
+        if (status === 'success') return <p className="text-green-600 text-sm mt-2">✓ Upload successful!</p>;
+        if (status === 'error') return <p className="text-red-600 text-sm mt-2">✗ Upload failed. Please try again.</p>;
+        return null;
+    };
+
+    return (
+        <div className="min-h-screen bg-linear-to-br from-blue-50 via-purple-50 to-pink-50">
+
+            <div className="bg-linear-to-r from-purple-800 via-purple-700 to-indigo-800 text-white py-8 shadow-lg">
+                <div className="max-w-6xl mx-auto px-4">
+                    <h1 className="text-4xl font-bold text-center mb-2">Church Admin Panel</h1>
+                    <p className="text-center text-purple-200">Manage your devotional content with grace</p>
+                </div>
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 py-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
 
-    <form className='flex flex-col space-y-3 border border-black px-6 py-4 mt-10' onSubmit={handleVideoSubmit}>
+                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
+                        <div className="bg-linear-to-r from-red-500 to-pink-500 p-6 text-white">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-2xl font-bold">Video Upload</h2>
+                                <Video className="w-8 h-8" />
+                            </div>
+                            <p className="text-sm mt-2 text-red-100">Share devotional messages</p>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Video Title</label>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={video.title}
+                                    onChange={GetVideoData}
+                                    placeholder="Enter video title"
+                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:outline-none transition-colors"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Video URL</label>
+                                <input
+                                    type="text"
+                                    name="url"
+                                    value={video.url}
+                                    onChange={GetVideoData}
+                                    placeholder="Enter YouTube/Vimeo URL"
+                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:outline-none transition-colors"
+                                />
+                            </div>
+                            <button
+                                onClick={handleVideo}
+                                className="w-full bg-linear-to-r from-red-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:from-red-600 hover:to-pink-600 transition-all shadow-md hover:shadow-lg"
+                            >
+                                Upload Video
+                            </button>
+                            <StatusMessage status={uploadStatus.video || ''} />
+                        </div>
+                    </div>
 
-        <h1>Upload Video</h1>
-        <input type='text' name='title' value={Video.title} onChange={GetVideoData} className='border border-black' />
-        <input type='text' name='url' value={Video.url} onChange={GetVideoData} className='border border-black'/>
-        <button type='submit' onChange={handleVideo} className='bg-blue-500 text-white p-3'>Submit</button>
-  
-    </form>
 
-     <form className='flex flex-col space-y-3 border border-black px-6 py-4 mt-10' onSubmit={handleEventSubmit}>
+                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
+                        <div className="bg-linear-to-r from-blue-500 to-cyan-500 p-6 text-white">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-2xl font-bold">Event Poster</h2>
+                                <Calendar className="w-8 h-8" />
+                            </div>
+                            <p className="text-sm mt-2 text-blue-100">Announce church events</p>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Upload Poster</label>
+                                <div className="relative">
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={getEventData}
+                                        className="w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                    />
+                                </div>
+                                {event && (
+                                    <p className="text-sm text-gray-600 mt-2">Selected: {event.name}</p>
+                                )}
+                            </div>
+                            <button
+                                onClick={handleEvent}
+                                className="w-full bg-linear-to-r from-blue-500 to-cyan-500 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all shadow-md hover:shadow-lg"
+                            >
+                                Upload Poster
+                            </button>
+                            <StatusMessage status={uploadStatus.event || ''} />
+                        </div>
+                    </div>
 
-        <h1>Upload Event</h1>
-        <input type='file' accept='image/*' onChange={getEventData}  className='border border-black' />
-        <button type='submit' onChange={handleEvent} className='bg-blue-500 text-white p-3'>Submit</button>
-  
-    </form>
+                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
+                        <div className="bg-linear-to-r from-purple-500 to-indigo-500 p-6 text-white">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-2xl font-bold">Promise Word</h2>
+                                <Heart className="w-8 h-8" />
+                            </div>
+                            <p className="text-sm mt-2 text-purple-100">Share God's promises</p>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Upload Promise</label>
+                                <div className="relative">
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={getPromiseDetails}
+                                        className="w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
+                                    />
+                                </div>
+                                {promise && (
+                                    <p className="text-sm text-gray-600 mt-2">Selected: {promise.name}</p>
+                                )}
+                            </div>
+                            <button
+                                onClick={handlePromise}
+                                className="w-full bg-linear-to-r from-purple-500 to-indigo-500 text-white py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-indigo-600 transition-all shadow-md hover:shadow-lg"
+                            >
+                                Upload Promise
+                            </button>
+                            <StatusMessage status={uploadStatus.promise || ''} />
+                        </div>
+                    </div>
 
+                </div>
 
-     <form className='flex flex-col space-y-3 border border-black px-6 py-4 mt-10' onSubmit={handlePromiseSubmit}>
+                <div className="mt-12 text-center">
+                    <p className="text-gray-600 italic">"Let your light shine before others..." - Matthew 5:16</p>
+                </div>
+            </div>
+        </div>
+    );
+};
 
-        <h1>Upload Promise</h1>
-        <input type='file' accept='image/*' onChange={getPromiseDetails}  className='border border-black' />
-        <button type='submit' onChange={handlePromise} className='bg-blue-500 text-white p-3'>Submit</button>
-  
-    </form>
-        
-
-    
-      </div>
-      
-      </>
-
-  
-  )
-}
-
-export default Upload
+export default ChurchAdminPanel;
