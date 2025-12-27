@@ -66,7 +66,8 @@ router.post('/pro', upload.single('image'), async (req, res) => {
         originalName: savedImage.originalName,
         mimeType: savedImage.mimeType,
         size: savedImage.size,
-        uploadedAt: savedImage.uploadedAt
+        uploadedAt: savedImage.uploadedAt,
+        title: savedImage.title,
       }
     });
   } catch (error) {
