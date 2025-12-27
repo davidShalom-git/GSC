@@ -7,7 +7,8 @@ const Upload = () => {
         title: "",
         url: ""
     })
-    const [Event,setEvent] = useState(null);
+
+   const [event, setEvent] = useState<File | null>(null); 
 
     const GetVideoData = (e:React.ChangeEvent<HTMLInputElement>) => {
         setVideo({...Video,[e.target.name]: e.target.value})
@@ -36,10 +37,46 @@ const Upload = () => {
         console.log(data)
     }
 
-    const handleSubmit = async(e: React.FormEvent) => {
+    const handleVideoSubmit = async(e: React.FormEvent) => {
         e.preventDefault();
         await handleVideo();
     }
+
+  const getEventData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    setEvent(file);
+}
+
+const handleEvent = async () => {
+    if (!event) return;
+    
+    const formData = new FormData();
+    formData.append('image', event); 
+    
+    const response = await fetch('http://localhost:1995/api/event/upload', {
+        method: 'POST',
+        body: formData 
+    });
+    
+    return response;
+}
+
+const handleEventSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+        const response = await handleEvent();
+        if (response?.ok) {
+            console.log('Upload successful!');
+        } else {
+            console.error('Upload failed');
+        }
+    } catch (error) {
+        console.error('Error uploading:', error);
+    }
+}
+
+
 
 
   return (
@@ -51,12 +88,20 @@ const Upload = () => {
       <div className='grid grid-cols-1 lg:grid-cols-3 w-[90%] mx-auto p-10 gap-4'>
 
 
-    <form className='flex flex-col space-y-3 border border-black px-6 py-4 mt-10' onSubmit={handleSubmit}>
+    <form className='flex flex-col space-y-3 border border-black px-6 py-4 mt-10' onSubmit={handleVideoSubmit}>
 
         <h1>Upload Video</h1>
         <input type='text' name='title' value={Video.title} onChange={GetVideoData} className='border border-black' />
         <input type='text' name='url' value={Video.url} onChange={GetVideoData} className='border border-black'/>
         <button type='submit' onChange={handleVideo} className='bg-blue-500 text-white p-3'>Submit</button>
+  
+    </form>
+
+     <form className='flex flex-col space-y-3 border border-black px-6 py-4 mt-10' onSubmit={handleEventSubmit}>
+
+        <h1>Upload Event</h1>
+        <input type='file' accept='image/*' onChange={getEventData}  className='border border-black' />
+        <button type='submit' onChange={handleEvent} className='bg-blue-500 text-white p-3'>Submit</button>
   
     </form>
         
