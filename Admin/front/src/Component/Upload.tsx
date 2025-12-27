@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 const Upload = () => {
 
-    const [promise,setPromise] = useState(null)
+    const [promise,setPromise] = useState<File | null>(null)
     const [Video,setVideo] = useState({
         title: "",
         url: ""
@@ -77,6 +77,41 @@ const handleEventSubmit = async (e: React.FormEvent) => {
 }
 
 
+const getPromiseDetails = (e:React.ChangeEvent<HTMLInputElement>) => {
+
+    const file = e.target.files?e.target.files[0] : null
+    setPromise(file)
+}
+
+const handlePromise = async() => {
+    if(!promise) return;
+
+    const formData = new FormData()
+    formData.append('image',promise)
+
+    const response = await fetch('http://localhost:1995/api/promise/pro',{
+        method:'POST',
+        body: formData
+    })
+
+    return response;
+}
+
+const handlePromiseSubmit = async(e:React.FormEvent) => {
+    e.preventDefault();
+
+   try {
+    const response = await handlePromise();
+    if(response?.ok){
+        console.log('Upload Successful');
+    }
+    else{
+        console.error('Upload Failed');
+    }
+   } catch (error) {
+    console.error('Error uploading:',error);
+   }
+}
 
 
   return (
@@ -104,18 +139,18 @@ const handleEventSubmit = async (e: React.FormEvent) => {
         <button type='submit' onChange={handleEvent} className='bg-blue-500 text-white p-3'>Submit</button>
   
     </form>
+
+
+     <form className='flex flex-col space-y-3 border border-black px-6 py-4 mt-10' onSubmit={handlePromiseSubmit}>
+
+        <h1>Upload Promise</h1>
+        <input type='file' accept='image/*' onChange={getPromiseDetails}  className='border border-black' />
+        <button type='submit' onChange={handlePromise} className='bg-blue-500 text-white p-3'>Submit</button>
+  
+    </form>
         
 
-         {/* <div className=' border border-black px-6 py-4 mt-10'>
-        <h1>Upload Video</h1>
-        <input type='text' name='title' value={Video.title} onChange={GetVideoData} />
-    </div> */}
-{/* 
-         <div className=' border border-black px-6 py-4 mt-10'>
-        <h1>Upload Video</h1>
-        <input type='text' name='title' value={Video.title} onChange={GetVideoData} />
-    </div> */}
-
+    
       </div>
       
       </>
