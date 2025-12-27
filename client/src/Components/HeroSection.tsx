@@ -9,7 +9,8 @@ const HeroSection = () => {
     _id: string,
     mimeType: string,
     originalName: string,
-    base64Data: string
+    base64Data: string,
+    title: string,
   }
 
   const [PromiseWord, setPromiseWord] = useState<PromiseWordItem[]>([])
@@ -75,17 +76,20 @@ const HeroSection = () => {
 
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6 md:px-16 lg:px-24 xl:px-32 mb-16'>
         {PromiseWord.map((item, index) => (
-          <div key={item._id || index} className='rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300'>
-            <img
-              src={`data:${item.mimeType};base64,${item.base64Data}`}
-              alt={item.originalName}
-              className='w-full h-64 object-cover'
-            />
+          <div key={item._id || index} className='flex flex-col gap-4'>
+            <div className='rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300'>
+              <img
+                src={`data:${item.mimeType};base64,${item.base64Data}`}
+                alt={item.originalName}
+                className='w-full h-64 object-cover'
+              />
+            </div>
+            <div className='bg-white rounded-lg shadow-md p-4 border border-gray-100 text-center'>
+              <h1 className='font-bold text-lg text-gray-800'>{item.title}</h1>
+            </div>
           </div>
         ))}
       </div>
-
-
     </>
   )
 }
