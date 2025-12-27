@@ -30,6 +30,10 @@ const PromiseSchema = new mongoose.Schema({
   uploadedAt: {
     type: Date,
     default: Date.now
+  },
+  title: {
+    type:String,
+    required: true
   }
 }, {
   timestamps: true,
