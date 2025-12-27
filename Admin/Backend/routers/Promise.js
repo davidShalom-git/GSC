@@ -71,7 +71,7 @@ router.post('/pro', upload.single('image'), async (req, res) => {
 
 
 
-router.get('/eng', async (req, res) => {
+router.get('/pro', async (req, res) => {
   try {
     const images = await English.find().sort({ createdAt: -1 });
     

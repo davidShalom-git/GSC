@@ -37,7 +37,7 @@ const Navbar = () => {
                 {/* Desktop Nav */}
                 <div className="hidden md:flex items-center gap-4 lg:gap-8">
                     {navLinks.map((link, i) => (
-                        <a key={i} href={link.path} className={`group flex flex-col gap-0.5 ${isScrolled ? "text-black" : "text-black"}`}>
+                        <a key={i} href={link.path} className={`group flex flex-col gap-0.5 ${isScrolled ? "text-black" : "text-white"}`}>
                             {link.name}
                             <div className={`${isScrolled ? "bg-gray-700" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`} />
                         </a>
