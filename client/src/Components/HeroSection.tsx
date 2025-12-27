@@ -66,7 +66,7 @@ const HeroSection = () => {
       </div>
 
       <div>
-        <div className='flex justify-center px-6 md:px-16 lg:px-24 xl:px-32 mt-10 mb-6'>
+        <div className='flex justify-center px-6 md:px-16 lg:px-24 xl:px-32 mt-10 mb-20'>
           <h1 className='text-4xl md:text-4xl text-center font-bold text-gray-800 relative inline-block'>
             Promise Word 💫
             <span className='absolute left-1/2 -translate-x-1/2 bottom-0 w-32 h-0.5 bg-gray-800 translate-y-2'></span>
@@ -74,9 +74,9 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6 md:px-16 lg:px-24 xl:px-32 mb-16'>
+      <div className='flex flex-wrap justify-center gap-6 max-w-7xl mx-auto px-6 '>
         {PromiseWord.map((item, index) => (
-          <div key={item._id || index} className='flex flex-col gap-4'>
+          <div key={item._id || index} className='flex flex-col gap-4 w-full sm:w-80'>
             <div className='rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300'>
               <img
                 src={`data:${item.mimeType};base64,${item.base64Data}`}
@@ -84,12 +84,15 @@ const HeroSection = () => {
                 className='w-full h-64 object-cover'
               />
             </div>
+
             <div className='bg-white rounded-lg shadow-md p-4 border border-gray-100 text-center'>
               <h1 className='font-bold text-lg text-gray-800'>{item.title}</h1>
             </div>
+
           </div>
         ))}
       </div>
+
     </>
   )
 }
