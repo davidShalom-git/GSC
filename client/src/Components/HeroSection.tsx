@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 
 const HeroSection = () => {
 
-
   interface PromiseWordItem {
     _id: string,
     mimeType: string,
