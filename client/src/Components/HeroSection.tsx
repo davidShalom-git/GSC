@@ -102,7 +102,7 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Carousel indicators */}
+    
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
         {images.map((_, index) => (
           <button
@@ -117,34 +117,43 @@ const HeroSection = () => {
       </div>
     </div>
 
-      <div>
-        <div className='flex justify-center px-6 md:px-16 lg:px-24 xl:px-32 mt-10 mb-20'>
-          <h1 className='text-4xl md:text-4xl text-center font-bold text-gray-800 relative inline-block'>
+       <div className=" py-16">
+
+      <div className='flex justify-center px-6 md:px-16 lg:px-24 xl:px-32 mb-16'>
+        <div className='text-center'>
+          <h1 className='text-4xl md:text-5xl font-bold text-gray-800 mb-3'>
             Promise Word 💫
-            <span className='absolute left-1/2 -translate-x-1/2 bottom-0 w-32 h-0.5 bg-gray-800 translate-y-2'></span>
           </h1>
+          <div className='w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto rounded-full'></div>
         </div>
       </div>
 
-      <div className='flex flex-wrap justify-center gap-6 max-w-7xl mx-auto px-6 '>
+      <div className='flex flex-wrap justify-center gap-8 max-w-7xl bg-gray-100 py-16 shadow-2xl mx-auto px-6'>
         {PromiseWord.map((item, index) => (
-          <div key={item._id || index} className='flex flex-col gap-4 w-full sm:w-80'>
-            <div className='rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300'>
+          <div 
+            key={item._id || index} 
+            className='group w-full sm:w-80 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2'
+          >
+    
+            <div className='relative overflow-hidden h-64'>
               <img
                 src={`data:${item.mimeType};base64,${item.base64Data}`}
                 alt={item.originalName}
-                className='w-full h-64 object-cover'
+                className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500'
               />
+              <div className='absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
             </div>
 
-            <div className='bg-white rounded-lg shadow-md p-4 border border-gray-100 text-center'>
-              <h1 className='font-bold text-lg text-gray-800'>{item.title}</h1>
+        
+            <div className='p-6 text-center bg-white'>
+              <h2 className='font-semibold text-xl text-gray-800 group-hover:text-orange-500 transition-colors duration-300'>
+                {item.title}
+              </h2>
             </div>
-
           </div>
         ))}
       </div>
-
+    </div>
     </>
   )
 }
