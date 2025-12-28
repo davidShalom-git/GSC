@@ -128,7 +128,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className='flex flex-wrap justify-center gap-8 max-w-7xl bg-gray-100 py-16 shadow-2xl mx-auto px-6'>
+      <div className='flex flex-wrap justify-center gap-8 max-w-7xl bg-linear-to-br from-gray-50 to-gray-500 py-16 shadow-2xl mx-auto px-6'>
         {PromiseWord.map((item, index) => (
           <div 
             key={item._id || index} 
