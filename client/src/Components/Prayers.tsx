@@ -1,4 +1,6 @@
 import { Clock } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const Prayers = () => {
     return (
@@ -14,7 +16,12 @@ const Prayers = () => {
             </div>
 
             {/* Sunday Service */}
-            <div className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-gradient-to-br from-gray-50 to-gray-100 py-16'>
+            <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+
+                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-gradient-to-br from-gray-50 to-gray-100 py-16'>
                 <div className='flex-1 space-y-8'>
                     <div className='inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-md border border-gray-200'>
                         <Clock className='w-5 h-5 text-orange-500' />
@@ -33,6 +40,9 @@ const Prayers = () => {
                                 <div>
                                     <h3 className='font-semibold text-gray-800'>Location</h3>
                                     <p className='text-gray-600 text-sm'>Kilnathur, Tiruvannamalai</p>
+                                    <button className='mt-6 mx-auto bg-red-600 text-white px-10 py-2 rounded-full font-medium hover:bg-white hover:text-black transition-colors duration-300'>
+                                        <Link to='/service'>Live</Link>
+                                    </button>
                                 </div>
                             </div>
                             <div className='flex items-start gap-3'>
@@ -42,6 +52,7 @@ const Prayers = () => {
                                     <p className='text-gray-600 text-sm'>All are welcome</p>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -64,10 +75,15 @@ const Prayers = () => {
                         <div className='absolute bottom-4 right-4 w-12 h-12 border-b-4 border-r-4 border-white/50 rounded-br-xl'></div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Fasting Prayer */}
-            <div className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32  bg-linear-to-br from-gray-50 to-gray-500 py-16'>
+            <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+
+                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32  bg-gradient-to-br from-gray-50 to-gray-100 py-16'>
                 <div className='flex-1 w-full relative group'>
                     <div className='relative overflow-hidden rounded-2xl shadow-2xl'>
                         <img
@@ -105,6 +121,9 @@ const Prayers = () => {
                                 <div>
                                     <h3 className='font-semibold text-gray-800'>Location</h3>
                                     <p className='text-gray-600 text-sm'>Kilnathur, Tiruvannamalai</p>
+                                      <button className='mt-6 mx-auto bg-red-600 text-white px-10 py-2 rounded-full font-medium hover:bg-white hover:text-black transition-colors duration-300'>
+                                        <Link to='/service'>Live</Link>
+                                    </button>
                                 </div>
                             </div>
                             <div className='flex items-start gap-3'>
@@ -117,10 +136,15 @@ const Prayers = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Anointing Prayer */}
-            <div className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-gradient-to-br from-gray-50 to-gray-100 py-16'>
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+
+                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-gradient-to-br from-gray-50 to-gray-100 py-16'>
                 <div className='flex-1 space-y-8'>
                     <div className='inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-md border border-gray-200'>
                         <Clock className='w-5 h-5 text-orange-500' />
@@ -139,6 +163,9 @@ const Prayers = () => {
                                 <div>
                                     <h3 className='font-semibold text-gray-800'>Location</h3>
                                     <p className='text-gray-600 text-sm'>Kilnathur, Tiruvannamalai</p>
+                                      <button className='mt-6 mx-auto bg-red-600 text-white px-10 py-2 rounded-full font-medium hover:bg-white hover:text-black transition-colors duration-300'>
+                                        <Link to='/service'>Live</Link>
+                                    </button>
                                 </div>
                             </div>
                             <div className='flex items-start gap-3'>
@@ -170,7 +197,7 @@ const Prayers = () => {
                         <div className='absolute bottom-4 right-4 w-12 h-12 border-b-4 border-r-4 border-white/50 rounded-br-xl'></div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </>
     )
 }

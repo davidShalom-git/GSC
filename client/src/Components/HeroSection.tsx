@@ -1,159 +1,355 @@
 import { useEffect, useState } from 'react'
-import Navbar from './Navbar'
 import { AnimatePresence, motion } from 'framer-motion'
+import fggs from '../assets/FGGS.png'
+
+interface PromiseWordItem {
+  _id: string;
+  mimeType: string;
+  originalName: string;
+  base64Data: string;
+  title: string;
+  createdAt?: string;
+}
 
 const HeroSection = () => {
-
-  interface PromiseWordItem {
-    _id: string,
-    mimeType: string,
-    originalName: string,
-    base64Data: string,
-    title: string,
-  }
-
   const [PromiseWord, setPromiseWord] = useState<PromiseWordItem[]>([])
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-  const getImages = async () => {
-    try {
-      const response = await fetch('http://localhost:1995/api/promise/pro')
-      if (!response.ok) throw new Error('Failed to fetch images')
-      const data = await response.json()
-      const arrayData = Array.isArray(data) ? data : (data.data || [])
-
-      const sortedData = arrayData.sort((a: any, b: any) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      )
-
-      const limitedData = sortedData.slice(-3)
-
-      setPromiseWord(limitedData)
-
-    } catch (error) {
-      console.log('Error fetching:', error)
-    }
-  }
-
-  useEffect(() => {
-    getImages()
-    const interval = setInterval(getImages, 5000)
-    return () => clearInterval(interval)
-  }, [])
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+    { name: 'Events', path: '/events' },
+    { name: 'About', path: '/about' },
+  ]
 
   const images = [
     "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
     "https://images.unsplash.com/photo-1438032005730-c779502df39b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
     "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
     "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-  ];
+  ]
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); 
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [images.length])
 
-    return () => clearInterval(interval);
-  }, [images.length]);
+  useEffect(() => {
+    const getImages = async () => {
+      try {
+        const response = await fetch('http://localhost:1995/api/promise/pro')
+        if (!response.ok) return
+        const data = await response.json()
+        const arrayData = Array.isArray(data) ? data : (data.data || [])
+
+        const sortedData = arrayData.sort((a: any, b: any) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        ).slice(-3)
+
+        setPromiseWord(sortedData)
+      } catch (error) {
+        console.error('Error fetching:', error)
+      }
+    }
+
+    getImages()
+    const interval = setInterval(getImages, 5000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
-
     <>
-     <div className="relative min-h-screen overflow-hidden bg-black">
-     
-      <AnimatePresence initial={false}>
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${images[currentIndex]})` }}
-        />
-      </AnimatePresence>
+      {/* Modern Glassmorphism Navbar */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled 
+          ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-200/50' 
+          : 'bg-gradient-to-b from-black/40 to-transparent backdrop-blur-sm'
+      }`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            
+            {/* Logo with Animation */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-3 cursor-pointer group"
+            >
+              <div className={`relative p-2.5 rounded-2xl transition-all duration-300 ${
+                isScrolled 
+                  ? 'bg-gradient-to-br from-orange-400 to-red-500' 
+                  : 'bg-white/20 backdrop-blur-md border border-white/30'
+              }`}>
+                <div className="text-2xl"><img src={fggs} alt="FGGS Logo" className="h-6 w-6" /></div>
+                <div className="absolute inset-0 border-2 border-orange-400 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></div>
+              </div>
+              <div className="flex flex-col">
+                <span className={`font-bold text-xl tracking-wide transition-colors ${
+                  isScrolled ? 'text-gray-800' : 'text-white'
+                }`}>
+                  FGGS
+                </span>
+                <span className={`text-xs font-semibold tracking-widest transition-colors ${
+                  isScrolled ? 'text-orange-500' : 'text-orange-300'
+                }`}>
+                  CHURCH
+                </span>
+              </div>
+            </motion.div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/60 to-transparent" />
-      <div className="relative z-10 flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white min-h-screen">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-1">
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={index}
+                  href={item.path}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`group relative px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+                    isScrolled
+                      ? 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
+                      : 'text-white hover:bg-white/20'
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    
+                    <span>{item.name}</span>
+                  </span>
+                  <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-3/4 transition-all duration-300 ${
+                    isScrolled ? 'bg-orange-500' : 'bg-white'
+                  }`}></div>
+                </motion.a>
+              ))}
+            </div>
 
-        <Navbar />
+            {/* CTA Button */}
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className={`hidden md:block px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${
+                isScrolled
+                  ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105'
+                  : 'bg-white text-orange-500 hover:bg-orange-50 hover:scale-105'
+              }`}
+            >
+              Join Us
+            </motion.button>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ delay: 0.6, duration: 0.8 }} 
-          className="flex flex-col items-center justify-center w-full mt-40 md:mt-32 lg:mt-40"
-        >
-          <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet" />
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`md:hidden p-2.5 rounded-xl transition-all duration-300 ${
+                isScrolled
+                  ? 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                  : 'bg-white/20 backdrop-blur-md text-white hover:bg-white/30'
+              }`}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                {isMenuOpen ? (
+                  <>
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </>
+                ) : (
+                  <>
+                    <line x1="4" y1="8" x2="20" y2="8" />
+                    <line x1="4" y1="16" x2="20" y2="16" />
+                  </>
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
 
-          <h1 className='text-2xl text-center  md:text-4xl font-bold [font-family:"Noto_Sans_Tamil",sans-serif]'>
-            பூரண சுவிசேஷ நல்ல மேய்ப்பன் தேவ சபை 🕊️
-          </h1>
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden overflow-hidden border-t border-white/10"
+            >
+              <div className={`px-4 py-4 ${isScrolled ? 'bg-white' : 'bg-black/40 backdrop-blur-xl'}`}>
+                {navItems.map((item, index) => (
+                  <motion.a
+                    key={index}
+                    href={item.path}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`flex items-center gap-4 px-5 py-4 rounded-xl mb-2 transition-all duration-300 ${
+                      isScrolled
+                        ? 'text-gray-700 hover:bg-orange-50 hover:text-orange-500'
+                        : 'text-white hover:bg-white/10'
+                    }`}
+                  >
+                    
+                    <span className="font-medium">{item.name}</span>
+                  </motion.a>
+                ))}
+                <motion.button
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="w-full mt-2 px-5 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
+                >
+                  Join Us
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
 
-          <p className='text-center mx-auto text-xl mt-4 [font-family:"Noto_Sans_Tamil",sans-serif]'>
-            நமது மேய்ப்பன் தேவ சபையின் <br /> முக்கிய வார்த்தைகள்
-          </p>
-
-          <button className='mt-6 mx-auto bg-red-600 text-white px-10 py-2 rounded-full font-medium hover:bg-white hover:text-black transition-colors duration-300'>
-            Live
-          </button>
-        </motion.div>
-      </div>
+  
+      <div className="relative min-h-screen overflow-hidden bg-black pt-20">
+    
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${images[currentIndex]})` }}
+          />
+        </AnimatePresence>
 
     
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              index === currentIndex ? 'bg-white w-8' : 'bg-white/50'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
-    </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
+       
+        <div className="relative z-10 flex flex-col items-center justify-center mt-28 px-6 md:px-16 min-h-[calc(100vh-5rem)] text-white">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="text-center max-w-5xl"
+          >
+            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-       <div className=" py-16">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+              className="inline-block mb-8 text-5xl"
+            >
+              🕊️
+            </motion.div>
 
-      <div className='flex justify-center px-6 md:px-16 lg:px-24 xl:px-32 mb-16'>
-        <div className='text-center'>
-          <h1 className='text-4xl md:text-5xl font-bold text-gray-800 mb-3'>
-            Promise Word 💫
-          </h1>
-          <div className='w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto rounded-full'></div>
+            <h1 className='text-3xl md:text-4xl lg:text-4xl font-bold [font-family:"Noto_Sans_Tamil",sans-serif] leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-orange-100 to-white'>
+              பூரண சுவிசேஷ நல்ல மேய்ப்பன் தேவ சபை
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className='text-xl md:text-2xl [font-family:"Noto_Sans_Tamil",sans-serif] text-gray-200 mb-10 max-w-3xl mx-auto leading-relaxed'
+            >
+              நமது மேய்ப்பன் தேவ சபையின் முக்கிய வார்த்தைகள்
+            </motion.p>
+
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className='group relative px-10 py-4 bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-full text-lg font-bold overflow-hidden shadow-2xl'
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span className="w-3 h-3 bg-white rounded-full animate-pulse"></span>
+                Live Now
+              </span>
+              <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+            </motion.button>
+          </motion.div>
+        </div>
+
+        {/* Slider Indicators */}
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 rounded-full transition-all duration-500 ${
+                index === currentIndex 
+                  ? 'bg-white w-12 shadow-lg shadow-white/50' 
+                  : 'bg-white/40 w-2 hover:bg-white/60'
+              }`}
+            />
+          ))}
         </div>
       </div>
 
-      <div className='flex flex-wrap justify-center gap-8 max-w-7xl bg-linear-to-br from-gray-50 to-gray-500 py-16 shadow-2xl mx-auto px-6'>
-        {PromiseWord.map((item, index) => (
-          <div 
-            key={item._id || index} 
-            className='group w-full sm:w-80 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2'
+      {/* Promise Word Section */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="bg-gradient-to-br from-gray-50 via-white to-orange-50 py-20"
+      >
+        <div className='text-center mb-16 px-6'>
+          <motion.div
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            className="inline-block text-6xl mb-4"
           >
-    
-            <div className='relative overflow-hidden h-64'>
-              <img
-                src={`data:${item.mimeType};base64,${item.base64Data}`}
-                alt={item.originalName}
-                className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500'
-              />
-              <div className='absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
-            </div>
+            💫
+          </motion.div>
+          <h1 className='text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-red-600 mb-4'>
+            Promise Word
+          </h1>
+          <div className='w-32 h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
+        </div>
 
-        
-            <div className='p-6 text-center bg-white'>
-              <h2 className='font-semibold text-xl text-gray-800 group-hover:text-orange-500 transition-colors duration-300'>
-                {item.title}
-              </h2>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+        <div className='flex flex-wrap justify-center gap-8 max-w-7xl mx-auto px-6'>
+          {PromiseWord.map((item, index) => (
+            <motion.div
+              key={item._id || index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+              whileHover={{ y: -10 }}
+              className='group w-full sm:w-80 bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500'
+            >
+              <div className='relative overflow-hidden h-72'>
+                <img
+                  src={`data:${item.mimeType};base64,${item.base64Data}`}
+                  alt={item.originalName}
+                  className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-700'
+                />
+                <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500'></div>
+              </div>
+
+              <div className='p-6 text-center'>
+                <h2 className='font-bold text-xl text-gray-800 group-hover:text-orange-600 transition-colors duration-300'>
+                  {item.title}
+                </h2>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </>
   )
 }

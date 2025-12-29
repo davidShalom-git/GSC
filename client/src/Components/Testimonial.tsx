@@ -1,8 +1,9 @@
-
+import { motion } from 'framer-motion';
+import Footer from './Footer';
 
 const Testimonial = () => {
 
-const cardsData = [
+    const cardsData = [
         {
             image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200',
             name: 'Briar Martin',
@@ -30,17 +31,17 @@ const cardsData = [
     ];
 
     interface Card {
-    image: string;
-    name: string;
-    handle: string;
-    date: string;
-}
+        image: string;
+        name: string;
+        handle: string;
+        date: string;
+    }
 
-interface CreateCardProps {
-    card: Card;
-}
+    interface CreateCardProps {
+        card: Card;
+    }
 
- const CreateCard: React.FC<CreateCardProps> = ({ card }) => (
+    const CreateCard: React.FC<CreateCardProps> = ({ card }) => (
         <div className="p-4 rounded-lg mx-4 shadow hover:shadow-lg transition-all duration-200 w-72 shrink-0 bg-white">
             <div className="flex gap-2">
                 <img className="size-11 rounded-full" src={card.image} alt="User Image" />
@@ -71,8 +72,14 @@ interface CreateCardProps {
 
     return (
         <>
+            <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
 
-            <style>{`
+            >
+
+                <style>{`
                 @keyframes marqueeScroll {
                     0% { transform: translateX(0%); }
                     100% { transform: translateX(-50%); }
@@ -87,36 +94,62 @@ interface CreateCardProps {
                 }
             `}</style>
 
-            <div className=' bg-linear-to-br from-gray-50 to-gray-500 py-16'>
-                <div className='flex justify-center px-6 md:px-16 lg:px-24 xl:px-32 mb-10'>
-                    <h1 className='text-4xl md:text-4xl text-center font-bold text-white relative inline-block'>
-                        Testimonials 💬
-                        <span className='absolute left-1/2 -translate-x-1/2 bottom-0 w-32 h-0.5 bg-gray-800 translate-y-2'></span>
-                    </h1>
+                <div className=' bg-linear-to-br from-gray-50 to-gray-500 py-16'>
+                    <div className='flex justify-center px-6 md:px-16 lg:px-24 xl:px-32 mb-10'>
+                        <h1 className='text-4xl md:text-4xl text-center font-bold text-white relative inline-block'>
+                            Testimonials 💬
+                            <span className='absolute left-1/2 -translate-x-1/2 bottom-0 w-32 h-0.5 bg-gray-800 translate-y-2'></span>
+                        </h1>
+                    </div>
+
+                    <div className="marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
+                        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none "></div>
+                        <div className="marquee-inner flex transform-gpu min-w-[200%] pt-10 pb-5">
+                            {[...cardsData, ...cardsData].map((card, index) => (
+                                <CreateCard key={index} card={card} />
+                            ))}
+                        </div>
+                        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none "></div>
+                    </div>
+
+                    <div className="marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
+                        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none"></div>
+                        <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] pt-10 pb-5">
+                            {[...cardsData, ...cardsData].map((card, index) => (
+                                <CreateCard key={index} card={card} />
+                            ))}
+                        </div>
+                        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none"></div>
+                    </div>
                 </div>
 
-                <div className="marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
-                    <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none "></div>
-                    <div className="marquee-inner flex transform-gpu min-w-[200%] pt-10 pb-5">
-                        {[...cardsData, ...cardsData].map((card, index) => (
-                            <CreateCard key={index} card={card} />
-                        ))}
+                <motion.section
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="relative z-10 py-20 px-4"
+                >
+                    <div className="max-w-4xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="text-center"
+                        >
+                            <div className="text-6xl mb-8 text-yellow-400">✨</div>
+                            <blockquote className="text-2xl md:text-3xl font-light text-gray-900 italic mb-8 leading-relaxed">
+                                "எழும்பி, பிரகாசி, உன் ஒளி வந்தது; கர்த்தருடைய மகிமை உன்மேல் உதித்தது"
+                            </blockquote>
+                            <p className="text-lg text-gray-600 font-medium mb-4">
+                                ஏசாயா 60:1
+                            </p>
+                            <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto rounded-full"></div>
+                        </motion.div>
                     </div>
-                    <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none "></div>
-                </div>
+                </motion.section>
 
-                <div className="marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
-                    <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none"></div>
-                    <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] pt-10 pb-5">
-                        {[...cardsData, ...cardsData].map((card, index) => (
-                            <CreateCard key={index} card={card} />
-                        ))}
-                    </div>
-                    <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none"></div>
-                </div>
-            </div>
-            
-           
+            </motion.div>
+            <Footer />
         </>
     )
 }
