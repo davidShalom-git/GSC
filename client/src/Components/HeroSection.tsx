@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import fggs from '../assets/FGGS.png'
 
 interface PromiseWordItem {
   _id: string;
@@ -25,10 +24,10 @@ const HeroSection = () => {
   ]
 
   const images = [
-    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1438032005730-c779502df39b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+    "https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+    "https://images.unsplash.com/photo-1467810563316-b5476525c0f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+    "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+    "https://images.unsplash.com/photo-1512389142860-9c449e58a543?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
   ]
 
   useEffect(() => {
@@ -72,7 +71,7 @@ const HeroSection = () => {
   return (
     <>
 
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+      <nav className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
           ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-200/50'
           : 'bg-gradient-to-b from-black/40 to-transparent backdrop-blur-sm'
         }`}>
@@ -89,7 +88,7 @@ const HeroSection = () => {
                   ? 'bg-gradient-to-br from-orange-400 to-red-500'
                   : 'bg-white/20 backdrop-blur-md border border-white/30'
                 }`}>
-                <div className="text-2xl"><img src={fggs} alt="FGGS Logo" className="h-6 w-6" /></div>
+                <div className="text-2xl">🕊️</div>
                 <div className="absolute inset-0 border-2 border-orange-400 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></div>
               </div>
               <div className="flex flex-col">
@@ -119,7 +118,6 @@ const HeroSection = () => {
                     }`}
                 >
                   <span className="flex items-center gap-2">
-
                     <span>{item.name}</span>
                   </span>
                   <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-3/4 transition-all duration-300 ${isScrolled ? 'bg-orange-500' : 'bg-white'
@@ -188,7 +186,6 @@ const HeroSection = () => {
                         : 'text-white hover:bg-white/10'
                       }`}
                   >
-
                     <span className="font-medium">{item.name}</span>
                   </motion.a>
                 ))}
@@ -207,7 +204,7 @@ const HeroSection = () => {
       </nav>
 
 
-      <div className="relative min-h-screen overflow-hidden bg-black pt-20">
+      <div className="relative min-h-screen overflow-hidden bg-black">
 
         <AnimatePresence initial={false}>
           <motion.div
@@ -225,7 +222,7 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
 
-        <div className="relative z-10 flex flex-col items-center justify-center mt-28 px-6 md:px-16 min-h-[calc(100vh-5rem)] text-white">
+        <div className="relative z-10 flex flex-col items-center justify-center px-6 md:px-16 min-h-screen text-white">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}

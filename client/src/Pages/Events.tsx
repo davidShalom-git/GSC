@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import fggs from '../assets/FGGS.png'
+import { Link } from 'react-router-dom'
 
 
 const Events = () => {
@@ -166,9 +167,9 @@ const Events = () => {
                         transition={{ duration: 0.8 }}
                         className='w-full relative group'
                     >
-                        <div className='relative overflow-hidden rounded-2xl shadow-2xl'>
+                        <Link to='/easter' className='relative overflow-hidden rounded-2xl shadow-2xl'>
                             <img
-                                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60"
+                                src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
                                 alt="Fasting Prayer"
                                 className='w-full h-[350px] md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-110'
                             />
@@ -187,7 +188,7 @@ const Events = () => {
                                     transition={{ delay: 0.5 }}
                                     className='text-3xl md:text-5xl font-bold text-white text-center drop-shadow-2xl mb-4'
                                 >
-                                    Sunday Service
+                                    Easter Service
                                 </motion.h1>
                                 <motion.div
                                     initial={{ scaleX: 0 }}
@@ -222,7 +223,7 @@ const Events = () => {
                                 transition={{ delay: 1.1 }}
                                 className='absolute bottom-5 right-5 w-8 h-8 border-b-2 border-r-2 border-white/60'
                             ></motion.div>
-                        </div>
+                        </Link>
                     </motion.div>
 
 
@@ -233,9 +234,9 @@ const Events = () => {
                         transition={{ duration: 0.8 }}
                         className='w-full relative group'
                     >
-                        <div className='relative overflow-hidden rounded-2xl shadow-2xl'>
+                        <Link to='/christmas' className='relative overflow-hidden rounded-2xl shadow-2xl'>
                             <img
-                                src="https://images.unsplash.com/photo-1438032005730-c779502df39b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60"
+                                src="https://images.unsplash.com/photo-1512389142860-9c449e58a543?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
                                 alt="Worship Service"
                                 className='w-full h-[350px] md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-110'
                             />
@@ -288,7 +289,7 @@ const Events = () => {
                                 transition={{ delay: 1.1 }}
                                 className='absolute bottom-5 right-5 w-8 h-8 border-b-2 border-r-2 border-white/60'
                             ></motion.div>
-                        </div>
+                        </Link>
                     </motion.div>
 
                     <motion.div
@@ -298,9 +299,9 @@ const Events = () => {
                         transition={{ duration: 0.8 }}
                         className='w-full relative group'
                     >
-                        <div className='relative overflow-hidden rounded-2xl shadow-2xl'>
+                        <Link to='/newyear' className='relative overflow-hidden rounded-2xl shadow-2xl'>
                             <img
-                                src="https://images.unsplash.com/photo-1438032005730-c779502df39b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60"
+                                src="https://images.unsplash.com/photo-1467810563316-b5476525c0f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
                                 alt="Worship Service"
                                 className='w-full h-[350px] md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-110'
                             />
@@ -353,7 +354,72 @@ const Events = () => {
                                 transition={{ delay: 1.1 }}
                                 className='absolute bottom-5 right-5 w-8 h-8 border-b-2 border-r-2 border-white/60'
                             ></motion.div>
-                        </div>
+                        </Link>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className='w-full relative group'
+                    >
+                        <Link to='/good' className='relative overflow-hidden rounded-2xl shadow-2xl'>
+                            <img
+                                src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+                                alt="Worship Service"
+                                className='w-full h-[350px] md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-110'
+                            />
+                            <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent'></div>
+
+
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.3, duration: 0.6 }}
+                                className='absolute inset-0 flex flex-col items-center justify-center px-6'
+                            >
+                                <motion.h1
+                                    initial={{ y: 20, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    transition={{ delay: 0.5 }}
+                                    className='text-3xl md:text-5xl font-bold text-white text-center drop-shadow-2xl mb-4'
+                                >
+                                    Good Friday Service
+                                </motion.h1>
+                                <motion.div
+                                    initial={{ scaleX: 0 }}
+                                    animate={{ scaleX: 1 }}
+                                    transition={{ delay: 0.7, duration: 0.6 }}
+                                    className='w-24 h-1 bg-orange-500 rounded-full'
+                                ></motion.div>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.8 }}
+                                className='absolute top-5 left-5 w-8 h-8 border-t-2 border-l-2 border-white/60'
+                            ></motion.div>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.9 }}
+                                className='absolute top-5 right-5 w-8 h-8 border-t-2 border-r-2 border-white/60'
+                            ></motion.div>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 1.0 }}
+                                className='absolute bottom-5 left-5 w-8 h-8 border-b-2 border-l-2 border-white/60'
+                            ></motion.div>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 1.1 }}
+                                className='absolute bottom-5 right-5 w-8 h-8 border-b-2 border-r-2 border-white/60'
+                            ></motion.div>
+                        </Link>
                     </motion.div>
 
                 </div>
