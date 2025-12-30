@@ -18,7 +18,7 @@ const Prayers = () => {
                 <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-black mb-3'>
                     Prayer
                 </h1>
-                <div className='w-32 h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
+                <div className='w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
             </div>
 
             <motion.div
@@ -26,7 +26,7 @@ const Prayers = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
 
-                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-gradient-to-br from-gray-50 to-orange-50 py-16'>
+                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-linear-to-br from-gray-50 to-orange-50 py-16'>
                 <div className='flex-1 space-y-8'>
                     <div className='inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-md border border-gray-200'>
                         <Clock className='w-5 h-5 text-orange-500' />
@@ -71,9 +71,9 @@ const Prayers = () => {
                         <img
                             src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60"
                             alt="Sunday Service"
-                            className='w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-110'
+                            className='w-full h-125 object-cover transition-transform duration-500 group-hover:scale-110'
                         />
-                        <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent'></div>
+                        <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
                         <div className='absolute inset-0 flex flex-col items-center justify-center px-6'>
                             <h1 className='text-5xl md:text-6xl font-bold text-white text-center drop-shadow-2xl mb-4'>
                                 Sunday Service
@@ -92,15 +92,15 @@ const Prayers = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
 
-                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32  bg-gradient-to-br from-gray-50 to-orange-50 py-16'>
+                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32  bg-linear-to-br from-gray-50 to-orange-50 py-16'>
                 <div className='flex-1 w-full relative group'>
                     <Link to='/services' className='relative overflow-hidden rounded-2xl shadow-2xl'>
                         <img
                             src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60"
                             alt="Fasting Prayer"
-                            className='w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-110'
+                            className='w-full h-125 object-cover transition-transform duration-500 group-hover:scale-110'
                         />
-                        <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent'></div>
+                        <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
                         <div className='absolute inset-0 flex flex-col items-center justify-center px-6'>
                             <h1 className='text-5xl md:text-6xl font-bold text-white text-center drop-shadow-2xl mb-4'>
                                 Fasting Prayer
@@ -158,7 +158,7 @@ const Prayers = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
 
-                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-gradient-to-br from-gray-50 to-orange-50 py-16'>
+                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-linear-to-br from-gray-50 to-orange-50 py-16'>
                 <div className='flex-1 space-y-8'>
                     <div className='inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-md border border-gray-200'>
                         <Clock className='w-5 h-5 text-orange-500' />
@@ -203,9 +203,9 @@ const Prayers = () => {
                         <img
                             src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60"
                             alt="Anointing Prayer"
-                            className='w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-110'
+                            className='w-full h-125 object-cover transition-transform duration-500 group-hover:scale-110'
                         />
-                        <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent'></div>
+                        <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
                         <div className='absolute inset-0 flex flex-col items-center justify-center px-6'>
                             <h1 className='text-5xl md:text-6xl font-bold text-white text-center drop-shadow-2xl mb-4'>
                                 Anointing Prayer

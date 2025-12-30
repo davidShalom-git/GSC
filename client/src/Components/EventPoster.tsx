@@ -55,7 +55,7 @@ const EventPosters = () => {
           <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-black mb-3'>
             Events
           </h1>
-          <div className='w-32 h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
+          <div className='w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
         </div>
        
  <div className='flex flex-wrap justify-center gap-8 max-w-7xl mx-auto mb-20 px-6'>
@@ -75,7 +75,7 @@ const EventPosters = () => {
                   alt={item.originalName}
                   className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-700'
                 />
-                <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500'></div>
+                <div className='absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500'></div>
               </div>
 
             </motion.div>

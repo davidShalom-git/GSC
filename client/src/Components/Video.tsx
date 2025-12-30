@@ -30,8 +30,8 @@ const Video = () => {
   }, [])
 
 
-  const getGradient = (index: number) => {
-    const gradients = [
+  const getlinear = (index: number) => {
+    const linears = [
       'from-orange-400 to-red-500',
       'from-blue-400 to-purple-500',
       'from-green-400 to-teal-500',
@@ -39,11 +39,11 @@ const Video = () => {
       'from-yellow-400 to-orange-500',
       'from-indigo-400 to-blue-500',
     ];
-    return gradients[index % gradients.length];
+    return linears[index % linears.length];
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-orange-50 py-12 px-4'>
+    <div className='min-h-screen bg-linear-to-br from-gray-50 to-orange-50 py-12 px-4'>
       <div className='max-w-5xl mx-auto'>
 
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
@@ -74,7 +74,7 @@ const Video = () => {
                       />
                     ) : (
 
-                      <div className={`w-full h-full bg-gradient-to-br ${getGradient(index)} flex items-center justify-center`}>
+                      <div className={`w-full h-full bg-linear-to-br ${getlinear(index)} flex items-center justify-center`}>
                         <div className='text-8xl font-bold text-white/90 group-hover:scale-110 transition-transform duration-300'>
                           {video.title.charAt(0).toUpperCase()}
                         </div>

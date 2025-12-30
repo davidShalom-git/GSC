@@ -75,8 +75,8 @@ const HeroSection = () => {
     <>
 
       <nav className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-          ? 'bg-gradient-to-br from-gray-50 to-orange-50 shadow-xl'
-          : 'bg-gradient-to-b from-black/40 to-transparent backdrop-blur-sm'
+          ? 'bg-linear-to-br from-gray-50 to-orange-50 shadow-xl'
+          : 'bg-linear-to-b from-black/40 to-transparent backdrop-blur-sm'
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
@@ -88,7 +88,7 @@ const HeroSection = () => {
               className="flex items-center gap-3 cursor-pointer group"
             >
               <div className={`relative p-2.5 rounded-2xl transition-all duration-300 ${isScrolled
-                  ? 'bg-gradient-to-br from-orange-400 to-red-500'
+                  ? 'bg-linear-to-br from-orange-400 to-red-500'
                   : 'bg-white/20 backdrop-blur-md border border-white/30'
                 }`}>
                 <div className="text-2xl">🕊️</div>
@@ -134,7 +134,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               className={`hidden md:block px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${isScrolled
-                  ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105'
+                  ? 'bg-linear-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105'
                   : 'bg-white text-orange-500 hover:bg-orange-50 hover:scale-105'
                 }`}
             >
@@ -196,7 +196,7 @@ const HeroSection = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="w-full mt-2 px-5 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
+                  className="w-full mt-2 px-5 py-3 bg-linear-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
                 >
                   Join Us
                 </motion.button>
@@ -222,8 +222,8 @@ const HeroSection = () => {
         </AnimatePresence>
 
 
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/60 to-black/40" />
+        <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/60" />
 
         <div className="relative z-10 flex flex-col items-center justify-center px-6 md:px-16 min-h-screen text-white">
           <motion.div
@@ -243,7 +243,7 @@ const HeroSection = () => {
               🕊️
             </motion.div>
 
-            <h1 className='text-3xl md:text-4xl lg:text-4xl font-bold [font-family:"Noto_Sans_Tamil",sans-serif] leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-orange-100 to-white'>
+            <h1 className='text-3xl md:text-4xl lg:text-4xl font-bold font-["Noto_Sans_Tamil",sans-serif] leading-tight mb-6 bg-clip-text text-transparent bg-linear-to-r from-white via-orange-100 to-white'>
               பூரண சுவிசேஷ நல்ல மேய்ப்பன் தேவ சபை
             </h1>
 
@@ -251,7 +251,7 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className='text-xl md:text-2xl [font-family:"Noto_Sans_Tamil",sans-serif] text-gray-200 mb-10 max-w-3xl mx-auto leading-relaxed'
+              className='text-xl md:text-2xl font-["Noto_Sans_Tamil",sans-serif] text-gray-200 mb-10 max-w-3xl mx-auto leading-relaxed'
             >
               நமது மேய்ப்பன் தேவ சபையின் முக்கிய வார்த்தைகள்
             </motion.p>
@@ -262,7 +262,7 @@ const HeroSection = () => {
               transition={{ delay: 1 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className='group relative px-7 py-3 bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-full font-bold overflow-hidden shadow-2xl'
+              className='group relative px-7 py-3 bg-linear-to-r from-red-600 to-orange-500 text-white rounded-full font-bold overflow-hidden shadow-2xl'
             >
               <span className="relative z-10 flex items-center gap-2">
                 <span className="w-3 h-3 bg-white rounded-full animate-pulse"></span>
@@ -293,7 +293,7 @@ const HeroSection = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="bg-gradient-to-br from-gray-50 via-white to-orange-50 py-20"
+        className="bg-linear-to-br from-gray-50 via-white to-orange-50 py-20"
       >
         <div className='text-center mb-12 px-6'>
           <motion.div
@@ -307,7 +307,7 @@ const HeroSection = () => {
           <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-black mb-3'>
             Promise Word
           </h1>
-          <div className='w-32 h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
+          <div className='w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
         </div>
 
         <div className='flex flex-wrap justify-center gap-8 max-w-7xl mx-auto px-6'>
@@ -327,7 +327,7 @@ const HeroSection = () => {
                   alt={item.originalName}
                   className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-700'
                 />
-                <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500'></div>
+                <div className='absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500'></div>
               </div>
 
               <div className='p-6 text-center'>

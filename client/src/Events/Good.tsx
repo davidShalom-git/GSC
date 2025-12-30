@@ -39,7 +39,7 @@ const Good = () => {
                             animate={{ opacity: 1, x: 0 }}
                             className="flex items-center gap-3 cursor-pointer group"
                         >
-                            <div className="relative p-2.5 rounded-2xl transition-all duration-300 bg-gradient-to-br from-orange-400 to-red-500">
+                            <div className="relative p-2.5 rounded-2xl transition-all duration-300 bg-linear-to-br from-orange-400 to-red-500">
                                 <div className="text-2xl"><img src={fggs} alt="FGGS Logo" className="h-6 w-6" /></div>
                                 <div className="absolute inset-0 border-2 border-orange-400 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></div>
                             </div>
@@ -77,7 +77,7 @@ const Good = () => {
                         <motion.button
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="hidden md:block px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105"
+                            className="hidden md:block px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-linear-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105"
                         >
                             Join Us
                         </motion.button>
@@ -132,7 +132,7 @@ const Good = () => {
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.4 }}
-                                    className="w-full mt-2 px-5 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
+                                    className="w-full mt-2 px-5 py-3 bg-linear-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
                                 >
                                     Join Us
                                 </motion.button>
@@ -154,7 +154,7 @@ const Good = () => {
                 <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-black mb-3'>
                     Christmas Event
                 </h1>
-                <div className='w-32 h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
+                <div className='w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mb-12'>

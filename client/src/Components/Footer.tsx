@@ -4,7 +4,7 @@ import { Facebook, Instagram, Youtube, Mail, Phone } from 'lucide-react'
 
 const Footer = () => {
     return (
-        <footer className="w-full bg-gradient-to-br from-gray-50 to-orange-50 text-gray-800">
+        <footer className="w-full bg-linear-to-br from-gray-50 to-orange-50 text-gray-800">
             <div className="max-w-7xl mx-auto px-6 py-16">
 
                 <div className="flex items-center justify-center gap-3 md:gap-4 mb-8">
@@ -18,7 +18,7 @@ const Footer = () => {
                 </p>
 
 
-                <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto rounded-full mb-8"></div>
+                <div className="w-24 h-1 bg-linear-to-r from-yellow-400 to-orange-400 mx-auto rounded-full mb-8"></div>
 
                 <div className="flex justify-center items-center gap-6 mb-8">
                     <a
@@ -33,7 +33,7 @@ const Footer = () => {
                         href="https://instagram.com/your-church"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-pink-600 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 hover:text-white transition-all duration-300 hover:scale-110"
+                        className="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-pink-600 hover:bg-linear-to-br hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 hover:text-white transition-all duration-300 hover:scale-110"
                     >
                         <Instagram className="w-6 h-6" />
                     </a>

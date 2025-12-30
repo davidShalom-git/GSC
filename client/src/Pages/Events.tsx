@@ -28,8 +28,8 @@ const Events = () => {
     return (
         <>
             <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-                ? 'bg-gradient-to-br from-gray-50 to-orange-50 shadow-xl'
-                : 'bg-gradient-to-br from-gray-50 to-orange-50 shadow-lg'
+                ? 'bg-linear-to-br from-gray-50 to-orange-50 shadow-xl'
+                : 'bg-linear-to-br from-gray-50 to-orange-50 shadow-lg'
                 }`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-20">
@@ -40,7 +40,7 @@ const Events = () => {
                             animate={{ opacity: 1, x: 0 }}
                             className="flex items-center gap-3 cursor-pointer group"
                         >
-                            <div className="relative p-2.5 rounded-2xl transition-all duration-300 bg-gradient-to-br from-orange-400 to-red-500">
+                            <div className="relative p-2.5 rounded-2xl transition-all duration-300 bg-linear-to-br from-orange-400 to-red-500">
                                 <div className="text-2xl"><img src={fggs} alt="FGGS Logo" className="h-6 w-6" /></div>
                                 <div className="absolute inset-0 border-2 border-orange-400 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></div>
                             </div>
@@ -78,7 +78,7 @@ const Events = () => {
                         <motion.button
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="hidden md:block px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105"
+                            className="hidden md:block px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-linear-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105"
                         >
                             Join Us
                         </motion.button>
@@ -133,7 +133,7 @@ const Events = () => {
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.4 }}
-                                    className="w-full mt-2 px-5 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
+                                    className="w-full mt-2 px-5 py-3 bg-linear-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
                                 >
                                     Join Us
                                 </motion.button>
@@ -143,12 +143,12 @@ const Events = () => {
                 </AnimatePresence>
             </nav>
 
-            <div className='bg-gradient-to-b from-white to-gray-50 py-16 mt-28'>
+            <div className='bg-linear-to-b from-white to-gray-50 py-16 mt-28'>
                 <div className='flex justify-center px-6 md:px-16 lg:px-24 xl:px-32'>
                     <div className='text-center'>
                         <h1 className='text-4xl md:text-5xl font-bold text-gray-800 mb-4 relative inline-block'>
                             Events 🙌🎆
-                            <span className='absolute left-0 right-0 -bottom-3 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent'></span>
+                            <span className='absolute left-0 right-0 -bottom-3 h-1 bg-linear-to-r from-transparent via-orange-500 to-transparent'></span>
                         </h1>
                         <p className='text-gray-600 mt-6 text-sm md:text-base max-w-2xl mx-auto'>
                             Join us for our upcoming events filled with worship, fellowship, and spiritual growth. Stay tuned for more details!
@@ -158,7 +158,7 @@ const Events = () => {
             </div>
 
 
-            <div className='bg-gradient-to-br from-gray-50 via-white to-orange-50 py-12'>
+            <div className='bg-linear-to-br from-gray-50 via-white to-orange-50 py-12'>
                 <div className='max-w-6xl mx-auto px-4 space-y-12'>
 
 
@@ -172,9 +172,9 @@ const Events = () => {
                             <img
                                 src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
                                 alt="Fasting Prayer"
-                                className='w-full h-[350px] md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-110'
+                                className='w-full h-87.5 md:h-100 object-cover transition-transform duration-500 group-hover:scale-110'
                             />
-                            <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent'></div>
+                            <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
 
 
                             <motion.div
@@ -239,9 +239,9 @@ const Events = () => {
                             <img
                                 src="https://images.unsplash.com/photo-1512389142860-9c449e58a543?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
                                 alt="Worship Service"
-                                className='w-full h-[350px] md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-110'
+                                className='w-full h-87.5 md:h-100 object-cover transition-transform duration-500 group-hover:scale-110'
                             />
-                            <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent'></div>
+                            <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
 
 
                             <motion.div
@@ -304,9 +304,9 @@ const Events = () => {
                             <img
                                 src="https://images.unsplash.com/photo-1467810563316-b5476525c0f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
                                 alt="Worship Service"
-                                className='w-full h-[350px] md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-110'
+                                className='w-full h-87.5 md:h-100 object-cover transition-transform duration-500 group-hover:scale-110'
                             />
-                            <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent'></div>
+                            <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
 
 
                             <motion.div
@@ -369,9 +369,9 @@ const Events = () => {
                             <img
                                 src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
                                 alt="Worship Service"
-                                className='w-full h-[350px] md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-110'
+                                className='w-full h-87.5 md:h-100 object-cover transition-transform duration-500 group-hover:scale-110'
                             />
-                            <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent'></div>
+                            <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
 
 
                             <motion.div

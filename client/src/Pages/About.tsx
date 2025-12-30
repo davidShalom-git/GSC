@@ -26,8 +26,8 @@ const AboutPage = () => {
       {/* Navbar */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-gradient-to-br from-gray-50 to-orange-50 shadow-xl '
-          : 'bg-gradient-to-br from-gray-50 to-orange-50 shadow-lg'
+          ? 'bg-linear-to-br from-gray-50 to-orange-50 shadow-xl '
+          : 'bg-linear-to-br from-gray-50 to-orange-50 shadow-lg'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
@@ -36,7 +36,7 @@ const AboutPage = () => {
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center gap-3 cursor-pointer group"
             >
-              <div className="relative p-2.5 rounded-2xl bg-gradient-to-br from-orange-400 to-red-500">
+              <div className="relative p-2.5 rounded-2xl bg-linear-to-br from-orange-400 to-red-500">
                 <div className="text-2xl">🕊️</div>
                 <div className="absolute inset-0 border-2 border-orange-400 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></div>
               </div>
@@ -65,7 +65,7 @@ const AboutPage = () => {
             <motion.button
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="hidden md:block px-6 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105 transition-all duration-300"
+              className="hidden md:block px-6 py-2.5 rounded-xl font-semibold bg-linear-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105 transition-all duration-300"
             >
               Join Us
             </motion.button>
@@ -93,9 +93,9 @@ const AboutPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <div className="relative h-96 overflow-hidden bg-gradient-to-br from-orange-400 via-red-500 to-orange-600 mt-20">
+      <div className="relative h-96 overflow-hidden bg-linear-to-br from-orange-400 via-red-500 to-orange-600 mt-20">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-black/60 to-black/40"></div>
         
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-6">
           <motion.div
@@ -112,7 +112,7 @@ const AboutPage = () => {
       </div>
 
       {/* Our Story Section */}
-      <section className="py-20 bg-gradient-to-br from-white via-gray-50 to-orange-50">
+      <section className="py-20 bg-linear-to-br from-white via-gray-50 to-orange-50">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -122,7 +122,7 @@ const AboutPage = () => {
           >
             <div className="text-5xl mb-4">📖</div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Story</h2>
-            <div className="w-32 h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full"></div>
+            <div className="w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full"></div>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -133,7 +133,7 @@ const AboutPage = () => {
               className="space-y-6"
             >
               <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet" />
-              <h3 className='text-3xl font-bold text-gray-900 [font-family:"Noto_Sans_Tamil",sans-serif]'>
+              <h3 className='text-3xl font-bold text-gray-900 font-["Noto_Sans_Tamil",sans-serif]'>
                 பூரண சுவிசேஷ நல்ல மேய்ப்பன் தேவ சபை
               </h3>
               <p className="text-lg text-gray-700 leading-relaxed">
@@ -155,7 +155,7 @@ const AboutPage = () => {
                 alt="Church"
                 className="w-full h-96 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
             </motion.div>
           </div>
         </div>
@@ -169,7 +169,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-orange-50 to-red-50 rounded-3xl p-10 shadow-xl"
+              className="bg-linear-to-br from-orange-50 to-red-50 rounded-3xl p-10 shadow-xl"
             >
               <div className="text-5xl mb-6">🎯</div>
               <h3 className="text-3xl font-bold text-gray-900 mb-6">Our Mission</h3>
@@ -183,7 +183,7 @@ const AboutPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-10 shadow-xl"
+              className="bg-linear-to-br from-blue-50 to-purple-50 rounded-3xl p-10 shadow-xl"
             >
               <div className="text-5xl mb-6">👁️</div>
               <h3 className="text-3xl font-bold text-gray-900 mb-6">Our Vision</h3>
@@ -196,7 +196,7 @@ const AboutPage = () => {
       </section>
 
       {/* Core Values */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-orange-50">
+      <section className="py-20 bg-linear-to-br from-gray-50 via-white to-orange-50">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -206,7 +206,7 @@ const AboutPage = () => {
           >
             <div className="text-5xl mb-4">💎</div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Core Values</h2>
-            <div className="w-32 h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full"></div>
+            <div className="w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full"></div>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -247,7 +247,7 @@ const AboutPage = () => {
           >
             <div className="text-5xl mb-4">👥</div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Leadership</h2>
-            <div className="w-32 h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full"></div>
+            <div className="w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full"></div>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -263,7 +263,7 @@ const AboutPage = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
                 whileHover={{ y: -10 }}
-                className="group bg-gradient-to-br from-gray-50 to-orange-50 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500"
+                className="group bg-linear-to-br from-gray-50 to-orange-50 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500"
               >
                 <div className="relative overflow-hidden h-80">
                   <img
@@ -271,7 +271,7 @@ const AboutPage = () => {
                     alt={leader.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{leader.name}</h3>
@@ -284,7 +284,7 @@ const AboutPage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-r from-orange-500 via-red-500 to-orange-600">
+      <section className="py-20 bg-linear-to-r from-orange-500 via-red-500 to-orange-600">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
