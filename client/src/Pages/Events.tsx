@@ -114,29 +114,27 @@ const Events = () => {
                             exit={{ opacity: 0, height: 0 }}
                             className="md:hidden overflow-hidden border-t border-gray-200"
                         >
-                            <div className="px-4 py-4 bg-white">
+                            <div className="hidden md:flex items-center gap-1">
                                 {navItems.map((item, index) => (
-                                    <motion.a
+                                    <motion.div
                                         key={index}
-                                        href={item.path}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
+                                        initial={{ opacity: 0, y: -20 }}
+                                        animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.1 }}
-                                        onClick={() => setIsMenuOpen(false)}
-                                        className="flex items-center gap-4 px-5 py-4 rounded-xl mb-2 transition-all duration-300 text-gray-700 hover:bg-orange-50 hover:text-orange-500"
                                     >
-
-                                        <span className="font-medium">{item.name}</span>
-                                    </motion.a>
+                                        <Link
+                                            to={item.path}
+                                            className={`group relative px-6 py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${isScrolled
+                                                ? 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
+                                                : 'text-white hover:bg-white/20'
+                                                }`}
+                                        >
+                                            {item.name}
+                                            <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-3/4 transition-all duration-300 ${isScrolled ? 'bg-orange-500' : 'bg-white'
+                                                }`}></div>
+                                        </Link>
+                                    </motion.div>
                                 ))}
-                                <motion.button
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.4 }}
-                                    className="w-full mt-2 px-5 py-3 bg-linear-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
-                                >
-                                    Join Us
-                                </motion.button>
                             </div>
                         </motion.div>
                     )}
