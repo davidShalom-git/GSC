@@ -97,7 +97,6 @@ const EventPosters = () => {
           </motion.div>
         ))}
       </div>
-
     </>
   )
 }
