@@ -7,7 +7,6 @@ const ChurchAdminPanel = () => {
         title: "",
         url: "",
         thumbnail: "",
-        thumbnailType: "url"
     });
     const [videoThumbnailFile, setVideoThumbnailFile] = useState<File | null>(null);
     const [event, setEvent] = useState<File | null>(null);
@@ -20,22 +19,6 @@ const ChurchAdminPanel = () => {
     const handleVideoThumbnailFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
         setVideoThumbnailFile(file);
-        if (file) {
-            setVideo({ ...video, thumbnailType: "base64" });
-        }
-    };
-
-    const convertToBase64 = (file: File): Promise<string> => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                const base64String = reader.result as string;
-                const base64Data = base64String.split(',')[1];
-                resolve(base64Data);
-            };
-            reader.onerror = error => reject(error);
-        });
     };
 
     const handleVideo = async () => {
@@ -47,7 +30,6 @@ const ChurchAdminPanel = () => {
                 formData.append('title', video.title);
                 formData.append('url', video.url);
                 formData.append('thumbnail', videoThumbnailFile);
-                formData.append('thumbnailType', 'base64');
 
                 const response = await fetch(import.meta.env.VITE_URL, {
                     method: 'POST',
@@ -57,7 +39,7 @@ const ChurchAdminPanel = () => {
                 if (!response.ok) throw new Error("Failed to Upload the Video");
 
                 setUploadStatus({ ...uploadStatus, video: 'success' });
-                setVideo({ title: "", url: "", thumbnail: "", thumbnailType: "url" });
+                setVideo({ title: "", url: "", thumbnail: "" });
                 setVideoThumbnailFile(null);
                 setTimeout(() => setUploadStatus({ ...uploadStatus, video: '' }), 3000);
             } else {
@@ -72,7 +54,7 @@ const ChurchAdminPanel = () => {
                 if (!response.ok) throw new Error("Failed to Upload the Video");
 
                 setUploadStatus({ ...uploadStatus, video: 'success' });
-                setVideo({ title: "", url: "", thumbnail: "", thumbnailType: "url" });
+                setVideo({ title: "", url: "", thumbnail: "" });
                 setTimeout(() => setUploadStatus({ ...uploadStatus, video: '' }), 3000);
             }
         } catch (error) {
@@ -99,7 +81,7 @@ const ChurchAdminPanel = () => {
                 body: formData
             });
 
-            if (response?.ok) {
+            if (response.ok) {
                 setUploadStatus({ ...uploadStatus, event: 'success' });
                 setEvent(null);
                 setTimeout(() => setUploadStatus({ ...uploadStatus, event: '' }), 3000);
@@ -130,7 +112,7 @@ const ChurchAdminPanel = () => {
                 body: formData
             });
 
-            if (response?.ok) {
+            if (response.ok) {
                 setUploadStatus({ ...uploadStatus, promise: 'success' });
                 setPromise(null);
                 setTimeout(() => setUploadStatus({ ...uploadStatus, promise: '' }), 3000);
@@ -162,6 +144,7 @@ const ChurchAdminPanel = () => {
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
+                    {/* Video Upload Card */}
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
                         <div className="bg-gradient-to-r from-red-500 to-pink-500 p-6 text-white">
                             <div className="flex items-center justify-between">
@@ -203,7 +186,7 @@ const ChurchAdminPanel = () => {
                                         name="thumbnail"
                                         value={video.thumbnail}
                                         onChange={GetVideoData}
-                                        placeholder="Or paste thumbnail URL"
+                                        placeholder="Paste thumbnail URL"
                                         className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:outline-none transition-colors text-sm"
                                     />
                                 </div>
@@ -232,6 +215,7 @@ const ChurchAdminPanel = () => {
                         </div>
                     </div>
 
+                    {/* Event Poster Card */}
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
                         <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-6 text-white">
                             <div className="flex items-center justify-between">
@@ -265,6 +249,7 @@ const ChurchAdminPanel = () => {
                         </div>
                     </div>
 
+                    {/* Promise Word Card */}
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
                         <div className="bg-gradient-to-r from-purple-500 to-indigo-500 p-6 text-white">
                             <div className="flex items-center justify-between">
