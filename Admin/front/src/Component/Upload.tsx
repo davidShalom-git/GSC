@@ -5,8 +5,11 @@ const ChurchAdminPanel = () => {
     const [promise, setPromise] = useState<File | null>(null);
     const [video, setVideo] = useState({
         title: "",
-        url: ""
+        url: "",
+        thumbnail: "",
+        thumbnailType: "url"
     });
+    const [videoThumbnailFile, setVideoThumbnailFile] = useState<File | null>(null);
     const [event, setEvent] = useState<File | null>(null);
     const [uploadStatus, setUploadStatus] = useState<{ [key: string]: string }>({});
 
@@ -14,30 +17,74 @@ const ChurchAdminPanel = () => {
         setVideo({ ...video, [e.target.name]: e.target.value });
     };
 
+    const handleVideoThumbnailFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files ? e.target.files[0] : null;
+        setVideoThumbnailFile(file);
+        if (file) {
+            setVideo({ ...video, thumbnailType: "base64" });
+        }
+    };
+
+    const convertToBase64 = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                const base64String = reader.result as string;
+                // Remove the data:image/...;base64, prefix
+                const base64Data = base64String.split(',')[1];
+                resolve(base64Data);
+            };
+            reader.onerror = error => reject(error);
+        });
+    };
+
     const handleVideo = async () => {
         try {
             setUploadStatus({ ...uploadStatus, video: 'uploading' });
-            const response = await fetch('http://localhost:1995/api/video/upload', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(video)
-            });
+            
+            // Use FormData if thumbnail file exists, otherwise JSON
+            if (videoThumbnailFile) {
+                const formData = new FormData();
+                formData.append('title', video.title);
+                formData.append('url', video.url);
+                formData.append('thumbnail', videoThumbnailFile);
+                formData.append('thumbnailType', 'base64');
 
-            if (!response.ok) throw new Error("Failed to Upload the Video");
+                const response = await fetch('http://localhost:1995/api/video/upload', {
+                    method: 'POST',
+                    body: formData
+                });
 
-            const data = await response.json();
-            if (!data.success) throw new Error(data.message);
-            setUploadStatus({ ...uploadStatus, video: 'success' });
-            setVideo({ title: "", url: "" });
-            setTimeout(() => setUploadStatus({ ...uploadStatus, video: '' }), 3000);
+                if (!response.ok) throw new Error("Failed to Upload the Video");
+                const data = await response.json();
+                
+                setUploadStatus({ ...uploadStatus, video: 'success' });
+                setVideo({ title: "", url: "", thumbnail: "", thumbnailType: "url" });
+                setVideoThumbnailFile(null);
+                setTimeout(() => setUploadStatus({ ...uploadStatus, video: '' }), 3000);
+            } else {
+                // Use JSON for URL thumbnail or no thumbnail
+                const response = await fetch('http://localhost:1995/api/video/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(video)
+                });
+
+                if (!response.ok) throw new Error("Failed to Upload the Video");
+                const data = await response.json();
+                
+                setUploadStatus({ ...uploadStatus, video: 'success' });
+                setVideo({ title: "", url: "", thumbnail: "", thumbnailType: "url" });
+                setTimeout(() => setUploadStatus({ ...uploadStatus, video: '' }), 3000);
+            }
         } catch (error) {
             setUploadStatus({ ...uploadStatus, video: 'error' });
             console.error('Error uploading:', error);
         }
     };
-
 
     const getEventData = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
@@ -70,8 +117,6 @@ const ChurchAdminPanel = () => {
         }
     };
 
-
-
     const getPromiseDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
         setPromise(file);
@@ -103,8 +148,6 @@ const ChurchAdminPanel = () => {
         }
     };
 
-
-
     const StatusMessage = ({ status }: { status: string }) => {
         if (status === 'uploading') return <p className="text-blue-600 text-sm mt-2">Uploading...</p>;
         if (status === 'success') return <p className="text-green-600 text-sm mt-2">✓ Upload successful!</p>;
@@ -113,9 +156,8 @@ const ChurchAdminPanel = () => {
     };
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-blue-50 via-purple-50 to-pink-50">
-
-            <div className="bg-linear-to-r from-purple-800 via-purple-700 to-indigo-800 text-white py-8 shadow-lg">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+            <div className="bg-gradient-to-r from-purple-800 via-purple-700 to-indigo-800 text-white py-8 shadow-lg">
                 <div className="max-w-6xl mx-auto px-4">
                     <h1 className="text-4xl font-bold text-center mb-2">Church Admin Panel</h1>
                     <p className="text-center text-purple-200">Manage your devotional content with grace</p>
@@ -125,9 +167,9 @@ const ChurchAdminPanel = () => {
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-
+                    {/* Video Upload Card with Thumbnail */}
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
-                        <div className="bg-linear-to-r from-red-500 to-pink-500 p-6 text-white">
+                        <div className="bg-gradient-to-r from-red-500 to-pink-500 p-6 text-white">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-2xl font-bold">Video Upload</h2>
                                 <Video className="w-8 h-8" />
@@ -157,9 +199,41 @@ const ChurchAdminPanel = () => {
                                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:outline-none transition-colors"
                                 />
                             </div>
+                            
+                            {/* Thumbnail Options */}
+                            <div className="border-t pt-4">
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Thumbnail (Optional)</label>
+                                
+                                {/* Thumbnail URL Option */}
+                                <div className="mb-3">
+                                    <input
+                                        type="text"
+                                        name="thumbnail"
+                                        value={video.thumbnail}
+                                        onChange={GetVideoData}
+                                        placeholder="Or paste thumbnail URL"
+                                        className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:outline-none transition-colors text-sm"
+                                    />
+                                </div>
+                                
+                                {/* Thumbnail File Upload */}
+                                <div>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleVideoThumbnailFile}
+                                        className="w-full px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg focus:border-red-500 focus:outline-none transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100 text-sm"
+                                    />
+                                </div>
+                                
+                                {videoThumbnailFile && (
+                                    <p className="text-sm text-gray-600 mt-2">Selected: {videoThumbnailFile.name}</p>
+                                )}
+                            </div>
+
                             <button
                                 onClick={handleVideo}
-                                className="w-full bg-linear-to-r from-red-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:from-red-600 hover:to-pink-600 transition-all shadow-md hover:shadow-lg"
+                                className="w-full bg-gradient-to-r from-red-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:from-red-600 hover:to-pink-600 transition-all shadow-md hover:shadow-lg"
                             >
                                 Upload Video
                             </button>
@@ -167,9 +241,9 @@ const ChurchAdminPanel = () => {
                         </div>
                     </div>
 
-
+                    {/* Event Poster Card */}
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
-                        <div className="bg-linear-to-r from-blue-500 to-cyan-500 p-6 text-white">
+                        <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-6 text-white">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-2xl font-bold">Event Poster</h2>
                                 <Calendar className="w-8 h-8" />
@@ -193,7 +267,7 @@ const ChurchAdminPanel = () => {
                             </div>
                             <button
                                 onClick={handleEvent}
-                                className="w-full bg-linear-to-r from-blue-500 to-cyan-500 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all shadow-md hover:shadow-lg"
+                                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all shadow-md hover:shadow-lg"
                             >
                                 Upload Poster
                             </button>
@@ -201,8 +275,9 @@ const ChurchAdminPanel = () => {
                         </div>
                     </div>
 
+                    {/* Promise Word Card */}
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
-                        <div className="bg-linear-to-r from-purple-500 to-indigo-500 p-6 text-white">
+                        <div className="bg-gradient-to-r from-purple-500 to-indigo-500 p-6 text-white">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-2xl font-bold">Promise Word</h2>
                                 <Heart className="w-8 h-8" />
@@ -226,14 +301,13 @@ const ChurchAdminPanel = () => {
                             </div>
                             <button
                                 onClick={handlePromise}
-                                className="w-full bg-linear-to-r from-purple-500 to-indigo-500 text-white py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-indigo-600 transition-all shadow-md hover:shadow-lg"
+                                className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-indigo-600 transition-all shadow-md hover:shadow-lg"
                             >
                                 Upload Promise
                             </button>
                             <StatusMessage status={uploadStatus.promise || ''} />
                         </div>
                     </div>
-
                 </div>
 
                 <div className="mt-12 text-center">

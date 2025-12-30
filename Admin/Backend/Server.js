@@ -10,6 +10,9 @@ const EventRoute = require('./routers/Event');
 const PromiseRoute = require('./routers/Promise');
 
 
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
 mongoose.connect(process.env.MONGO_URI).then(()=>{
     console.log("MongoDB Connected")
 }).catch((err)=>{

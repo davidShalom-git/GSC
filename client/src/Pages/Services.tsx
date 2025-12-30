@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import fggs from '../assets/FGGS.png'
+import Video from '../Components/Video'
 
 const Services = () => {
     const [isScrolled, setIsScrolled] = useState(false)
@@ -154,7 +155,7 @@ const Services = () => {
                 </div>
             </div>
 
-         
+         <Video />
 
         </>
     )

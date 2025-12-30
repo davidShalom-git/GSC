@@ -1,20 +1,32 @@
+// videoRoutes.js (Routes)
 const express = require('express');
 const router = express.Router();
 const Video = require('../models/Video');
+const multer = require('multer');
+const upload = multer();
 
-// POST: Upload video (expects JSON)
-router.post('/upload', async (req, res) => {
+router.post('/upload', upload.single('thumbnail'), async (req, res) => {
   try {
-    const { title, url, duration } = req.body;
-    if (!title || !url)
-      return res.status(400).json({ message: '❌ Title and URL are required' });
-
-    const video = new Video({
-      title,
-      url,
+    let videoData = {
+      title: req.body.title,
+      url: req.body.url,
       type: 'video',
-      duration: duration || null
-    });
+      duration: req.body.duration || null
+    };
+
+    // Handle thumbnail if uploaded as file
+    if (req.file) {
+      const base64Thumbnail = req.file.buffer.toString('base64');
+      videoData.thumbnail = base64Thumbnail;
+      videoData.thumbnailType = 'base64';
+    }
+    // Handle thumbnail if provided as URL
+    else if (req.body.thumbnail) {
+      videoData.thumbnail = req.body.thumbnail;
+      videoData.thumbnailType = req.body.thumbnailType || 'url';
+    }
+
+    const video = new Video(videoData);
     const saved = await video.save();
     res.status(201).json(saved);
   } catch (error) {
@@ -23,7 +35,6 @@ router.post('/upload', async (req, res) => {
   }
 });
 
-// GET: All videos
 router.get('/url', async (req, res) => {
   try {
     const videos = await Video.find({ type: 'video' }).sort({ uploadDate: -1 });
@@ -35,7 +46,27 @@ router.get('/url', async (req, res) => {
   }
 });
 
-// DELETE: by _id
+
+router.patch('/:id/thumbnail', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { thumbnail, thumbnailType } = req.body;
+
+    const updated = await Video.findByIdAndUpdate(
+      id,
+      { thumbnail, thumbnailType: thumbnailType || 'url' },
+      { new: true }
+    );
+
+    if (!updated) return res.status(404).json({ message: 'Video not found' });
+    res.json({ message: 'Thumbnail updated successfully', data: updated });
+  } catch (error) {
+    console.error('❌ Error updating thumbnail:', error);
+    res.status(500).json({ message: 'Error updating thumbnail', error });
+  }
+});
+
+
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;

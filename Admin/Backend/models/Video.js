@@ -1,3 +1,4 @@
+// Video.js (Model)
 const mongoose = require('mongoose');
 
 const videoSchema = new mongoose.Schema({
@@ -10,6 +11,16 @@ const videoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    thumbnail: {
+        type: String,  // URL or base64 string
+        required: false,
+        default: null
+    },
+    thumbnailType: {
+        type: String,
+        enum: ['url', 'base64'],
+        default: 'url'
+    },
     type: {
         type: String,
         enum: ['video', 'audio'],
@@ -19,7 +30,6 @@ const videoSchema = new mongoose.Schema({
         type: Number, 
         required: false
     },
-
     mimeType: {
         type: String,
         required: false,
@@ -41,7 +51,6 @@ const videoSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
-
 
 videoSchema.index({ type: 1, uploadDate: -1 });
 videoSchema.index({ storageType: 1 });
