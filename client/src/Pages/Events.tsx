@@ -105,39 +105,44 @@ const Events = () => {
                 </div>
 
 
-                <AnimatePresence>
-                    {isMenuOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="md:hidden overflow-hidden border-t border-gray-200"
+               <AnimatePresence>
+    {isMenuOpen && (
+        <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden overflow-hidden border-t border-gray-200 bg-white"
+        >
+            <div className="px-4 py-4 space-y-2">
+                {navItems.map((item, index) => (
+                    <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                    >
+                        <Link
+                            to={item.path}
+                            onClick={() => setIsMenuOpen(false)}
+                            className="block px-4 py-3 rounded-xl font-medium transition-all duration-300 text-gray-700 hover:text-orange-500 hover:bg-orange-50"
                         >
-                            <div className="hidden md:flex items-center gap-1">
-                                {navItems.map((item, index) => (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ opacity: 0, y: -20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: index * 0.1 }}
-                                    >
-                                        <Link
-                                            to={item.path}
-                                            className={`group relative px-6 py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${isScrolled
-                                                ? 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-                                                : 'text-white hover:bg-white/20'
-                                                }`}
-                                        >
-                                            {item.name}
-                                            <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-3/4 transition-all duration-300 ${isScrolled ? 'bg-orange-500' : 'bg-white'
-                                                }`}></div>
-                                        </Link>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                            {item.name}
+                        </Link>
+                    </motion.div>
+                ))}
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: navItems.length * 0.1 }}
+                >
+                    <button className="w-full px-4 py-3 rounded-xl font-semibold transition-all duration-300 bg-linear-to-r from-orange-500 to-red-500 text-white hover:shadow-lg">
+                        Join Us
+                    </button>
+                </motion.div>
+            </div>
+        </motion.div>
+    )}
+</AnimatePresence>
             </nav>
 
             <div className='bg-linear-to-b from-white to-gray-50 py-16 mt-28'>
