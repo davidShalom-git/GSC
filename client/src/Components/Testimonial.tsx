@@ -95,12 +95,21 @@ const Testimonial = () => {
             `}</style>
 
                 <div className=' bg-linear-to-br from-gray-50 to-gray-500 py-16'>
-                    <div className='flex justify-center px-6 md:px-16 lg:px-24 xl:px-32 mb-10'>
-                        <h1 className='text-4xl md:text-4xl text-center font-bold text-white relative inline-block'>
-                            Testimonials 💬
-                            <span className='absolute left-1/2 -translate-x-1/2 bottom-0 w-32 h-0.5 bg-gray-800 translate-y-2'></span>
+                    <div className='text-center mb-12 px-6'>
+                        <motion.div
+                            initial={{ scale: 0 }}
+                            whileInView={{ scale: 1 }}
+                            viewport={{ once: true }}
+                            className="inline-block text-5xl mb-3"
+                        >
+                            💬
+                        </motion.div>
+                        <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-white mb-3'>
+                            Testimonials
                         </h1>
+                        <div className='w-32 h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
                     </div>
+
 
                     <div className="marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
                         <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none "></div>

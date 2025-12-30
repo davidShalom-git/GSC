@@ -71,44 +71,40 @@ const HeroSection = () => {
 
   return (
     <>
-  
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-200/50' 
+
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+          ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-200/50'
           : 'bg-gradient-to-b from-black/40 to-transparent backdrop-blur-sm'
-      }`}>
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            
-       
-            <motion.div 
+
+
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center gap-3 cursor-pointer group"
             >
-              <div className={`relative p-2.5 rounded-2xl transition-all duration-300 ${
-                isScrolled 
-                  ? 'bg-gradient-to-br from-orange-400 to-red-500' 
+              <div className={`relative p-2.5 rounded-2xl transition-all duration-300 ${isScrolled
+                  ? 'bg-gradient-to-br from-orange-400 to-red-500'
                   : 'bg-white/20 backdrop-blur-md border border-white/30'
-              }`}>
+                }`}>
                 <div className="text-2xl"><img src={fggs} alt="FGGS Logo" className="h-6 w-6" /></div>
                 <div className="absolute inset-0 border-2 border-orange-400 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></div>
               </div>
               <div className="flex flex-col">
-                <span className={`font-bold text-xl tracking-wide transition-colors ${
-                  isScrolled ? 'text-gray-800' : 'text-white'
-                }`}>
+                <span className={`font-bold text-xl tracking-wide transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'
+                  }`}>
                   FGGS
                 </span>
-                <span className={`text-xs font-semibold tracking-widest transition-colors ${
-                  isScrolled ? 'text-orange-500' : 'text-orange-300'
-                }`}>
+                <span className={`text-xs font-semibold tracking-widest transition-colors ${isScrolled ? 'text-orange-500' : 'text-orange-300'
+                  }`}>
                   CHURCH
                 </span>
               </div>
             </motion.div>
 
-       
+
             <div className="hidden md:flex items-center gap-1">
               {navItems.map((item, index) => (
                 <motion.a
@@ -117,44 +113,40 @@ const HeroSection = () => {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className={`group relative px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${
-                    isScrolled
+                  className={`group relative px-6 py-2.5 rounded-xl font-medium transition-all duration-300 ${isScrolled
                       ? 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
                       : 'text-white hover:bg-white/20'
-                  }`}
+                    }`}
                 >
                   <span className="flex items-center gap-2">
-                    
+
                     <span>{item.name}</span>
                   </span>
-                  <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-3/4 transition-all duration-300 ${
-                    isScrolled ? 'bg-orange-500' : 'bg-white'
-                  }`}></div>
+                  <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-3/4 transition-all duration-300 ${isScrolled ? 'bg-orange-500' : 'bg-white'
+                    }`}></div>
                 </motion.a>
               ))}
             </div>
 
-           
+
             <motion.button
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className={`hidden md:block px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${
-                isScrolled
+              className={`hidden md:block px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${isScrolled
                   ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105'
                   : 'bg-white text-orange-500 hover:bg-orange-50 hover:scale-105'
-              }`}
+                }`}
             >
               Join Us
             </motion.button>
 
-       
+
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`md:hidden p-2.5 rounded-xl transition-all duration-300 ${
-                isScrolled
+              className={`md:hidden p-2.5 rounded-xl transition-all duration-300 ${isScrolled
                   ? 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                   : 'bg-white/20 backdrop-blur-md text-white hover:bg-white/30'
-              }`}
+                }`}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 {isMenuOpen ? (
@@ -173,7 +165,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-       
+
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
@@ -191,13 +183,12 @@ const HeroSection = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center gap-4 px-5 py-4 rounded-xl mb-2 transition-all duration-300 ${
-                      isScrolled
+                    className={`flex items-center gap-4 px-5 py-4 rounded-xl mb-2 transition-all duration-300 ${isScrolled
                         ? 'text-gray-700 hover:bg-orange-50 hover:text-orange-500'
                         : 'text-white hover:bg-white/10'
-                    }`}
+                      }`}
                   >
-                    
+
                     <span className="font-medium">{item.name}</span>
                   </motion.a>
                 ))}
@@ -215,9 +206,9 @@ const HeroSection = () => {
         </AnimatePresence>
       </nav>
 
-  
+
       <div className="relative min-h-screen overflow-hidden bg-black pt-20">
-    
+
         <AnimatePresence initial={false}>
           <motion.div
             key={currentIndex}
@@ -230,10 +221,10 @@ const HeroSection = () => {
           />
         </AnimatePresence>
 
-    
+
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
-       
+
         <div className="relative z-10 flex flex-col items-center justify-center mt-28 px-6 md:px-16 min-h-[calc(100vh-5rem)] text-white">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -287,17 +278,16 @@ const HeroSection = () => {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`h-2 rounded-full transition-all duration-500 ${
-                index === currentIndex 
-                  ? 'bg-white w-12 shadow-lg shadow-white/50' 
+              className={`h-2 rounded-full transition-all duration-500 ${index === currentIndex
+                  ? 'bg-white w-12 shadow-lg shadow-white/50'
                   : 'bg-white/40 w-2 hover:bg-white/60'
-              }`}
+                }`}
             />
           ))}
         </div>
       </div>
 
-     
+
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -305,16 +295,16 @@ const HeroSection = () => {
         transition={{ duration: 0.8 }}
         className="bg-gradient-to-br from-gray-50 via-white to-orange-50 py-20"
       >
-        <div className='text-center mb-16 px-6'>
+        <div className='text-center mb-12 px-6'>
           <motion.div
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block text-6xl mb-4"
+            className="inline-block text-5xl mb-3"
           >
             💫
           </motion.div>
-          <h1 className='text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-red-600 mb-4'>
+          <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-black mb-3'>
             Promise Word
           </h1>
           <div className='w-32 h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
