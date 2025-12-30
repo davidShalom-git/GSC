@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import fggs from '../assets/FGGS.png'
 import { Link } from 'react-router-dom'
+import Footer from '../Components/Footer'
 
 
 const Events = () => {
@@ -27,8 +28,8 @@ const Events = () => {
     return (
         <>
             <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-                ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-200/50'
-                : 'bg-white/95 backdrop-blur-xl shadow-lg'
+                ? 'bg-gradient-to-br from-gray-50 to-orange-50 shadow-xl'
+                : 'bg-gradient-to-br from-gray-50 to-orange-50 shadow-lg'
                 }`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-20">
@@ -425,6 +426,7 @@ const Events = () => {
                 </div>
             </div>
 
+            <Footer />
         </>
     )
 }

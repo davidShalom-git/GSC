@@ -16,10 +16,9 @@ const Video = () => {
 
   const fetchVideos = async () => {
     try {
-      const response = await fetch('http://localhost:1995/api/video/url');
+      const response = await fetch(import.meta.env.VITE_URL);
       const data = await response.json();
       const arrayData = Array.isArray(data) ? data : [];
-      console.log(arrayData);
       setVideos(arrayData);
     } catch (error) {
       console.error('Error fetching videos:', error);
@@ -44,7 +43,7 @@ const Video = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-b from-gray-50 to-white py-12 px-4'>
+    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-orange-50 py-12 px-4'>
       <div className='max-w-5xl mx-auto'>
 
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>

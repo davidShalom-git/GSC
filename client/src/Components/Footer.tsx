@@ -4,7 +4,7 @@ import { Facebook, Instagram, Youtube, Mail, Phone } from 'lucide-react'
 
 const Footer = () => {
     return (
-        <footer className="w-full bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800">
+        <footer className="w-full bg-gradient-to-br from-gray-50 to-orange-50 text-gray-800">
             <div className="max-w-7xl mx-auto px-6 py-16">
 
                 <div className="flex items-center justify-center gap-3 md:gap-4 mb-8">

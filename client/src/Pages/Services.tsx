@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import fggs from '../assets/FGGS.png'
 import Video from '../Components/Video'
+import Footer from '../Components/Footer'
 
 const Services = () => {
     const [isScrolled, setIsScrolled] = useState(false)
@@ -26,8 +27,8 @@ const Services = () => {
         <>
             {/* Modern Glassmorphism Navbar */}
             <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-                ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-200/50'
-                : 'bg-white/95 backdrop-blur-xl shadow-lg'
+                ? 'bg-gradient-to-br from-gray-50 to-orange-50 shadow-xl '
+                : 'bg-gradient-to-br from-gray-50 to-orange-50 shadow-lg'
                 }`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-20">
@@ -141,7 +142,7 @@ const Services = () => {
                 </AnimatePresence>
             </nav>
 
-            <div className='bg-gradient-to-b from-white to-gray-50 py-16 mt-28'>
+            <div className='bg-gradient-to-br from-gray-50 to-orange-50 py-16 mt-28'>
                 <div className='flex justify-center px-6 md:px-16 lg:px-24 xl:px-32'>
                     <div className='text-center'>
                         <h1 className='text-4xl md:text-5xl font-bold text-gray-800 mb-4 relative inline-block'>
@@ -155,7 +156,8 @@ const Services = () => {
                 </div>
             </div>
 
-         <Video />
+            <Video />
+            <Footer />
 
         </>
     )

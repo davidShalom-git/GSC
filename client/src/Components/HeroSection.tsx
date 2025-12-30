@@ -10,6 +10,7 @@ interface PromiseWordItem {
   createdAt?: string;
 }
 
+
 const HeroSection = () => {
   const [PromiseWord, setPromiseWord] = useState<PromiseWordItem[]>([])
   const [isScrolled, setIsScrolled] = useState(false)
@@ -48,7 +49,7 @@ const HeroSection = () => {
   useEffect(() => {
     const getImages = async () => {
       try {
-        const response = await fetch('http://localhost:1995/api/promise/pro')
+        const response = await fetch(import.meta.env.VITE_PROMISE)
         if (!response.ok) return
         const data = await response.json()
         const arrayData = Array.isArray(data) ? data : (data.data || [])
@@ -68,11 +69,13 @@ const HeroSection = () => {
     return () => clearInterval(interval)
   }, [])
 
+ 
+
   return (
     <>
 
       <nav className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-          ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-200/50'
+          ? 'bg-gradient-to-br from-gray-50 to-orange-50 shadow-xl border-b border-gray-200/50'
           : 'bg-gradient-to-b from-black/40 to-transparent backdrop-blur-sm'
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

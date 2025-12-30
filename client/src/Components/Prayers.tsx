@@ -1,6 +1,7 @@
 import { Clock } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import EventPosters from './EventPoster'
 
 const Prayers = () => {
     return (
@@ -25,7 +26,7 @@ const Prayers = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
 
-                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-gradient-to-br from-gray-50 to-gray-100 py-16'>
+                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-gradient-to-br from-gray-50 to-orange-50 py-16'>
                 <div className='flex-1 space-y-8'>
                     <div className='inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-md border border-gray-200'>
                         <Clock className='w-5 h-5 text-orange-500' />
@@ -91,7 +92,7 @@ const Prayers = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
 
-                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32  bg-gradient-to-br from-gray-50 to-gray-100 py-16'>
+                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32  bg-gradient-to-br from-gray-50 to-orange-50 py-16'>
                 <div className='flex-1 w-full relative group'>
                     <Link to='/services' className='relative overflow-hidden rounded-2xl shadow-2xl'>
                         <img
@@ -157,7 +158,7 @@ const Prayers = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
 
-                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-gradient-to-br from-gray-50 to-gray-100 py-16'>
+                className='flex flex-col lg:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-24 xl:px-32 bg-gradient-to-br from-gray-50 to-orange-50 py-16'>
                 <div className='flex-1 space-y-8'>
                     <div className='inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-md border border-gray-200'>
                         <Clock className='w-5 h-5 text-orange-500' />
@@ -216,6 +217,8 @@ const Prayers = () => {
                     </Link>
                 </div>
             </motion.div>
+
+            <EventPosters />
         </>
     )
 }

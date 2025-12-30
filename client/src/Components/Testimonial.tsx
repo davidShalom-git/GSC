@@ -94,7 +94,7 @@ const Testimonial = () => {
                 }
             `}</style>
 
-                <div className=' bg-linear-to-br from-gray-50 to-gray-500 py-16'>
+                <div className=' bg-gradient-to-br from-gray-50 to-orange-50 py-16'>
                     <div className='text-center mb-12 px-6'>
                         <motion.div
                             initial={{ scale: 0 }}
@@ -104,7 +104,7 @@ const Testimonial = () => {
                         >
                             💬
                         </motion.div>
-                        <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-white mb-3'>
+                        <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-black mb-3'>
                             Testimonials
                         </h1>
                         <div className='w-32 h-1.5 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
