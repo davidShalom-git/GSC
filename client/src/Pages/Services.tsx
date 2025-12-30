@@ -26,7 +26,7 @@ const Services = () => {
 
     return (
         <>
-            {/* Modern Glassmorphism Navbar */}
+
             <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
                 ? 'bg-linear-to-br from-gray-50 to-orange-50 shadow-xl '
                 : 'bg-linear-to-br from-gray-50 to-orange-50 shadow-lg'
@@ -34,7 +34,6 @@ const Services = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-20">
 
-                        {/* Logo with Animation */}
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -54,7 +53,7 @@ const Services = () => {
                             </div>
                         </motion.div>
 
-                        {/* Desktop Navigation */}
+
                         <div className="hidden md:flex items-center gap-1">
                             {navItems.map((item, index) => (
                                 <motion.div
@@ -78,7 +77,6 @@ const Services = () => {
                             ))}
                         </div>
 
-                        {/* CTA Button */}
                         <motion.button
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -87,7 +85,7 @@ const Services = () => {
                             Join Us
                         </motion.button>
 
-                        {/* Mobile Menu Button */}
+
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className="md:hidden p-2.5 rounded-xl transition-all duration-300 bg-gray-100 text-gray-800 hover:bg-gray-200"
@@ -109,7 +107,7 @@ const Services = () => {
                     </div>
                 </div>
 
-                {/* Mobile Menu */}
+
                 <AnimatePresence>
                     {isMenuOpen && (
                         <motion.div

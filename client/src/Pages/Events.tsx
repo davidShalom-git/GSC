@@ -34,7 +34,7 @@ const Events = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-20">
 
-                        {/* Logo with Animation */}
+
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -54,7 +54,6 @@ const Events = () => {
                             </div>
                         </motion.div>
 
-                        {/* Desktop Navigation */}
                         <div className="hidden md:flex items-center gap-1">
                             {navItems.map((item, index) => (
                                 <motion.a
@@ -74,7 +73,7 @@ const Events = () => {
                             ))}
                         </div>
 
-                        {/* CTA Button */}
+
                         <motion.button
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -83,7 +82,7 @@ const Events = () => {
                             Join Us
                         </motion.button>
 
-                        {/* Mobile Menu Button */}
+
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className="md:hidden p-2.5 rounded-xl transition-all duration-300 bg-gray-100 text-gray-800 hover:bg-gray-200"
@@ -105,7 +104,7 @@ const Events = () => {
                     </div>
                 </div>
 
-                {/* Mobile Menu */}
+
                 <AnimatePresence>
                     {isMenuOpen && (
                         <motion.div

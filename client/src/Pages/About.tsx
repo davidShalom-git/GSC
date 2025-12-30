@@ -24,12 +24,11 @@ const AboutPage = () => {
 
   return (
     <>
-      {/* Navbar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
+
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
           ? 'bg-linear-to-br from-gray-50 to-orange-50 shadow-xl '
           : 'bg-linear-to-br from-gray-50 to-orange-50 shadow-lg'
-      }`}>
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <motion.div
@@ -47,7 +46,7 @@ const AboutPage = () => {
               </div>
             </motion.div>
 
-               <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex items-center gap-1">
               {navItems.map((item, index) => (
                 <motion.div
                   key={index}
@@ -58,8 +57,8 @@ const AboutPage = () => {
                   <Link
                     to={item.path}
                     className={`group relative px-6 py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${isScrolled
-                        ? 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-                        : 'text-white hover:bg-white/20'
+                      ? 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
+                      : 'text-white hover:bg-white/20'
                       }`}
                   >
                     {item.name}
@@ -100,11 +99,11 @@ const AboutPage = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
+
       <div className="relative h-96 overflow-hidden bg-linear-to-br from-orange-400 via-red-500 to-orange-600 mt-20">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-20"></div>
         <div className="absolute inset-0 bg-linear-to-r from-black/60 to-black/40"></div>
-        
+
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -119,7 +118,7 @@ const AboutPage = () => {
         </div>
       </div>
 
-      {/* Our Story Section */}
+
       <section className="py-20 bg-linear-to-br from-white via-gray-50 to-orange-50">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
@@ -169,7 +168,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Our Mission & Vision */}
+
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12">
@@ -203,7 +202,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Core Values */}
+
       <section className="py-20 bg-linear-to-br from-gray-50 via-white to-orange-50">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
@@ -244,7 +243,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Leadership Team */}
+
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
@@ -291,7 +290,6 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
       <section className="py-20 bg-linear-to-r from-orange-500 via-red-500 to-orange-600">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
@@ -317,7 +315,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-     <Footer />
+      <Footer />
     </>
   )
 }
