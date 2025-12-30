@@ -1,4 +1,4 @@
-import React from 'react'
+
 import fggs from '../assets/FGGS.png'
 import { Facebook, Instagram, Youtube, Mail, Phone } from 'lucide-react'
 
