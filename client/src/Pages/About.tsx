@@ -26,8 +26,8 @@ const AboutPage = () => {
     <>
 
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-          ? 'bg-linear-to-br from-gray-50 to-orange-50 shadow-xl '
-          : 'bg-linear-to-br from-gray-50 to-orange-50 shadow-lg'
+        ? 'bg-linear-to-br from-gray-50 to-orange-50 shadow-xl '
+        : 'bg-linear-to-br from-gray-50 to-orange-50 shadow-lg'
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
@@ -112,8 +112,8 @@ const AboutPage = () => {
             className="text-center"
           >
             <div className="text-6xl mb-4">⛪</div>
-            <h1 className="text-5xl md:text-4xl font-bold mb-4">பூரண சுவிசேஷ நல்ல மேய்ப்பன் தேவ சபை</h1>
-            <p>தேவனுடைய வீடு</p>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">பூரண சுவிசேஷ நல்ல மேய்ப்பன் தேவ சபை</h1>
+            <p>(தேவனுடைய வீடு)</p>
           </motion.div>
         </div>
       </div>
@@ -140,7 +140,7 @@ const AboutPage = () => {
               className="space-y-6"
             >
               <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet" />
-              <h3 className='text-3xl font-bold text-gray-900 font-["Noto_Sans_Tamil",sans-serif]'>
+              <h3 className='text-2xl font-bold text-gray-900 font-["Noto_Sans_Tamil",sans-serif]'>
                 பூரண சுவிசேஷ நல்ல மேய்ப்பன் தேவ சபை
               </h3>
               <p className="text-lg text-gray-700 leading-relaxed">
