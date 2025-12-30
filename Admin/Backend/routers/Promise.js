@@ -43,7 +43,7 @@ router.post('/pro', upload.single('image'), async (req, res) => {
       size: file.size,
       base64Data: base64Data,
       uploadPath: `memory-${fileName}`,
-      title: title
+
     });
 
     const savedImage = await newImage.save();
