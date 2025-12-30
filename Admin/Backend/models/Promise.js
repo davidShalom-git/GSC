@@ -31,10 +31,6 @@ const PromiseSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  title: {
-    type:String,
-    required: true
-  }
 }, {
   timestamps: true,
   collection: 'tamil'
