@@ -31,7 +31,6 @@ const ChurchAdminPanel = () => {
             reader.readAsDataURL(file);
             reader.onload = () => {
                 const base64String = reader.result as string;
-
                 const base64Data = base64String.split(',')[1];
                 resolve(base64Data);
             };
@@ -42,7 +41,6 @@ const ChurchAdminPanel = () => {
     const handleVideo = async () => {
         try {
             setUploadStatus({ ...uploadStatus, video: 'uploading' });
-
 
             if (videoThumbnailFile) {
                 const formData = new FormData();
@@ -57,14 +55,12 @@ const ChurchAdminPanel = () => {
                 });
 
                 if (!response.ok) throw new Error("Failed to Upload the Video");
-                const data = await response.json();
 
                 setUploadStatus({ ...uploadStatus, video: 'success' });
                 setVideo({ title: "", url: "", thumbnail: "", thumbnailType: "url" });
                 setVideoThumbnailFile(null);
                 setTimeout(() => setUploadStatus({ ...uploadStatus, video: '' }), 3000);
             } else {
-
                 const response = await fetch(import.meta.env.VITE_URL, {
                     method: 'POST',
                     headers: {
@@ -74,7 +70,6 @@ const ChurchAdminPanel = () => {
                 });
 
                 if (!response.ok) throw new Error("Failed to Upload the Video");
-                const data = await response.json();
 
                 setUploadStatus({ ...uploadStatus, video: 'success' });
                 setVideo({ title: "", url: "", thumbnail: "", thumbnailType: "url" });
@@ -167,7 +162,6 @@ const ChurchAdminPanel = () => {
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
                         <div className="bg-gradient-to-r from-red-500 to-pink-500 p-6 text-white">
                             <div className="flex items-center justify-between">
@@ -200,10 +194,8 @@ const ChurchAdminPanel = () => {
                                 />
                             </div>
 
-
                             <div className="border-t pt-4">
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">Thumbnail (Optional)</label>
-
 
                                 <div className="mb-3">
                                     <input
@@ -215,7 +207,6 @@ const ChurchAdminPanel = () => {
                                         className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:outline-none transition-colors text-sm"
                                     />
                                 </div>
-
 
                                 <div>
                                     <input
@@ -240,7 +231,6 @@ const ChurchAdminPanel = () => {
                             <StatusMessage status={uploadStatus.video || ''} />
                         </div>
                     </div>
-
 
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
                         <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-6 text-white">
@@ -274,7 +264,6 @@ const ChurchAdminPanel = () => {
                             <StatusMessage status={uploadStatus.event || ''} />
                         </div>
                     </div>
-
 
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
                         <div className="bg-gradient-to-r from-purple-500 to-indigo-500 p-6 text-white">

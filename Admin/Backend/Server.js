@@ -10,24 +10,30 @@ const EventRoute = require('./routers/Event');
 const PromiseRoute = require('./routers/Promise');
 
 
+const corsOptions = {
+    origin: ['http://localhost:3000', 'http://localhost:5173', 'https://yourdomain.com', 'https://your-vercel-app.vercel.app'],
+    credentials: true,
+    optionsSuccessStatus: 200,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
+
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGO_URI).then(()=>{
+
+mongoose.connect(process.env.MONGO_URI).then(() => {
     console.log("MongoDB Connected")
-}).catch((err)=>{
+}).catch((err) => {
     console.log("MongoDB Not Connected", err)
 })
 
 
-
-app.use(cors());
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.send("Jesus the Great...")
 })
 
@@ -36,7 +42,6 @@ app.use('/api/event', EventRoute);
 app.use('/api/promise', PromiseRoute);
 
 
-
-app.listen(1995,()=> {
-    console.log("Server is Runnning on port 1995");
+app.listen(1995, () => {
+    console.log("Server is Running on port 1995");
 })
