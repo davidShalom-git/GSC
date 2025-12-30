@@ -243,7 +243,7 @@ const HeroSection = () => {
               🕊️
             </motion.div>
 
-            <h1 className='text-3xl md:text-4xl lg:text-4xl font-bold font-["Noto_Sans_Tamil",sans-serif] leading-tight mb-6 bg-clip-text text-transparent bg-linear-to-r from-white via-orange-100 to-white'>
+            <h1 className='text-2xl md:text-4xl lg:text-4xl font-bold font-["Noto_Sans_Tamil",sans-serif] leading-tight mb-6 bg-clip-text text-transparent bg-linear-to-r from-white via-orange-100 to-white'>
               பூரண சுவிசேஷ நல்ல மேய்ப்பன் தேவ சபை
             </h1>
 
