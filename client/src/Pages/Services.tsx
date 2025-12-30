@@ -66,7 +66,7 @@ const Services = () => {
                                         to={item.path}
                                         className={`group relative px-6 py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${isScrolled
                                             ? 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-                                            : 'text-white hover:bg-white/20'
+                                            : 'text-black hover:bg-white/20'
                                             }`}
                                     >
                                         {item.name}
