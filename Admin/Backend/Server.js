@@ -11,7 +11,7 @@ const PromiseRoute = require('./routers/Promise');
 
 
 const corsOptions = {
-    origin: ['http://localhost:3000', 'http://localhost:5173', 'https://yourdomain.com', 'https://your-vercel-app.vercel.app'],
+    origin: ['https://gsc-alpha.vercel.app', 'http://localhost:5173', 'https://yourdomain.com', 'https://your-vercel-app.vercel.app'],
     credentials: true,
     optionsSuccessStatus: 200,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
