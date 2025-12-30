@@ -23,15 +23,6 @@ const upload = multer({
 
 
 router.post('/pro', upload.single('image'), async (req, res) => {
-  const {title}  = req.body;
-
-  if(!title){
-    return res.status(400).json({
-      success: false,
-      message: 'Title is required'
-    });
-  }
-
   try {
     if (!req.file) {
       return res.status(400).json({
@@ -67,7 +58,7 @@ router.post('/pro', upload.single('image'), async (req, res) => {
         mimeType: savedImage.mimeType,
         size: savedImage.size,
         uploadedAt: savedImage.uploadedAt,
-        title: savedImage.title,
+       
       }
     });
   } catch (error) {
