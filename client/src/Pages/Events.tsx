@@ -154,6 +154,8 @@ const Events = () => {
                 </div>
             </div>
 
+          
+
 
             <div className='bg-linear-to-br from-gray-50 via-white to-orange-50 py-12'>
                 <div className='max-w-6xl mx-auto px-4 space-y-12'>

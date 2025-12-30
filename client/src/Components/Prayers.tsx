@@ -18,7 +18,22 @@ const Prayers = () => {
                 <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-black mb-3'>
                     Prayer
                 </h1>
+                
                 <div className='w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
+                 <motion.button
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className='group relative px-7 mt-10 py-3 bg-linear-to-r from-red-600 to-orange-500 text-white rounded-full font-bold overflow-hidden shadow-2xl'
+                        >
+                            <span className="relative z-10 flex items-center gap-2">
+                                <Link to='/events' className="w-3 h-3 bg-white rounded-full animate-pulse"></Link>
+                                Go ➡️
+                            </span>
+                            <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+                        </motion.button>
             </div>
 
             <motion.div

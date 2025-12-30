@@ -267,7 +267,7 @@ const HeroSection = () => {
               className='group relative px-7 py-3 bg-linear-to-r from-red-600 to-orange-500 text-white rounded-full font-bold overflow-hidden shadow-2xl'
             >
               <span className="relative z-10 flex items-center gap-2">
-                <span className="w-3 h-3 bg-white rounded-full animate-pulse"></span>
+                <Link to='/services' className="w-3 h-3 bg-white rounded-full animate-pulse"></Link>
                 Live Now
               </span>
               <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
