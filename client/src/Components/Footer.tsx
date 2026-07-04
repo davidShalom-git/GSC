@@ -1,77 +1,165 @@
+"use client";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Instagram,
+  Youtube,
+  Globe,
+} from "lucide-react";
+import { FooterBackgroundGradient, TextHoverEffect } from "./ui/hover-footer";
 
-import fggs from '../assets/FGGS.png'
-import { Facebook, Instagram, Youtube, Mail, Phone } from 'lucide-react'
+function Footer() {
+  // Footer link data
+  const footerLinks = [
+    {
+      title: "About Us",
+      links: [
+        { label: "Our History", href: "/about" },
+        { label: "Meet the Team", href: "/about" },
+        { label: "Our Beliefs", href: "/about" },
+        { label: "Ministries", href: "/services" },
+      ],
+    },
+    {
+      title: "Helpful Links",
+      links: [
+        { label: "Sermons", href: "/videos" },
+        { label: "Upcoming Events", href: "/events" },
+        {
+          label: "Live Stream",
+          href: "/services",
+          pulse: true,
+        },
+      ],
+    },
+  ];
 
-const Footer = () => {
-    return (
-        <footer className="w-full bg-linear-to-br from-gray-50 to-orange-50 text-gray-800">
-            <div className="max-w-7xl mx-auto px-6 py-16">
+  // Contact info data
+  const contactInfo = [
+    {
+      icon: <Mail size={18} className="text-[#d4af37]" />,
+      text: "holystyle09@gmail.com",
+      href: "mailto:holystyle09@gmail.com",
+    },
+    {
+      icon: <Phone size={18} className="text-[#d4af37]" />,
+      text: "8618515965",
+      href: "tel:8618515965",
+    },
+    {
+      icon: <MapPin size={18} className="text-[#d4af37]" />,
+      text: "Kilnathur, Tiruvannamalai",
+    },
+  ];
 
-                <div className="flex items-center justify-center gap-3 md:gap-4 mb-8">
-                    <img src={fggs} alt="FGGS Logo" className="h-10 md:h-12 lg:h-14" />
-                    <span className="font-bold text-2xl md:text-3xl">FGGS</span>
-                </div>
+  // Social media icons
+  const socialLinks = [
+    { icon: <Facebook size={20} />, label: "Facebook", href: "https://facebook.com/your-church" },
+    { icon: <Instagram size={20} />, label: "Instagram", href: "https://instagram.com/your-church" },
+    { icon: <Youtube size={20} />, label: "Youtube", href: "https://youtube.com/@your-church" },
+    { icon: <Globe size={20} />, label: "Website", href: "/" },
+  ];
 
-
-                <p className="text-center max-w-3xl mx-auto text-lg md:text-xl font-light text-gray-900 italic leading-relaxed mb-6">
-                    சுவிசேஷத்தை பரப்புதல், மற்றும் ஆவியானவரால் நிரப்பப்பட்ட கூட்டங்களில் ஒன்றுசேர்தல். விசுவாசத்திலும் அன்பிலும் வளர எங்களுடன் இணையுங்கள்.
-                </p>
-
-
-                <div className="w-24 h-1 bg-linear-to-r from-yellow-400 to-orange-400 mx-auto rounded-full mb-8"></div>
-
-                <div className="flex justify-center items-center gap-6 mb-8">
-                    <a
-                        href="https://facebook.com/your-church"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 hover:scale-110"
-                    >
-                        <Facebook className="w-6 h-6" />
-                    </a>
-                    <a
-                        href="https://instagram.com/your-church"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-pink-600 hover:bg-linear-to-br hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 hover:text-white transition-all duration-300 hover:scale-110"
-                    >
-                        <Instagram className="w-6 h-6" />
-                    </a>
-                    <a
-                        href="https://youtube.com/@your-church"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 hover:scale-110"
-                    >
-                        <Youtube className="w-6 h-6" />
-                    </a>
-                </div>
-
-                <div className="flex flex-col md:flex-row justify-center items-center gap-6 text-gray-700">
-                    <a
-                        href="mailto:contact@fggs.com"
-                        className="flex items-center gap-2 hover:text-orange-600 transition-colors"
-                    >
-                        <Mail className="w-5 h-5" />
-                        <span>contact@fggs.com</span>
-                    </a>
-                    <a
-                        href="tel:+919876543210"
-                        className="flex items-center gap-2 hover:text-orange-600 transition-colors"
-                    >
-                        <Phone className="w-5 h-5" />
-                        <span>+91 98765 43210</span>
-                    </a>
-                </div>
+  return (
+    <footer className="bg-[#022c22] relative h-fit overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 py-14 md:p-14 z-40 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
+          {/* Brand section */}
+          <div className="flex flex-col space-y-4">
+            <div className="flex items-center space-x-2">
+              <span className="text-white text-3xl font-serif font-bold tracking-widest">FGGS</span>
             </div>
+            <p className="text-sm leading-relaxed text-white/70 font-light">
+              சுவிசேஷத்தை பரப்புதல், மற்றும் ஆவியானவரால் நிரப்பப்பட்ட கூட்டங்களில் ஒன்றுசேர்தல். விசுவாசத்திலும் அன்பிலும் வளர எங்களுடன் இணையுங்கள்.
+            </p>
+          </div>
 
-            <div className="border-t border-gray-200">
-                <div className="max-w-7xl mx-auto px-6 py-6 text-center text-sm text-gray-600">
-                    <a href="/" className="hover:text-gray-900 transition-colors">FGGS</a> @{new Date().getFullYear()}. All rights reserved.
-                </div>
+          {/* Footer link sections */}
+          {footerLinks.map((section) => (
+            <div key={section.title}>
+              <h4 className="text-white text-lg font-semibold mb-6">
+                {section.title}
+              </h4>
+              <ul className="space-y-3">
+                {section.links.map((link) => (
+                  <li key={link.label} className="relative w-fit">
+                    <a
+                      href={link.href}
+                      className="text-white/70 hover:text-[#d4af37] transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                    {link.pulse && (
+                      <span className="absolute top-0 -right-3 w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
+                    )}
+                  </li>
+                ))}
+              </ul>
             </div>
-        </footer>
-    )
+          ))}
+
+          {/* Contact section */}
+          <div>
+            <h4 className="text-white text-lg font-semibold mb-6">
+              Contact Us
+            </h4>
+            <ul className="space-y-4">
+              {contactInfo.map((item, i) => (
+                <li key={i} className="flex items-center space-x-3 text-white/70">
+                  {item.icon}
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      className="hover:text-[#d4af37] transition-colors"
+                    >
+                      {item.text}
+                    </a>
+                  ) : (
+                    <span className="hover:text-[#d4af37] transition-colors">
+                      {item.text}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <hr className="border-t border-white/10 my-8" />
+
+        {/* Footer bottom */}
+        <div className="flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0 text-white/50">
+          {/* Social icons */}
+          <div className="flex space-x-6 text-white/40">
+            {socialLinks.map(({ icon, label, href }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                className="hover:text-[#d4af37] transition-colors"
+              >
+                {icon}
+              </a>
+            ))}
+          </div>
+
+          {/* Copyright */}
+          <p className="text-center md:text-left">
+            &copy; {new Date().getFullYear()} FGGS. All rights reserved.
+          </p>
+        </div>
+      </div>
+
+      {/* Text hover effect */}
+      <div className="flex h-[20rem] md:h-[30rem] -mt-24 md:-mt-52 -mb-16 md:-mb-36">
+        <TextHoverEffect text="FGGS" className="z-50" />
+      </div>
+
+      <FooterBackgroundGradient />
+    </footer>
+  );
 }
 
-export default Footer
+export default Footer;

@@ -1,31 +1,34 @@
 import { motion } from 'framer-motion';
-import Footer from './Footer';
 
 const Testimonial = () => {
 
     const cardsData = [
         {
-            image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200',
-            name: 'Briar Martin',
-            handle: '@neilstellar',
+            image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200',
+            name: 'Sarah Mitchell',
+            role: 'Church Member',
+            text: "Finding this church has been a huge blessing. The community is so welcoming and the worship is truly spirit-filled.",
             date: 'April 20, 2025'
         },
         {
-            image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200',
-            name: 'Avery Johnson',
-            handle: '@averywrites',
+            image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200',
+            name: 'David Thompson',
+            role: 'Youth Leader',
+            text: "My family has grown so much in our faith since joining. The pastors here genuinely care about everyone's spiritual journey.",
             date: 'May 10, 2025'
         },
         {
-            image: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&auto=format&fit=crop&q=60',
-            name: 'Jordan Lee',
-            handle: '@jordantalks',
+            image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200',
+            name: 'Priya Sharma',
+            role: 'Volunteer',
+            text: "The prayer meetings have completely transformed my life. I've never experienced such powerful intercession and love.",
             date: 'June 5, 2025'
         },
         {
-            image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60',
-            name: 'Avery Johnson',
-            handle: '@averywrites',
+            image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200',
+            name: 'Marcus Johnson',
+            role: 'Worship Team',
+            text: "I came here broken, but through the sound biblical teachings and the loving community, I found true healing and purpose.",
             date: 'May 10, 2025'
         },
     ];
@@ -33,7 +36,8 @@ const Testimonial = () => {
     interface Card {
         image: string;
         name: string;
-        handle: string;
+        role: string;
+        text: string;
         date: string;
     }
 
@@ -42,30 +46,20 @@ const Testimonial = () => {
     }
 
     const CreateCard: React.FC<CreateCardProps> = ({ card }) => (
-        <div className="p-4 rounded-lg mx-4 shadow hover:shadow-lg transition-all duration-200 w-72 shrink-0 bg-white">
-            <div className="flex gap-2">
-                <img className="size-11 rounded-full" src={card.image} alt="User Image" />
+        <div className="p-6 rounded-2xl mx-3 shadow-xl transition-transform duration-300 w-[280px] shrink-0 bg-white group hover:-translate-y-2 hover:shadow-2xl">
+            <div className="flex gap-3 items-center mb-4">
+                <img className="size-11 rounded-full object-cover border-2 border-[#d4af37]/30 group-hover:border-[#d4af37] transition-colors" src={card.image} alt={card.name} />
                 <div className="flex flex-col">
-                    <div className="flex items-center gap-1">
-                        <p>{card.name}</p>
-                        <svg className="mt-0.5" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fillRule="evenodd" clipRule="evenodd" d="M4.555.72a4 4 0 0 1-.297.24c-.179.12-.38.202-.59.244a4 4 0 0 1-.38.041c-.48.039-.721.058-.922.129a1.63 1.63 0 0 0-.992.992c-.071.2-.09.441-.129.922a4 4 0 0 1-.041.38 1.6 1.6 0 0 1-.245.59 3 3 0 0 1-.239.297c-.313.368-.47.551-.56.743-.213.444-.213.96 0 1.404.09.192.247.375.56.743.125.146.187.219.24.297.12.179.202.38.244.59.018.093.026.189.041.38.039.48.058.721.129.922.163.464.528.829.992.992.2.071.441.09.922.129.191.015.287.023.38.041.21.042.411.125.59.245.078.052.151.114.297.239.368.313.551.47.743.56.444.213.96.213 1.404 0 .192-.09.375-.247.743-.56.146-.125.219-.187.297-.24.179-.12.38-.202.59-.244a4 4 0 0 1 .38-.041c.48-.039.721-.058.922-.129.464-.163.829-.528.992-.992.071-.2.09-.441.129-.922a4 4 0 0 1 .041-.38c.042-.21.125-.411.245-.59.052-.078.114-.151.239-.297.313-.368.47-.551.56-.743.213-.444.213-.96 0-1.404-.09-.192-.247-.375-.56-.743a4 4 0 0 1-.24-.297 1.6 1.6 0 0 1-.244-.59 3 3 0 0 1-.041-.38c-.039-.48-.058-.721-.129-.922a1.63 1.63 0 0 0-.992-.992c-.2-.071-.441-.09-.922-.129a4 4 0 0 1-.38-.041 1.6 1.6 0 0 1-.59-.245A3 3 0 0 1 7.445.72C7.077.407 6.894.25 6.702.16a1.63 1.63 0 0 0-1.404 0c-.192.09-.375.247-.743.56m4.07 3.998a.488.488 0 0 0-.691-.69l-2.91 2.91-.958-.957a.488.488 0 0 0-.69.69l1.302 1.302c.19.191.5.191.69 0z" fill="#2196F3" />
-                        </svg>
-                    </div>
-                    <span className="text-xs text-slate-500">{card.handle}</span>
+                    <p className="font-serif text-lg text-gray-900 tracking-wide">{card.name}</p>
+                    <span className="text-[9px] text-[#d4af37] uppercase tracking-[0.2em] font-bold mt-0.5">{card.role}</span>
                 </div>
             </div>
-            <p className="text-sm py-4 text-gray-800">Radiant made undercutting all of our competitors an absolute breeze.</p>
-            <div className="flex items-center justify-between text-slate-500 text-xs">
-                <div className="flex items-center gap-1">
-                    <span>Posted on</span>
-                    <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:text-sky-500">
-                        <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="m.027 0 4.247 5.516L0 10h.962l3.742-3.926L7.727 10H11L6.514 4.174 10.492 0H9.53L6.084 3.616 3.3 0zM1.44.688h1.504l6.64 8.624H8.082z" fill="currentColor" />
-                        </svg>
-                    </a>
-                </div>
-                <p>{card.date}</p>
+            <p className="text-sm font-light leading-relaxed text-gray-600 mb-5 italic">"{card.text}"</p>
+            <div className="flex items-center justify-between text-gray-400 text-[10px] font-sans border-t border-gray-100 pt-3">
+                <span>{card.date}</span>
+                <svg className="w-3.5 h-3.5 text-[#d4af37]/80" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+                </svg>
             </div>
         </div>
     );
@@ -73,12 +67,11 @@ const Testimonial = () => {
     return (
         <>
             <motion.div
-                initial={{ opacity: 0, y: -50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-
+                className="bg-[#022c22] pt-24 pb-0 font-sans"
             >
-
                 <style>{`
                 @keyframes marqueeScroll {
                     0% { transform: translateX(0%); }
@@ -92,73 +85,65 @@ const Testimonial = () => {
                 .marquee-reverse {
                     animation-direction: reverse;
                 }
-            `}</style>
+                `}</style>
 
-                <div className=' bg-linear-to-br from-gray-50 to-orange-50 py-16'>
-                    <div className='text-center mb-12 px-6'>
+                <div className="mb-20 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-12 border-b border-white/10 pb-12 px-6 max-w-7xl mx-auto">
+                    <div className="max-w-2xl relative pl-0 md:pl-8">
+                        <div className="hidden md:block absolute left-0 top-2 bottom-2 w-[2px] bg-gradient-to-b from-[#d4af37] to-transparent"></div>
                         <motion.div
                             initial={{ scale: 0 }}
                             whileInView={{ scale: 1 }}
                             viewport={{ once: true }}
-                            className="inline-block text-5xl mb-3"
+                            className="inline-flex items-center gap-3 mb-4 justify-center md:justify-start"
                         >
-                            💬
+                            <svg className="w-5 h-5 text-[#d4af37]" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
+                            </svg>
+                            <span className="text-[10px] tracking-[0.3em] text-[#d4af37] font-bold uppercase">
+                                Testimonies
+                            </span>
                         </motion.div>
-                        <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-black mb-3'>
-                            Testimonials
-                        </h1>
-                        <div className='w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
+                        <h2 className="font-serif text-5xl md:text-6xl font-normal tracking-wide text-white mb-6">
+                            Lives Changed
+                        </h2>
+                        <div className="w-24 h-[1px] bg-[#d4af37]/30 md:mx-0 mx-auto"></div>
                     </div>
-
-
-                    <div className="marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
-                        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none "></div>
-                        <div className="marquee-inner flex transform-gpu min-w-[200%] pt-10 pb-5">
-                            {[...cardsData, ...cardsData].map((card, index) => (
-                                <CreateCard key={index} card={card} />
-                            ))}
-                        </div>
-                        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none "></div>
-                    </div>
-
-                    <div className="marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
-                        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none"></div>
-                        <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] pt-10 pb-5">
-                            {[...cardsData, ...cardsData].map((card, index) => (
-                                <CreateCard key={index} card={card} />
-                            ))}
-                        </div>
-                        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none"></div>
+                    <div className="max-w-md text-center md:text-left">
+                        <p className="text-lg font-light leading-relaxed tracking-wide text-white/50 font-sans md:border-l md:border-white/10 md:pl-8">
+                            Hear from our church family about how God is working in their lives through our community.
+                        </p>
                     </div>
                 </div>
 
-                <motion.section
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.8 }}
-                    className="relative z-10 py-20 px-4"
-                >
-                    <div className="max-w-4xl mx-auto">
-                        <motion.div
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            className="text-center"
-                        >
-                            <div className="text-6xl mb-8 text-yellow-400">✨</div>
-                            <blockquote className="text-2xl md:text-3xl font-light text-gray-900 italic mb-8 leading-relaxed">
-                                "எழும்பி, பிரகாசி, உன் ஒளி வந்தது; கர்த்தருடைய மகிமை உன்மேல் உதித்தது"
-                            </blockquote>
-                            <p className="text-lg text-gray-600 font-medium mb-4">
-                                ஏசாயா 60:1
-                            </p>
-                            <div className="w-24 h-1 bg-linear-to-r from-yellow-400 to-orange-400 mx-auto rounded-full"></div>
-                        </motion.div>
+                <div className="w-full mx-auto overflow-hidden relative pb-16 mt-8">
+                    {/* Background white fog glows */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/10 blur-[150px] rounded-full pointer-events-none -z-10"></div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-white/20 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+                    
+                    <div className="marquee-row w-full overflow-hidden relative mb-8">
+                        <div className="absolute left-0 top-0 h-full w-32 md:w-64 bg-gradient-to-r from-[#022c22] to-transparent z-10 pointer-events-none"></div>
+                        <div className="marquee-inner flex transform-gpu min-w-[200%] pt-4 pb-4">
+                            {[...cardsData, ...cardsData].map((card, index) => (
+                                <CreateCard key={index} card={card} />
+                            ))}
+                        </div>
+                        <div className="absolute right-0 top-0 h-full w-32 md:w-64 bg-gradient-to-l from-[#022c22] to-transparent z-10 pointer-events-none"></div>
                     </div>
-                </motion.section>
+
+                    <div className="marquee-row w-full overflow-hidden relative">
+                        <div className="absolute left-0 top-0 h-full w-32 md:w-64 bg-gradient-to-r from-[#022c22] to-transparent z-10 pointer-events-none"></div>
+                        <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] pt-4 pb-8">
+                            {[...cardsData, ...cardsData].map((card, index) => (
+                                <CreateCard key={`rev-${index}`} card={card} />
+                            ))}
+                        </div>
+                        <div className="absolute right-0 top-0 h-full w-32 md:w-64 bg-gradient-to-l from-[#022c22] to-transparent z-10 pointer-events-none"></div>
+                    </div>
+                </div>
+
+
 
             </motion.div>
-            <Footer />
         </>
     )
 }

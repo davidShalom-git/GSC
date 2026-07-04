@@ -8,6 +8,7 @@ import Christmas from './Events/Christmas';
 import NewYear from './Events/NewYear';
 import Good from './Events/Good';
 import AboutPage from './Pages/About';
+import PrayerPage from './Pages/Prayer';
 
 
 
@@ -27,6 +28,7 @@ const App = () => {
           <Route path='/newyear' element={<NewYear />} />
           <Route path='/good' element={<Good />} />
           <Route path='/about' element={<AboutPage />} />
+          <Route path='/prayer' element={<PrayerPage />} />
         </Routes>
       </Router>
 

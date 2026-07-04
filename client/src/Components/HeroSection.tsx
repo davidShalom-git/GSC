@@ -1,347 +1,111 @@
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import Navbar from './Navbar'
 
-interface PromiseWordItem {
-  _id: string;
-  mimeType: string;
-  originalName: string;
-  base64Data: string;
-  title: string;
-  createdAt?: string;
-}
-
+// Array of high-quality, dark church interior/worship images for the carousel
+const HERO_IMAGES = [
+  'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=2000&q=80',
+  'https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=2000&q=80',
+  'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=2000&q=80'
+]
 
 const HeroSection = () => {
-  const [PromiseWord, setPromiseWord] = useState<PromiseWordItem[]>([])
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'Services', path: '/services' },
-    { name: 'Events', path: '/events' },
-    { name: 'About', path: '/about' },
-  ]
-
-  const images = [
-    "https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1467810563316-b5476525c0f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1512389142860-9c449e58a543?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-  ]
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
+  // Automatic carousel effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [images.length])
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % HERO_IMAGES.length)
+    }, 5000) // Change image every 5 seconds
 
-  useEffect(() => {
-    const getImages = async () => {
-      try {
-        const response = await fetch(import.meta.env.VITE_PROMISE)
-        if (!response.ok) return
-        const data = await response.json()
-        const arrayData = Array.isArray(data) ? data : (data.data || [])
-
-        const sortedData = arrayData.sort((a: any, b: any) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-        ).slice(-3)
-
-        setPromiseWord(sortedData)
-      } catch (error) {
-        console.error('Error fetching:', error)
-      }
-    }
-
-    getImages()
-    const interval = setInterval(getImages, 5000)
     return () => clearInterval(interval)
   }, [])
 
- 
-
   return (
-    <>
+    <div className="relative min-h-screen w-full overflow-hidden bg-[#022c22]">
+      {/* Background Image Carousel layer */}
+      {HERO_IMAGES.map((img, index) => (
+        <img
+          key={img}
+          src={img}
+          alt={`Church Interior ${index + 1}`}
+          className={`absolute inset-0 z-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-in-out ${
+            index === currentImageIndex ? 'opacity-70' : 'opacity-0'
+          }`}
+        />
+      ))}
 
-      <nav className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-          ? 'bg-linear-to-br from-gray-50 to-orange-50 shadow-xl'
-          : 'bg-linear-to-b from-black/40 to-transparent backdrop-blur-sm'
-        }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+      {/* Dark overlays to ensure text pops exactly like the reference */}
+      <div className="pointer-events-none absolute inset-0 z-1 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-48 bg-gradient-to-t from-[#111111] to-transparent" />
 
+      {/* Navigation bar */}
+      <Navbar darkBg={true} />
 
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-3 cursor-pointer group"
-            >
-              <div className={`relative p-2.5 rounded-2xl transition-all duration-300 ${isScrolled
-                  ? 'bg-linear-to-br from-orange-400 to-red-500'
-                  : 'bg-white/20 backdrop-blur-md border border-white/30'
-                }`}>
-                <div className="text-2xl">🕊️</div>
-                <div className="absolute inset-0 border-2 border-orange-400 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></div>
-              </div>
-              <div className="flex flex-col">
-                <span className={`font-bold text-xl tracking-wide transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'
-                  }`}>
-                  FGGS
-                </span>
-                <span className={`text-xs font-semibold tracking-widest transition-colors ${isScrolled ? 'text-orange-500' : 'text-orange-300'
-                  }`}>
-                  CHURCH
-                </span>
-              </div>
-            </motion.div>
-
-
-            <div className="hidden md:flex items-center gap-1">
-              {navItems.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Link
-                    to={item.path}
-                    className={`group relative px-6 py-2.5 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${isScrolled
-                        ? 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-                        : 'text-white hover:bg-white/20'
-                      }`}
-                  >
-                    {item.name}
-                    <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-3/4 transition-all duration-300 ${isScrolled ? 'bg-orange-500' : 'bg-white'
-                      }`}></div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-
-
-            <motion.button
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className={`hidden md:block px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${isScrolled
-                  ? 'bg-linear-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105'
-                  : 'bg-white text-orange-500 hover:bg-orange-50 hover:scale-105'
-                }`}
-            >
-              Join Us
-            </motion.button>
-
-
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`md:hidden p-2.5 rounded-xl transition-all duration-300 ${isScrolled
-                  ? 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                  : 'bg-white/20 backdrop-blur-md text-white hover:bg-white/30'
-                }`}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                {isMenuOpen ? (
-                  <>
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </>
-                ) : (
-                  <>
-                    <line x1="4" y1="8" x2="20" y2="8" />
-                    <line x1="4" y1="16" x2="20" y2="16" />
-                  </>
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
-
-
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden overflow-hidden border-t border-white/10"
-            >
-              <div className={`px-4 py-4 ${isScrolled ? 'bg-white' : 'bg-black/40 backdrop-blur-xl'}`}>
-                {navItems.map((item, index) => (
-                  <motion.a
-                    key={index}
-                    href={item.path}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center gap-4 px-5 py-4 rounded-xl mb-2 transition-all duration-300 ${isScrolled
-                        ? 'text-gray-700 hover:bg-orange-50 hover:text-orange-500'
-                        : 'text-white hover:bg-white/10'
-                      }`}
-                  >
-                    <span className="font-medium">{item.name}</span>
-                  </motion.a>
-                ))}
-                <motion.button
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="w-full mt-2 px-5 py-3 bg-linear-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
-                >
-                  Join Us
-                </motion.button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
-
-
-      <div className="relative min-h-screen overflow-hidden bg-black">
-
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${images[currentIndex]})` }}
-          />
-        </AnimatePresence>
-
-
-        <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/60 to-black/40" />
-        <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/60" />
-
-        <div className="relative z-10 flex flex-col items-center justify-center px-6 md:px-16 min-h-screen text-white">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="text-center max-w-5xl"
-          >
-            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-              className="inline-block mb-8 text-5xl"
-            >
-              🕊️
-            </motion.div>
-
-            <h1 className='text-2xl md:text-4xl lg:text-4xl font-bold font-["Noto_Sans_Tamil",sans-serif] leading-tight mb-6 bg-clip-text text-transparent bg-linear-to-r from-white via-orange-100 to-white'>
-              பூரண சுவிசேஷ நல்ல மேய்ப்பன் தேவ சபை
-            </h1>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className='text-xl md:text-2xl font-["Noto_Sans_Tamil",sans-serif] text-gray-200 mb-10 max-w-3xl mx-auto leading-relaxed'
-            >
-              நமது மேய்ப்பன் தேவ சபையின் முக்கிய வார்த்தைகள்
-            </motion.p>
-
-            <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className='group relative px-7 py-3 bg-linear-to-r from-red-600 to-orange-500 text-white rounded-full font-bold overflow-hidden shadow-2xl'
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <Link to='/services' className="w-3 h-3 bg-white rounded-full animate-pulse"></Link>
-                Live Now
-              </span>
-              <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
-            </motion.button>
-          </motion.div>
-        </div>
-
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`h-2 rounded-full transition-all duration-500 ${index === currentIndex
-                  ? 'bg-white w-12 shadow-lg shadow-white/50'
-                  : 'bg-white/40 w-2 hover:bg-white/60'
-                }`}
-            />
-          ))}
-        </div>
-      </div>
-
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="bg-linear-to-br from-gray-50 via-white to-orange-50 py-20"
+      {/* Hero section */}
+      <section
+        className="relative z-10 flex min-h-[calc(100vh-160px)] w-full flex-col justify-center px-6 pb-20 pt-28 md:px-12 md:pt-40 lg:px-24 lg:pt-56"
       >
-        <div className='text-center mb-12 px-6'>
-          <motion.div
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-block text-5xl mb-3"
+        <motion.div 
+          className="w-full max-w-2xl pl-0 lg:pl-10"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2,
+                delayChildren: 0.3,
+              },
+            },
+          }}
+        >
+          <motion.h1
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.25, 0.4, 0.25, 1] } },
+            }}
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-normal leading-[1.2] tracking-wide text-white"
           >
-            💫
-          </motion.div>
-          <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-black mb-3'>
-            Promise Word
-          </h1>
-          <div className='w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
-        </div>
+            Welcome to<br />
+            <span className="font-bold">Full Gospel Good Shepherd</span> <em className="italic font-light">Church</em>
+          </motion.h1>
 
-        <div className='flex flex-wrap justify-center gap-8 max-w-7xl mx-auto px-6'>
-          {PromiseWord.map((item, index) => (
-            <motion.div
-              key={item._id || index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              whileHover={{ y: -10 }}
-              className='group w-full sm:w-80 bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500'
+          <motion.p
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.25, 0.4, 0.25, 1] } },
+            }}
+            className="mt-6 max-w-2xl font-sans text-base font-light leading-relaxed tracking-wide text-white/90 sm:text-lg md:text-[1.1rem]"
+          >
+            "Jesus said, 'I am the Good Shepherd. The Good Shepherd lays down His life for the sheep.'"<br />
+            <span className="font-semibold text-[#d4af37] tracking-wider uppercase text-sm mt-2 block">– John 10:11</span>
+          </motion.p>
+
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.25, 0.4, 0.25, 1] } },
+            }}
+            className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:gap-5"
+          >
+            <button
+              type="button"
+              className="w-[240px] rounded-full border border-[#d4af37] bg-transparent py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#d4af37] transition-colors hover:bg-[#d4af37]/10 sm:w-auto sm:px-8"
             >
-              <div className='relative overflow-hidden h-72'>
-                <img
-                  src={`data:${item.mimeType};base64,${item.base64Data}`}
-                  alt={item.originalName}
-                  className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-700'
-                />
-                <div className='absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500'></div>
-              </div>
-
-              <div className='p-6 text-center'>
-                <h2 className='font-bold text-xl text-gray-800 group-hover:text-orange-600 transition-colors duration-300'>
-                  {item.title}
-                </h2>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-    </>
+              PLAN A VISIT
+            </button>
+            <button
+              type="button"
+              className="w-[240px] rounded-full border border-white/60 bg-transparent py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-white/10 sm:w-auto sm:px-8"
+            >
+              WATCH ONLINE
+            </button>
+          </motion.div>
+        </motion.div>
+      </section>
+    </div>
   )
 }
 

@@ -1,438 +1,421 @@
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import Footer from '../Components/Footer';
+import EventsHero from '../Components/EventsHero';
+import Navbar from '../Components/Navbar';
+import { ArrowRight, Play, Calendar, Clock, MapPin } from 'lucide-react';
+import { useState } from 'react';
 
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import fggs from '../assets/FGGS.png'
-import { Link } from 'react-router-dom'
-import Footer from '../Components/Footer'
+/* ─── Past Event Gallery Images ─── */
+const galleryImages = [
+  { src: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800&q=80', alt: 'Worship night', span: 'col-span-1 row-span-2' },
+  { src: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800&q=80', alt: 'Good Friday service', span: 'col-span-1 row-span-1' },
+  { src: 'https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=800&q=80', alt: 'Community prayer', span: 'col-span-1 row-span-1' },
+  { src: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=800&q=80', alt: 'Christmas celebration', span: 'col-span-1 row-span-2' },
+  { src: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80', alt: 'Fellowship', span: 'col-span-1 row-span-1' },
+  { src: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80', alt: 'Easter sunrise', span: 'col-span-1 row-span-1' },
+];
 
+/* ─── Regular Church Gatherings ─── */
+const REGULAR_GATHERINGS = [
+  { title: 'Sunday Worship Service', desc: "Join us every Sunday for worship, praise, and the preaching of God's Word.", time: 'Sunday Mornings', color: '#022c22' },
+  { title: 'Prayer Meeting', desc: 'Come together for corporate prayer and intercession.', time: 'Mid-week', color: '#d4af37' },
+  { title: 'Bible Study', desc: "Grow in the knowledge of God's Word through systematic Bible teaching.", time: 'Weekly', color: '#022c22' },
+];
+
+/* ─── Special Programs ─── */
+const SPECIAL_PROGRAMS = [
+  { date: 'Special Event', title: 'Fasting Prayer', time: 'Monthly', location: 'Main Sanctuary', color: '#022c22' },
+  { date: 'Special Event', title: 'Revival Meetings', time: 'Annually', location: 'Main Sanctuary', color: '#d4af37' },
+  { date: 'Dec 25', title: 'Christmas Celebration', time: '10:00 AM', location: 'Church Grounds', color: '#022c22' },
+  { date: 'Spring', title: 'Easter Celebration', time: 'Morning Service', location: 'Main Sanctuary', color: '#d4af37' },
+  { date: 'Jan 1', title: 'New Year Service', time: '11:00 PM', location: 'Main Sanctuary', color: '#022c22' },
+  { date: 'Special Event', title: 'Youth Meetings', time: 'Monthly', location: 'Youth Hall', color: '#d4af37' },
+  { date: 'Special Event', title: 'Family Fellowship', time: 'Quarterly', location: 'Fellowship Hall', color: '#022c22' },
+];
+
+/* ─── Upcoming Event Cards ─── */
+const eventCards = [
+  {
+    title: 'Easter Service',
+    date: 'April 20, 2026',
+    image: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1920&q=80',
+    link: '/easter',
+    description: 'Celebrate the resurrection of Christ with powerful worship and the Word.',
+  },
+  {
+    title: 'Christmas Celebration',
+    date: 'December 25, 2026',
+    image: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1920&q=80',
+    link: '/christmas',
+    description: 'A night of carols, candles, and the joy of Emmanuel — God with us.',
+  },
+  {
+    title: 'New Year Prayer',
+    date: 'January 1, 2027',
+    image: 'https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=1920&q=80',
+    link: '/newyear',
+    description: 'Step into the new year with faith, fasting, and prophetic declarations.',
+  },
+  {
+    title: 'Good Friday',
+    date: 'April 18, 2026',
+    image: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1920&q=80',
+    link: '/good',
+    description: 'Remember the sacrifice at Calvary — a solemn evening of prayer and communion.',
+  },
+];
+
+/* ─── Event Recap Videos ─── */
+const recapVideos = [
+  {
+    title: 'Christmas Eve 2025 Highlights',
+    category: 'Latest Recap',
+    duration: '3:45',
+    thumbnail: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1200&q=80',
+    videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260428_193507_4286c423-2fd9-4efd-92bd-91a939453fc1.mp4'
+  },
+  {
+    title: 'Easter Sunrise Worship Service',
+    category: 'Easter Special',
+    duration: '5:12',
+    thumbnail: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1200&q=80',
+    videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  {
+    title: 'Good Friday Communion Night',
+    category: 'Solemn Evening',
+    duration: '4:20',
+    thumbnail: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1200&q=80',
+    videoUrl: 'https://www.w3schools.com/html/movie.mp4'
+  }
+];
 
 const Events = () => {
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const activeVideo = recapVideos[activeVideoIndex];
 
-    const [isScrolled, setIsScrolled] = useState(false)
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
+  return (
+    <div className="bg-[#f0f0f0] min-h-screen font-sans">
+      <Navbar theme="glass-light" />
+      {/* ═══ 1. HERO ═══ */}
+      <EventsHero />
 
-    const navItems = [
-        { name: 'Home', path: '/' },
-        { name: 'Services', path: '/services' },
-        { name: 'Events', path: '/events' },
-        { name: 'About', path: '/about' },
-    ]
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50)
-        }
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
-    return (
-        <>
-            <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-                ? 'bg-linear-to-br from-gray-50 to-orange-50 shadow-xl'
-                : 'bg-linear-to-br from-gray-50 to-orange-50 shadow-lg'
-                }`}>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-20">
-
-
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="flex items-center gap-3 cursor-pointer group"
-                        >
-                            <div className="relative p-2.5 rounded-2xl transition-all duration-300 bg-linear-to-br from-orange-400 to-red-500">
-                                <div className="text-2xl"><img src={fggs} alt="FGGS Logo" className="h-6 w-6" /></div>
-                                <div className="absolute inset-0 border-2 border-orange-400 rounded-2xl opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"></div>
-                            </div>
-                            <div className="flex flex-col">
-                                <span className="font-bold text-xl tracking-wide text-gray-800">
-                                    FGGS
-                                </span>
-                                <span className="text-xs font-semibold tracking-widest text-orange-500">
-                                    CHURCH
-                                </span>
-                            </div>
-                        </motion.div>
-
-                        <div className="hidden md:flex items-center gap-1">
-                            {navItems.map((item, index) => (
-                                <motion.a
-                                    key={index}
-                                    href={item.path}
-                                    initial={{ opacity: 0, y: -20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.1 }}
-                                    className="group relative px-6 py-2.5 rounded-xl font-medium transition-all duration-300 text-gray-700 hover:text-orange-500 hover:bg-orange-50"
-                                >
-                                    <span className="flex items-center gap-2">
-
-                                        <span>{item.name}</span>
-                                    </span>
-                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-3/4 transition-all duration-300 bg-orange-500"></div>
-                                </motion.a>
-                            ))}
-                        </div>
-
-
-                        <motion.button
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="hidden md:block px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-linear-to-r from-orange-500 to-red-500 text-white hover:shadow-lg hover:scale-105"
-                        >
-                            Join Us
-                        </motion.button>
-
-
-                        <button
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="md:hidden p-2.5 rounded-xl transition-all duration-300 bg-gray-100 text-gray-800 hover:bg-gray-200"
-                        >
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                                {isMenuOpen ? (
-                                    <>
-                                        <line x1="18" y1="6" x2="6" y2="18" />
-                                        <line x1="6" y1="6" x2="18" y2="18" />
-                                    </>
-                                ) : (
-                                    <>
-                                        <line x1="4" y1="8" x2="20" y2="8" />
-                                        <line x1="4" y1="16" x2="20" y2="16" />
-                                    </>
-                                )}
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-
-               <AnimatePresence>
-    {isMenuOpen && (
+      {/* ═══ 2. PAST EVENT HIGHLIGHTS GALLERY ═══ */}
+      <section className="max-w-[1536px] mx-auto px-4 md:px-8 py-20 md:py-28">
         <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden border-t border-gray-200 bg-white"
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
         >
-            <div className="px-4 py-4 space-y-2">
-                {navItems.map((item, index) => (
-                    <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                    >
-                        <Link
-                            to={item.path}
-                            onClick={() => setIsMenuOpen(false)}
-                            className="block px-4 py-3 rounded-xl font-medium transition-all duration-300 text-gray-700 hover:text-orange-500 hover:bg-orange-50"
-                        >
-                            {item.name}
-                        </Link>
-                    </motion.div>
-                ))}
-                <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: navItems.length * 0.1 }}
-                >
-                    <button className="w-full px-4 py-3 rounded-xl font-semibold transition-all duration-300 bg-linear-to-r from-orange-500 to-red-500 text-white hover:shadow-lg">
-                        Join Us
-                    </button>
-                </motion.div>
-            </div>
+          <span className="text-[11px] tracking-[0.3em] text-[#d4af37] font-bold uppercase">Moments That Matter</span>
+          <h2 className="font-serif text-4xl md:text-5xl text-[#022c22] mt-4 mb-4">Past Event Highlights</h2>
+          <p className="text-gray-500 font-light max-w-xl mx-auto">
+            Relive the powerful moments of worship, fellowship, and celebration from our community gatherings.
+          </p>
         </motion.div>
-    )}
-</AnimatePresence>
-            </nav>
 
-            <div className='bg-linear-to-b from-white to-gray-50 py-16 mt-28'>
-                <div className='flex justify-center px-6 md:px-16 lg:px-24 xl:px-32'>
-                    <div className='text-center'>
-                        <h1 className='text-4xl md:text-5xl font-bold text-gray-800 mb-4 relative inline-block'>
-                            Events 🙌🎆
-                            <span className='absolute left-0 right-0 -bottom-3 h-1 bg-linear-to-r from-transparent via-orange-500 to-transparent'></span>
-                        </h1>
-                        <p className='text-gray-600 mt-6 text-sm md:text-base max-w-2xl mx-auto'>
-                            Join us for our upcoming events filled with worship, fellowship, and spiritual growth. Stay tuned for more details!
-                        </p>
+        {/* Masonry Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 auto-rows-[200px] md:auto-rows-[240px]">
+          {galleryImages.map((img, i) => (
+            <motion.div
+              key={i}
+              className={`${img.span} relative overflow-hidden rounded-2xl md:rounded-3xl group cursor-pointer`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-[#022c22]/0 group-hover:bg-[#022c22]/40 transition-colors duration-500" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                <p className="text-white font-light text-sm">{img.alt}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══ 3. EVENT TIMELINE ═══ */}
+      <section className="bg-[#022c22] py-20 md:py-28 relative overflow-hidden">
+        {/* Decorative */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#d4af37]/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/5 rounded-full blur-[100px]" />
+
+        <div className="max-w-[1536px] mx-auto px-4 md:px-8 relative z-10 mb-20">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="text-[11px] tracking-[0.3em] text-[#d4af37] font-bold uppercase">Join Us Weekly</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-white mt-4 mb-4">Regular Church Gatherings</h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
+            {REGULAR_GATHERINGS.map((gathering, i) => (
+              <motion.div
+                key={i}
+                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-[1.5rem] p-8 text-center hover:bg-white/10 transition-all duration-500 relative overflow-hidden"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[2px] rounded-full" style={{ backgroundColor: gathering.color }} />
+                <h3 className="font-serif text-2xl text-white mb-4 mt-2">{gathering.title}</h3>
+                <p className="text-white/60 font-light text-sm mb-6 leading-relaxed">{gathering.desc}</p>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10">
+                  <Clock className="w-4 h-4 text-[#d4af37]" />
+                  <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-white">{gathering.time}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <div className="max-w-[1536px] mx-auto px-4 md:px-8 relative z-10">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="text-[11px] tracking-[0.3em] text-[#d4af37] font-bold uppercase">Plan Ahead</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-white mt-4 mb-4">Special Programs</h2>
+            <p className="text-white/50 font-light max-w-xl mx-auto">
+              Our full calendar of special services and celebrations throughout the year.
+            </p>
+          </motion.div>
+
+          {/* Horizontal Scrollable Timeline */}
+          <div className="overflow-x-auto pb-6 scrollbar-hide">
+            <div className="flex gap-4 md:gap-6 min-w-max px-4">
+              {SPECIAL_PROGRAMS.map((event, i) => (
+                <motion.div
+                  key={i}
+                  className="group w-[260px] md:w-[300px] flex-shrink-0 bg-white/5 backdrop-blur-sm border border-white/10 rounded-[1.5rem] p-6 md:p-8 hover:bg-white/10 transition-all duration-500 cursor-pointer relative overflow-hidden"
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                >
+                  {/* Top accent */}
+                  <div className="absolute top-0 left-6 right-6 h-[2px] rounded-full" style={{ backgroundColor: event.color }} />
+                  
+                  {/* Date Badge */}
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 mb-5">
+                    <Calendar className="w-3.5 h-3.5 text-[#d4af37]" />
+                    <span className="text-[12px] font-bold uppercase tracking-[0.15em] text-white">{event.date}</span>
+                  </div>
+
+                  <h3 className="font-serif text-xl text-white mb-4 group-hover:text-[#d4af37] transition-colors duration-300">
+                    {event.title}
+                  </h3>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-white/50">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span className="text-[13px] font-light">{event.time}</span>
                     </div>
-                </div>
+                    <div className="flex items-center gap-2 text-white/50">
+                      <MapPin className="w-3.5 h-3.5" />
+                      <span className="text-[13px] font-light">{event.location}</span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
+          </div>
+        </div>
+      </section>
 
-          
+      {/* ═══ 4. EVENT RECAP VIDEO ═══ */}
+      <section className="max-w-[1536px] mx-auto px-4 md:px-8 py-20 md:py-28">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <span className="text-[11px] tracking-[0.3em] text-[#d4af37] font-bold uppercase">Watch & Be Inspired</span>
+          <h2 className="font-serif text-4xl md:text-5xl text-[#022c22] mt-4 mb-4">Event Recaps</h2>
+          <p className="text-gray-500 font-light max-w-xl mx-auto">
+            Missed an event? Catch the highlights and experience the atmosphere from our various celebrations.
+          </p>
+        </motion.div>
 
-
-            <div className='bg-linear-to-br from-gray-50 via-white to-orange-50 py-12'>
-                <div className='max-w-6xl mx-auto px-4 space-y-12'>
-
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className='w-full relative group'
-                    >
-                        <Link to='/easter' className='relative overflow-hidden rounded-2xl shadow-2xl'>
-                            <img
-                                src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-                                alt="Fasting Prayer"
-                                className='w-full h-87.5 md:h-100 object-cover transition-transform duration-500 group-hover:scale-110'
-                            />
-                            <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
-
-
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.3, duration: 0.6 }}
-                                className='absolute inset-0 flex flex-col items-center justify-center px-6'
-                            >
-                                <motion.h1
-                                    initial={{ y: 20, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    transition={{ delay: 0.5 }}
-                                    className='text-3xl md:text-5xl font-bold text-white text-center drop-shadow-2xl mb-4'
-                                >
-                                    Easter Service
-                                </motion.h1>
-                                <motion.div
-                                    initial={{ scaleX: 0 }}
-                                    animate={{ scaleX: 1 }}
-                                    transition={{ delay: 0.7, duration: 0.6 }}
-                                    className='w-24 h-1 bg-orange-500 rounded-full'
-                                ></motion.div>
-                            </motion.div>
-
-
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.8 }}
-                                className='absolute top-5 left-5 w-8 h-8 border-t-2 border-l-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.9 }}
-                                className='absolute top-5 right-5 w-8 h-8 border-t-2 border-r-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1.0 }}
-                                className='absolute bottom-5 left-5 w-8 h-8 border-b-2 border-l-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1.1 }}
-                                className='absolute bottom-5 right-5 w-8 h-8 border-b-2 border-r-2 border-white/60'
-                            ></motion.div>
-                        </Link>
-                    </motion.div>
-
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className='w-full relative group'
-                    >
-                        <Link to='/christmas' className='relative overflow-hidden rounded-2xl shadow-2xl'>
-                            <img
-                                src="https://images.unsplash.com/photo-1512389142860-9c449e58a543?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-                                alt="Worship Service"
-                                className='w-full h-87.5 md:h-100 object-cover transition-transform duration-500 group-hover:scale-110'
-                            />
-                            <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
-
-
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.3, duration: 0.6 }}
-                                className='absolute inset-0 flex flex-col items-center justify-center px-6'
-                            >
-                                <motion.h1
-                                    initial={{ y: 20, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    transition={{ delay: 0.5 }}
-                                    className='text-3xl md:text-5xl font-bold text-white text-center drop-shadow-2xl mb-4'
-                                >
-                                    Christmas Prayer Service
-                                </motion.h1>
-                                <motion.div
-                                    initial={{ scaleX: 0 }}
-                                    animate={{ scaleX: 1 }}
-                                    transition={{ delay: 0.7, duration: 0.6 }}
-                                    className='w-24 h-1 bg-orange-500 rounded-full'
-                                ></motion.div>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.8 }}
-                                className='absolute top-5 left-5 w-8 h-8 border-t-2 border-l-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.9 }}
-                                className='absolute top-5 right-5 w-8 h-8 border-t-2 border-r-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1.0 }}
-                                className='absolute bottom-5 left-5 w-8 h-8 border-b-2 border-l-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1.1 }}
-                                className='absolute bottom-5 right-5 w-8 h-8 border-b-2 border-r-2 border-white/60'
-                            ></motion.div>
-                        </Link>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className='w-full relative group'
-                    >
-                        <Link to='/newyear' className='relative overflow-hidden rounded-2xl shadow-2xl'>
-                            <img
-                                src="https://images.unsplash.com/photo-1467810563316-b5476525c0f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-                                alt="Worship Service"
-                                className='w-full h-87.5 md:h-100 object-cover transition-transform duration-500 group-hover:scale-110'
-                            />
-                            <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
-
-
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.3, duration: 0.6 }}
-                                className='absolute inset-0 flex flex-col items-center justify-center px-6'
-                            >
-                                <motion.h1
-                                    initial={{ y: 20, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    transition={{ delay: 0.5 }}
-                                    className='text-3xl md:text-5xl font-bold text-white text-center drop-shadow-2xl mb-4'
-                                >
-                                    New Year Prayer Service
-                                </motion.h1>
-                                <motion.div
-                                    initial={{ scaleX: 0 }}
-                                    animate={{ scaleX: 1 }}
-                                    transition={{ delay: 0.7, duration: 0.6 }}
-                                    className='w-24 h-1 bg-orange-500 rounded-full'
-                                ></motion.div>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.8 }}
-                                className='absolute top-5 left-5 w-8 h-8 border-t-2 border-l-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.9 }}
-                                className='absolute top-5 right-5 w-8 h-8 border-t-2 border-r-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1.0 }}
-                                className='absolute bottom-5 left-5 w-8 h-8 border-b-2 border-l-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1.1 }}
-                                className='absolute bottom-5 right-5 w-8 h-8 border-b-2 border-r-2 border-white/60'
-                            ></motion.div>
-                        </Link>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className='w-full relative group'
-                    >
-                        <Link to='/good' className='relative overflow-hidden rounded-2xl shadow-2xl'>
-                            <img
-                                src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-                                alt="Worship Service"
-                                className='w-full h-87.5 md:h-100 object-cover transition-transform duration-500 group-hover:scale-110'
-                            />
-                            <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
-
-
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.3, duration: 0.6 }}
-                                className='absolute inset-0 flex flex-col items-center justify-center px-6'
-                            >
-                                <motion.h1
-                                    initial={{ y: 20, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    transition={{ delay: 0.5 }}
-                                    className='text-3xl md:text-5xl font-bold text-white text-center drop-shadow-2xl mb-4'
-                                >
-                                    Good Friday Service
-                                </motion.h1>
-                                <motion.div
-                                    initial={{ scaleX: 0 }}
-                                    animate={{ scaleX: 1 }}
-                                    transition={{ delay: 0.7, duration: 0.6 }}
-                                    className='w-24 h-1 bg-orange-500 rounded-full'
-                                ></motion.div>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.8 }}
-                                className='absolute top-5 left-5 w-8 h-8 border-t-2 border-l-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.9 }}
-                                className='absolute top-5 right-5 w-8 h-8 border-t-2 border-r-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1.0 }}
-                                className='absolute bottom-5 left-5 w-8 h-8 border-b-2 border-l-2 border-white/60'
-                            ></motion.div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1.1 }}
-                                className='absolute bottom-5 right-5 w-8 h-8 border-b-2 border-r-2 border-white/60'
-                            ></motion.div>
-                        </Link>
-                    </motion.div>
-
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          {/* Main Video Player */}
+          <motion.div
+            className="lg:col-span-2 relative w-full aspect-video rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-[#022c22] shadow-2xl group"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            {!isVideoPlaying ? (
+              <div 
+                className="relative w-full h-full cursor-pointer"
+                onClick={() => setIsVideoPlaying(true)}
+              >
+                <img
+                  src={activeVideo.thumbnail}
+                  alt={activeVideo.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-[#022c22]/40 group-hover:bg-[#022c22]/30 transition-colors duration-500" />
+                
+                {/* Play Button */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <motion.div
+                    className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-500"
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    <Play className="w-8 h-8 md:w-10 md:h-10 text-white ml-1" fill="white" />
+                  </motion.div>
+                  <p className="mt-6 text-white/80 text-sm md:text-base font-light tracking-wide">Watch the Highlights</p>
                 </div>
-            </div>
 
-            <Footer />
-        </>
-    )
-}
+                {/* Bottom info bar */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 flex items-end justify-between z-10">
+                  <div>
+                    <p className="text-[#d4af37] text-[11px] uppercase tracking-[0.2em] font-bold mb-1">{activeVideo.category}</p>
+                    <h3 className="font-serif text-2xl md:text-3xl text-white">{activeVideo.title}</h3>
+                  </div>
+                  <div className="hidden md:block px-5 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-[12px] font-light">
+                    {activeVideo.duration} min
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="w-full h-full relative">
+                <video
+                  src={activeVideo.videoUrl}
+                  className="w-full h-full object-cover"
+                  controls
+                  autoPlay
+                />
+              </div>
+            )}
+          </motion.div>
 
-export default Events
+          {/* Playlist Sidebar */}
+          <div className="flex flex-col gap-4">
+            <h3 className="font-serif text-xl text-[#022c22] mb-2 px-1">Playlist</h3>
+            {recapVideos.map((video, idx) => (
+              <motion.div
+                key={idx}
+                className={`flex items-center gap-4 p-3 rounded-2xl cursor-pointer transition-all duration-300 border ${
+                  activeVideoIndex === idx
+                    ? 'bg-white border-[#d4af37]/50 shadow-md'
+                    : 'bg-white/50 border-transparent hover:bg-white/80'
+                }`}
+                onClick={() => {
+                  setActiveVideoIndex(idx);
+                  setIsVideoPlaying(false);
+                }}
+                whileHover={{ x: 4 }}
+              >
+                {/* Thumbnail */}
+                <div className="relative w-24 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-200">
+                  <img
+                    src={video.thumbnail}
+                    alt={video.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
+                    <Play className="w-4 h-4 text-white" fill="white" />
+                  </div>
+                </div>
+
+                {/* Details */}
+                <div className="flex-1 min-w-0">
+                  <span className="text-[10px] uppercase tracking-wider text-[#d4af37] font-semibold">
+                    {video.category}
+                  </span>
+                  <h4 className="font-serif text-sm text-[#022c22] truncate mt-0.5">
+                    {video.title}
+                  </h4>
+                  <span className="text-[11px] text-gray-500 font-light block mt-1">
+                    {video.duration} min
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ 5. UPCOMING EVENTS ═══ */}
+      <section className="bg-white py-20 md:py-28 rounded-t-[3rem]">
+        <div className="max-w-[1536px] mx-auto px-4 md:px-8">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="text-[11px] tracking-[0.3em] text-[#d4af37] font-bold uppercase">Mark Your Calendar</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-[#022c22] mt-4 mb-4">Upcoming Events</h2>
+            <p className="text-gray-500 font-light max-w-xl mx-auto">
+              Every gathering is an encounter with God. Find the event that speaks to your heart.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {eventCards.map((event, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Link to={event.link} className="block group">
+                  <div className="relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem] bg-gray-50 hover:shadow-2xl transition-shadow duration-500">
+                    <div className="relative h-64 md:h-80 overflow-hidden">
+                      <img
+                        src={event.image}
+                        alt={event.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#022c22]/80 via-transparent to-transparent" />
+                      <div className="absolute top-5 left-5 px-4 py-2 rounded-full bg-white/80 backdrop-blur-md text-[11px] font-bold uppercase tracking-[0.15em] text-[#022c22]">
+                        {event.date}
+                      </div>
+                    </div>
+                    <div className="p-6 md:p-8 flex items-end justify-between">
+                      <div>
+                        <h3 className="font-serif text-2xl text-[#022c22] mb-2 group-hover:text-[#d4af37] transition-colors duration-300">
+                          {event.title}
+                        </h3>
+                        <p className="text-gray-500 font-light text-sm leading-relaxed max-w-sm">
+                          {event.description}
+                        </p>
+                      </div>
+                      <div className="flex-shrink-0 ml-4 w-12 h-12 rounded-full bg-[#022c22]/5 flex items-center justify-center group-hover:bg-[#022c22] transition-colors duration-300">
+                        <ArrowRight className="w-5 h-5 text-[#022c22] group-hover:text-white transition-colors duration-300" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Events;
