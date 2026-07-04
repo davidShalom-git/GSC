@@ -53,7 +53,7 @@ function Footer() {
 
   return (
     <footer className="bg-[#022c22] relative h-fit overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 py-14 md:p-14 z-40 relative">
+      <div className="max-w-7xl mx-auto px-6 py-14 md:p-14 z-50 relative pointer-events-none [&>*]:pointer-events-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-8 lg:gap-16 pb-12">
           {/* Brand section */}
           <div className="flex flex-col space-y-4">
@@ -140,7 +140,7 @@ function Footer() {
 
       {/* Text hover effect */}
       <div className="flex h-[20rem] md:h-[30rem] -mt-24 md:-mt-52 -mb-16 md:-mb-36">
-        <TextHoverEffect text="FGGS" className="z-50" />
+        <TextHoverEffect text="FGGS" className="z-0" />
       </div>
 
       <FooterBackgroundGradient />
