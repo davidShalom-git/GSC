@@ -103,7 +103,7 @@ const Prayers = ({ hideHeader = false }: { hideHeader?: boolean }) => {
 
                     {/* Right: Dynamic Crossfading Content */}
                     <div className="lg:col-span-8 relative">
-                        <div className="relative w-full aspect-[4/5] md:aspect-[16/10] lg:aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl bg-black">
+                        <div className="relative w-full h-[580px] sm:h-[650px] md:h-auto md:aspect-[16/10] lg:aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl bg-black">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeTab}
@@ -123,7 +123,7 @@ const Prayers = ({ hideHeader = false }: { hideHeader?: boolean }) => {
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#022c22]/90 via-[#022c22]/40 to-transparent"></div>
                                     
                                     {/* Glassmorphic Details Card */}
-                                    <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 bg-white/10 backdrop-blur-md border border-white/20 p-6 md:p-8 rounded-[1.5rem]">
+                                    <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 bg-white/10 backdrop-blur-md border border-white/20 p-6 md:p-8 rounded-[1.5rem] max-h-[90%] overflow-y-auto custom-scrollbar">
                                         <div className='inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2 rounded-full w-fit mb-4'>
                                             <Clock className='w-4 h-4 text-[#d4af37]' />
                                             <span className='font-semibold tracking-[0.15em] text-white/90 text-[10px] uppercase'>{PRAYERS[activeTab].time}</span>

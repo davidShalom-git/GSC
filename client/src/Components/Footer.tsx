@@ -14,26 +14,15 @@ function Footer() {
   // Footer link data
   const footerLinks = [
     {
-      title: "About Us",
+      title: "Quick Links",
       links: [
-        { label: "Our History", href: "/about" },
-        { label: "Meet the Team", href: "/about" },
-        { label: "Our Beliefs", href: "/about" },
-        { label: "Ministries", href: "/services" },
+        { label: "Home", href: "/" },
+        { label: "Prayer", href: "/prayer" },
+        { label: "Events", href: "/events" },
+        { label: "Worship", href: "/services" },
+        { label: "About", href: "/about" },
       ],
-    },
-    {
-      title: "Helpful Links",
-      links: [
-        { label: "Sermons", href: "/videos" },
-        { label: "Upcoming Events", href: "/events" },
-        {
-          label: "Live Stream",
-          href: "/services",
-          pulse: true,
-        },
-      ],
-    },
+    }
   ];
 
   // Contact info data
@@ -65,7 +54,7 @@ function Footer() {
   return (
     <footer className="bg-[#022c22] relative h-fit overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 py-14 md:p-14 z-40 relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-8 lg:gap-16 pb-12">
           {/* Brand section */}
           <div className="flex flex-col space-y-4">
             <div className="flex items-center space-x-2">
@@ -91,9 +80,6 @@ function Footer() {
                     >
                       {link.label}
                     </a>
-                    {link.pulse && (
-                      <span className="absolute top-0 -right-3 w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
-                    )}
                   </li>
                 ))}
               </ul>
