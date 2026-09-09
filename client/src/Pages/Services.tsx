@@ -15,7 +15,7 @@ const serviceDetails = [
     description: 'Our primary weekly gathering where our entire church family comes together. Join us for vibrant worship, inspired teaching of the Word, and warm fellowship. Kids classes and nursery are available during both service times.',
     verse: '"Enter his gates with thanksgiving and his courts with praise." — Psalm 100:4',
     features: ['Vibrant Modern Worship', 'Expository Bible Preaching', 'FGGS Kids Ministry', 'Post-Service Coffee & Fellowship'],
-    image: 'https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=800&q=80',
+    image: '/Hero/2.jpeg',
   },
   {
     title: 'Fasting Prayer',
@@ -26,7 +26,7 @@ const serviceDetails = [
     description: 'A solemn and powerful mid-week service dedicated to prayer, fasting, and deep intercession. We stand in the gap for our families, the church, the nation, and individuals seeking spiritual breakthroughs and answers from God.',
     verse: '"But this kind never comes out except by prayer and fasting." — Matthew 17:21',
     features: ['Corporate Intercessory Prayer', 'Spiritual Warfare focus', 'Open Prayer Altar', 'Guided Scripture Reading'],
-    image: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800&q=80',
+    image: '/Prayers/6.jpeg',
   },
   {
     title: 'Anointing Service',
@@ -37,7 +37,7 @@ const serviceDetails = [
     description: 'A service focused on seeking the fresh fire of the Holy Spirit, healing, and personal deliverance. Our pastors and prayer teams lay hands on those seeking prayer for physical healing, emotional recovery, and spiritual empowerment.',
     verse: '"You anoint my head with oil; my cup overflows." — Psalm 23:5',
     features: ['Prophetic Praise & Worship', 'Laying on of Hands & Oil', 'Physical & Emotional Healing', 'Impartation of Grace'],
-    image: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800&q=80',
+    image: '/Hero/1.jpeg',
   },
 ];
 
@@ -289,7 +289,7 @@ const Services = () => {
           {/* Image/Video Preview Column */}
           <div className="w-full lg:w-1/2 h-64 sm:h-80 rounded-2xl overflow-hidden relative shadow-md bg-black/10">
             <img
-              src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80"
+              src="/Prayers/3.jpeg"
               alt="Sermon Preview"
               className="w-full h-full object-cover opacity-80"
             />

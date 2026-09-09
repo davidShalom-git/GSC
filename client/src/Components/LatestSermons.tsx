@@ -1,16 +1,16 @@
 import SocialCards from "@/Components/ui/card-fan-carousel";
 
 const EVENT_CARDS = [
-  { imgUrl: "https://picsum.photos/seed/event1/800/1200", alt: "Youth Summer Camp" },
-  { imgUrl: "https://picsum.photos/seed/event2/800/1200", alt: "Men's Breakfast" },
-  { imgUrl: "https://picsum.photos/seed/event3/800/1200", alt: "Worship Night" },
-  { imgUrl: "https://picsum.photos/seed/event4/800/1200", alt: "Community Picnic" },
-  { imgUrl: "https://picsum.photos/seed/event5/800/1200", alt: "Women's Retreat" },
-  { imgUrl: "https://picsum.photos/seed/event6/800/1200", alt: "Marriage Conference" },
-  { imgUrl: "https://picsum.photos/seed/event7/800/1200", alt: "Easter Sunday" },
-  { imgUrl: "https://picsum.photos/seed/event8/800/1200", alt: "Baptism Sunday" },
-  { imgUrl: "https://picsum.photos/seed/event9/800/1200", alt: "Food Drive Outreach" },
-  { imgUrl: "https://picsum.photos/seed/event10/800/1200", alt: "Christmas Eve" },
+  { imgUrl: "/Prayers/6.jpeg", alt: "Fasting & Prayer Conference" },
+  { imgUrl: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=800&q=80", alt: "Christmas Eve Candlelight" },
+  { imgUrl: "/Hero/3.jpeg", alt: "Night of Worship & Praise" },
+  { imgUrl: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80", alt: "Easter Sunrise Service" },
+  { imgUrl: "/Prayers/5.jpeg", alt: "Kids & Youth VBS Fellowship" },
+  { imgUrl: "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800&q=80", alt: "Good Friday Solemn Service" },
+  { imgUrl: "/Prayers/4.jpeg", alt: "District Intercessory Vigil" },
+  { imgUrl: "https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=800&q=80", alt: "New Year Watch Night Prayer" },
+  { imgUrl: "/Prayers/3.jpeg", alt: "Holy Communion & Blessing" },
+  { imgUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80", alt: "Water Baptism Sunday" },
 ];
 
 export default function LatestSermons() {

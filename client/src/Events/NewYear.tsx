@@ -1,12 +1,12 @@
-import {useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { images } from '../assets/assets';
+import { newYearImages } from '../assets/assets';
 import fggs from '../assets/FGGS.png'
 
 const NewYear = () => {
 
 
-    const [NewYearImages] = useState(images);
+    const [NewYearImages] = useState(newYearImages);
         const [isScrolled, setIsScrolled] = useState(false)
         const [isMenuOpen, setIsMenuOpen] = useState(false)
     
@@ -151,12 +151,12 @@ const NewYear = () => {
                     viewport={{ once: true }}
                     className="inline-block text-5xl mb-3"
                 >
-                    🎅
+                    ✨
                 </motion.div>
                 <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-black mb-3'>
-                    Christmas Event
+                    New Year Watch Night Service
                 </h1>
-                <div className='w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
+                <div className='w-32 h-1.5 bg-[#d4af37] mx-auto rounded-full'></div>
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mb-12'>
@@ -169,7 +169,7 @@ const NewYear = () => {
                         viewport={{ once: true }}
                         className="bg-white rounded-xl shadow-lg overflow-hidden"
                     >
-                        <img src={src} alt={`Easter ${index + 1}`} className="w-full h-64 object-cover" />
+                        <img src={src} alt={`New Year ${index + 1}`} className="w-full h-64 object-cover" />
                     </motion.div>
                 ))}
 

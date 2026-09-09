@@ -1,11 +1,11 @@
 import {useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion';
-import { images } from '../assets/assets';
+import { easterImages as easterImgList } from '../assets/assets';
 import fggs from '../assets/FGGS.png'
 
 const Easter = () => {
 
-    const [easterImages] = useState(images);
+    const [easterImages] = useState(easterImgList);
     const [isScrolled, setIsScrolled] = useState(false)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 

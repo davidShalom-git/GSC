@@ -1,11 +1,11 @@
 import {useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion';
-import { images } from '../assets/assets';
+import { goodFridayImages } from '../assets/assets';
 import fggs from '../assets/FGGS.png'
 
 const Good = () => {
 
-   const [GoodImages] = useState(images);
+   const [GoodImages] = useState(goodFridayImages);
           const [isScrolled, setIsScrolled] = useState(false)
           const [isMenuOpen, setIsMenuOpen] = useState(false)
       
@@ -149,12 +149,12 @@ const Good = () => {
                     viewport={{ once: true }}
                     className="inline-block text-5xl mb-3"
                 >
-                    🎅
+                    ✝️
                 </motion.div>
                 <h1 className='text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-black mb-3'>
-                    Christmas Event
+                    Good Friday Service
                 </h1>
-                <div className='w-32 h-1.5 bg-linear-to-r from-yellow-400 via-orange-500 to-red-500 mx-auto rounded-full'></div>
+                <div className='w-32 h-1.5 bg-[#d4af37] mx-auto rounded-full'></div>
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mb-12'>

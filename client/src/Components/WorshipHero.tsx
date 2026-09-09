@@ -4,21 +4,21 @@ import { ArrowUpRight, Radio, PlayCircle, Music } from 'lucide-react';
 const services = [
   {
     title: "Live Stream",
-    image: "https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=800&q=80",
+    image: "/Prayers/2.jpeg",
     description: "Join our worship service live online",
     icon: <Radio className="w-5 h-5 text-[#022c22]" />,
     href: "/videos",
   },
   {
     title: "Sermon Recordings",
-    image: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800&q=80",
+    image: "/Hero/4.jpeg",
     description: "Watch or listen to past messages",
     icon: <PlayCircle className="w-5 h-5 text-[#022c22]" />,
     href: "/videos",
   },
   {
     title: "Worship Songs",
-    image: "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800&q=80",
+    image: "/Hero/3.jpeg",
     description: "Listen to our choir worship playlists",
     icon: <Music className="w-5 h-5 text-[#022c22]" />,
     href: "#",

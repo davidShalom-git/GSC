@@ -11,7 +11,7 @@ const PRAYERS = [
     schedule: 'Every Sunday',
     location: 'Kilnathur, Tiruvannamalai',
     description: 'Join us every Sunday for a time of uplifting worship and spiritual growth. Our service begins with vibrant praise and worship, followed by an inspiring message from the Word of God that applies to your daily life.',
-    image: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=1740&q=80',
+    image: '/Hero/2.jpeg',
     link: '/services'
   },
   {
@@ -21,8 +21,8 @@ const PRAYERS = [
     schedule: 'Every Saturday',
     location: 'Kilnathur, Tiruvannamalai',
     description: 'Join us for our monthly Fasting Prayer, a powerful time of intercession and spiritual renewal. As we set aside physical needs to focus entirely on God, we seek His guidance, breakthrough, and deliverance.',
-    image: 'https://images.unsplash.com/photo-1544427920-c49ccfb85579?auto=format&fit=crop&w=1740&q=80',
-    link: '/service'
+    image: '/Prayers/6.jpeg',
+    link: '/services'
   },
   {
     id: 2,
@@ -31,8 +31,8 @@ const PRAYERS = [
     schedule: 'Every Tuesday',
     location: 'Kilnathur, Tiruvannamalai',
     description: 'Experience the tangible power of the Holy Spirit at our Anointing Prayer service. Whether you are seeking healing for your body, deliverance from burdens, or a fresh anointing for ministry, this service is for you.',
-    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1740&q=80',
-    link: '/service'
+    image: '/Hero/1.jpeg',
+    link: '/services'
   }
 ];
 

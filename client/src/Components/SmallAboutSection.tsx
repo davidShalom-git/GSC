@@ -22,7 +22,7 @@ const SmallAboutSection = () => {
                         
                         <div className="relative z-10 rounded-t-full rounded-b-[2rem] overflow-hidden shadow-2xl bg-gray-100 aspect-[4/5] border-4 border-white">
                             <img 
-                                src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?q=80&w=800" 
+                                src="/Prayers/3.jpeg" 
                                 alt="Our Church Leadership" 
                                 className="w-full h-full object-cover"
                             />
@@ -65,9 +65,9 @@ const SmallAboutSection = () => {
                             <div className="flex flex-col gap-3">
                                 <div className="flex items-center gap-4">
                                     <img 
-                                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200" 
+                                        src="/Hero/4.jpeg" 
                                         alt="Pastor John David" 
-                                        className="w-14 h-14 rounded-full object-cover border-2 border-[#d4af37]/30 shadow-md"
+                                        className="w-14 h-14 rounded-full object-cover object-top border-2 border-[#d4af37]/30 shadow-md"
                                     />
                                     <div>
                                         <h4 className="font-serif text-xl text-gray-900">Pastor John David</h4>

@@ -61,17 +61,17 @@ const MinistriesCard = () => (
       <div className="flex -space-x-3 overflow-hidden mt-6">
         <img
           className="inline-block h-12 w-12 rounded-full ring-2 ring-white object-cover opacity-90"
-          src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=100&q=80"
+          src="/Prayers/5.jpeg"
           alt="Youth Ministry"
         />
         <img
           className="inline-block h-12 w-12 rounded-full ring-2 ring-white object-cover opacity-90"
-          src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=100&q=80"
+          src="/Prayers/1.jpeg"
           alt="Community Group"
         />
         <img
           className="inline-block h-12 w-12 rounded-full ring-2 ring-white object-cover opacity-90"
-          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=100&q=80"
+          src="/Prayers/2.jpeg"
           alt="Worship Team"
         />
       </div>
@@ -125,7 +125,7 @@ const EstCard = () => (
 
 const CommunityCard = () => (
   <Card className="h-full shadow-2xl border-transparent relative overflow-hidden group">
-    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800&q=80')] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" />
+    <div className="absolute inset-0 bg-[url('/Prayers/4.jpeg')] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" />
     <div className="absolute inset-0 bg-gradient-to-t from-[#022c22] via-[#022c22]/80 to-transparent transition-opacity duration-500" />
     <CardContent className="relative z-10 flex h-full flex-col justify-end p-6">
       <CardTitle className="text-2xl font-serif text-white tracking-wide">

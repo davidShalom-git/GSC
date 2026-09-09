@@ -99,8 +99,8 @@ const AboutPage = () => {
               </div>
               <div className="w-full lg:w-1/2">
                 <img 
-                  src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=800" 
-                  alt="Our Church Building" 
+                  src="/Hero/2.jpeg" 
+                  alt="Our Church Sanctuary" 
                   className="w-full h-80 object-cover rounded-[2rem] shadow-lg"
                 />
               </div>
@@ -122,17 +122,17 @@ const AboutPage = () => {
             {/* Masonry Gallery */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 h-[60vh] min-h-[500px]">
               <div className="col-span-2 row-span-2 relative rounded-[2rem] overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=800" alt="Worship" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/Hero/3.jpeg" alt="Worship" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all" />
               </div>
               <div className="col-span-1 row-span-1 relative rounded-[2rem] overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=400" alt="Fellowship" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/Prayers/5.jpeg" alt="Fellowship" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="col-span-1 row-span-1 relative rounded-[2rem] overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400" alt="Community" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/Prayers/2.jpeg" alt="Community" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="col-span-2 row-span-1 relative rounded-[2rem] overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?q=80&w=800" alt="Prayer" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 object-top" />
+                <img src="/Prayers/6.jpeg" alt="Prayer" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 object-top" />
               </div>
             </div>
           </motion.div>
@@ -188,7 +188,7 @@ const AboutPage = () => {
                 </p>
                 <div className="h-[1px] w-full bg-gray-200 mt-8 mb-8" />
                 <img 
-                  src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=800" 
+                  src="/Prayers/4.jpeg" 
                   alt="Worship Vision" 
                   className="w-full h-48 object-cover rounded-[1.5rem] shadow-md"
                 />
@@ -208,9 +208,9 @@ const AboutPage = () => {
             
             <div className="flex flex-col md:flex-row gap-8 items-start">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400" 
+                src="/Hero/4.jpeg" 
                 alt="Pastor John David" 
-                className="w-48 h-48 rounded-[2rem] object-cover border-4 border-[#d4af37]/30 shadow-2xl flex-shrink-0"
+                className="w-48 h-48 rounded-[2rem] object-cover object-top border-4 border-[#d4af37]/30 shadow-2xl flex-shrink-0"
               />
               <div className="flex flex-col justify-center h-full">
                 <h3 className="text-3xl font-serif text-[#d4af37] mb-2">Pastor John David</h3>

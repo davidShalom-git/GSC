@@ -62,7 +62,7 @@ const Video = () => {
       {/* Hero Section */}
       <div className="relative w-full h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden bg-[#022c22]">
         <img 
-          src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?q=80&w=2000" 
+          src="/Prayers/2.jpeg" 
           alt="Sermons Hero" 
           className="absolute inset-0 w-full h-full object-cover opacity-30"
         />

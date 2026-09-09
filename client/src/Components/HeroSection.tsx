@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Navbar from './Navbar'
 
-// Array of high-quality, dark church interior/worship images for the carousel
+// Array of church images from the public/Hero folder for the carousel
 const HERO_IMAGES = [
-  'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=2000&q=80',
-  'https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=2000&q=80',
-  'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=2000&q=80'
+  { src: '/Hero/1.jpeg', position: 'center' },
+  { src: '/Hero/2.jpeg', position: 'center' },
+  { src: '/Hero/3.jpeg', position: 'center' },
+  { src: '/Hero/4.jpeg', position: 'center top' },
 ]
 
 const HeroSection = () => {
@@ -26,10 +27,11 @@ const HeroSection = () => {
       {/* Background Image Carousel layer */}
       {HERO_IMAGES.map((img, index) => (
         <img
-          key={img}
-          src={img}
+          key={img.src}
+          src={img.src}
           alt={`Church Interior ${index + 1}`}
-          className={`absolute inset-0 z-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-in-out ${
+          style={{ objectPosition: img.position }}
+          className={`absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
             index === currentImageIndex ? 'opacity-70' : 'opacity-0'
           }`}
         />

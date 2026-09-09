@@ -1,12 +1,12 @@
 import {useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion';
-import { images } from '../assets/assets';
+import { christmasImages } from '../assets/assets';
 import fggs from '../assets/FGGS.png'
 
 
 const Christmas = () => {
 
-    const [ChristmasImages] = useState(images);
+    const [ChristmasImages] = useState(christmasImages);
         const [isScrolled, setIsScrolled] = useState(false)
         const [isMenuOpen, setIsMenuOpen] = useState(false)
     
@@ -170,7 +170,7 @@ return (
                         viewport={{ once: true }}
                         className="bg-white rounded-xl shadow-lg overflow-hidden"
                     >
-                        <img src={src} alt={`Easter ${index + 1}`} className="w-full h-64 object-cover" />
+                        <img src={src} alt={`Christmas ${index + 1}`} className="w-full h-64 object-cover" />
                     </motion.div>
                 ))}
 

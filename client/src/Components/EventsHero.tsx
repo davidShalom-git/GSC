@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 
 /* ─── Background Image Slideshow ─── */
 const bgImages = [
-  'https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1920&q=80', // Christmas
-  'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1920&q=80', // Easter / Spring
-  'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1920&q=80', // Good Friday / Worship
+  'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1920&q=80', // Worship & Community Celebration
+  'https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1920&q=80', // Christmas Celebration
+  'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1920&q=80', // Easter Sunrise Feast
 ];
 
 

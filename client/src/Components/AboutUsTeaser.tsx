@@ -2,22 +2,22 @@ import { ShuffleGrid } from "@/Components/ui/shuffle-grid";
 import { Link } from "react-router-dom";
 
 const churchSquareData = [
-  { id: 1, src: "https://picsum.photos/seed/church1/800/800" },
-  { id: 2, src: "https://picsum.photos/seed/church2/800/800" },
-  { id: 3, src: "https://picsum.photos/seed/church3/800/800" },
-  { id: 4, src: "https://picsum.photos/seed/church4/800/800" },
-  { id: 5, src: "https://picsum.photos/seed/church5/800/800" },
-  { id: 6, src: "https://picsum.photos/seed/church6/800/800" },
-  { id: 7, src: "https://picsum.photos/seed/church7/800/800" },
-  { id: 8, src: "https://picsum.photos/seed/church8/800/800" },
-  { id: 9, src: "https://picsum.photos/seed/church9/800/800" },
-  { id: 10, src: "https://picsum.photos/seed/church10/800/800" },
-  { id: 11, src: "https://picsum.photos/seed/church11/800/800" },
-  { id: 12, src: "https://picsum.photos/seed/church12/800/800" },
-  { id: 13, src: "https://picsum.photos/seed/church13/800/800" },
-  { id: 14, src: "https://picsum.photos/seed/church14/800/800" },
-  { id: 15, src: "https://picsum.photos/seed/church15/800/800" },
-  { id: 16, src: "https://picsum.photos/seed/church16/800/800" },
+  { id: 1, src: "/Prayers/1.jpeg" },
+  { id: 2, src: "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=800&q=80" }, // Holy Bible
+  { id: 3, src: "/Prayers/2.jpeg" },
+  { id: 4, src: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800&q=80" }, // Wooden Cross & light
+  { id: 5, src: "/Prayers/3.jpeg" },
+  { id: 6, src: "https://images.unsplash.com/photo-1519817650390-64a93db51149?w=800&q=80" }, // Stained glass
+  { id: 7, src: "/Prayers/4.jpeg" },
+  { id: 8, src: "https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=800&q=80" }, // Communion
+  { id: 9, src: "/Prayers/5.jpeg" },
+  { id: 10, src: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=800&q=80" }, // Candlelight sanctuary
+  { id: 11, src: "/Prayers/6.jpeg" },
+  { id: 12, src: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=800&q=80" }, // Worship notes
+  { id: 13, src: "/Hero/2.jpeg" },
+  { id: 14, src: "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800&q=80" }, // Hands in prayer
+  { id: 15, src: "/Hero/3.jpeg" },
+  { id: 16, src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80" }, // Peace & light
 ];
 
 export const AboutUsTeaser = () => {

@@ -8,12 +8,12 @@ import { useState } from 'react';
 
 /* ─── Past Event Gallery Images ─── */
 const galleryImages = [
-  { src: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800&q=80', alt: 'Worship night', span: 'col-span-1 row-span-2' },
-  { src: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800&q=80', alt: 'Good Friday service', span: 'col-span-1 row-span-1' },
-  { src: 'https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=800&q=80', alt: 'Community prayer', span: 'col-span-1 row-span-1' },
-  { src: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=800&q=80', alt: 'Christmas celebration', span: 'col-span-1 row-span-2' },
-  { src: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80', alt: 'Fellowship', span: 'col-span-1 row-span-1' },
-  { src: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80', alt: 'Easter sunrise', span: 'col-span-1 row-span-1' },
+  { src: '/Prayers/2.jpeg', alt: 'Worship and praise', span: 'col-span-1 row-span-2' },
+  { src: '/Prayers/3.jpeg', alt: 'Word of God & Communion', span: 'col-span-1 row-span-1' },
+  { src: '/Prayers/1.jpeg', alt: 'Community prayer', span: 'col-span-1 row-span-1' },
+  { src: '/Hero/3.jpeg', alt: 'Youth & Choir praise', span: 'col-span-1 row-span-2' },
+  { src: '/Prayers/5.jpeg', alt: 'Fellowship & Sunday school', span: 'col-span-1 row-span-1' },
+  { src: '/Prayers/6.jpeg', alt: 'Fasting and prayer', span: 'col-span-1 row-span-1' },
 ];
 
 /* ─── Regular Church Gatherings ─── */
@@ -69,10 +69,10 @@ const eventCards = [
 /* ─── Event Recap Videos ─── */
 const recapVideos = [
   {
-    title: 'Christmas Eve 2025 Highlights',
-    category: 'Latest Recap',
+    title: 'Christmas Celebration Highlights',
+    category: 'Christmas Special',
     duration: '3:45',
-    thumbnail: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1200&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1200&q=80',
     videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260428_193507_4286c423-2fd9-4efd-92bd-91a939453fc1.mp4'
   },
   {
@@ -83,10 +83,10 @@ const recapVideos = [
     videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   {
-    title: 'Good Friday Communion Night',
-    category: 'Solemn Evening',
+    title: 'Good Friday Communion Service',
+    category: 'Solemn Service',
     duration: '4:20',
-    thumbnail: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1200&q=80',
+    thumbnail: '/Prayers/3.jpeg',
     videoUrl: 'https://www.w3schools.com/html/movie.mp4'
   }
 ];

@@ -49,9 +49,9 @@ const PrayerPage = () => {
                     }
                 ]}
                 images={[
-                    'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=800&q=80',
-                    'https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=800&q=80',
-                    'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80'
+                    'https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=1600&q=80',
+                    '/Prayers/4.jpeg',
+                    '/Prayers/1.jpeg'
                 ]}
             />
 
