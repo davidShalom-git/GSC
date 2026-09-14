@@ -48,7 +48,7 @@ function Footer() {
     { icon: <Facebook size={20} />, label: "Facebook", href: "https://facebook.com/your-church" },
     { icon: <Instagram size={20} />, label: "Instagram", href: "https://instagram.com/your-church" },
     { icon: <Youtube size={20} />, label: "Youtube", href: "https://youtube.com/@your-church" },
-    { icon: <Globe size={20} />, label: "Website", href: "/" },
+    { icon: <Globe size={20} />, label: "Website", href: "https://www.fggschurch.com" },
   ];
 
   return (
