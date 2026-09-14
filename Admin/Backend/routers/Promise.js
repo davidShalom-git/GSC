@@ -167,4 +167,34 @@ router.get('/serve/:id', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await db.query(
+      `DELETE FROM promise_words WHERE id = $1 RETURNING *`,
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Promise word not found'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Promise word deleted successfully',
+      data: formatPromise(result.rows[0])
+    });
+  } catch (error) {
+    console.error('Error deleting promise word:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete promise word',
+      error: error.message
+    });
+  }
+});
+
 module.exports = router;

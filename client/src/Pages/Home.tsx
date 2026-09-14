@@ -1,5 +1,6 @@
 
 import HeroSection from '../Components/HeroSection'
+import PromiseWordBanner from '../Components/PromiseWordBanner'
 import ChurchFeatures from '../Components/ChurchFeatures'
 import AboutUsTeaser from '../Components/AboutUsTeaser'
 import LatestSermons from '../Components/LatestSermons'
@@ -20,9 +21,14 @@ const Home = () => {
       <div className="relative z-[50] bg-[#022c22]">
         <HeroSection />
       </div>
+
+      {/* 2026 Promise Word Banner */}
+      <div className="relative z-[49] bg-white pt-4 pb-2">
+        <PromiseWordBanner />
+      </div>
       
       {/* Flat top ChurchFeatures */}
-      <div className="relative z-[49] bg-white">
+      <div className="relative z-[48] bg-white">
         <ChurchFeatures />
       </div>
       

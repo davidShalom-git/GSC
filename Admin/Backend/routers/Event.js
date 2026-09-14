@@ -168,4 +168,34 @@ router.get('/serve/:id', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await db.query(
+      `DELETE FROM event_images WHERE id = $1 RETURNING *`,
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Event image not found'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Event poster deleted successfully',
+      data: formatImage(result.rows[0])
+    });
+  } catch (error) {
+    console.error('Error deleting event image:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete event image',
+      error: error.message
+    });
+  }
+});
+
 module.exports = router;

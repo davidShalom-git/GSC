@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { PlayCircle, BookOpen, Globe, MessageCircle, TrendingUp, Clock } from 'lucide-react';
+import { PlayCircle, BookOpen, Globe, MessageCircle, TrendingUp, Clock, ExternalLink } from 'lucide-react';
+import { API_ENDPOINTS, getVideoThumbnail } from '../lib/api';
 
 interface VideoItems {
-  id: number;
+  id: number | string;
   title: string;
   url: string;
   thumbnail?: string;
@@ -24,15 +24,24 @@ const FEATURED_TOPICS = [
 
 const Video = () => {
   const [videos, setVideos] = useState<VideoItems[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchVideos = async () => {
+    setLoading(true);
     try {
-      const response = await fetch(import.meta.env.VITE_URL);
-      const data = await response.json();
-      const arrayData = Array.isArray(data) ? data : [];
-      setVideos(arrayData);
+      let response = await fetch(API_ENDPOINTS.videoUrl);
+      if (!response.ok && API_ENDPOINTS.videoUrl.includes('localhost')) {
+        response = await fetch('https://api.fggschurch.com/api/video/url');
+      }
+      if (response.ok) {
+        const data = await response.json();
+        const arrayData = Array.isArray(data) ? data : [];
+        setVideos(arrayData);
+      }
     } catch (error) {
       console.error('Error fetching videos:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,17 +49,8 @@ const Video = () => {
     fetchVideos();
   }, []);
 
-  const getlinear = (index: number) => {
-    const linears = [
-      'from-orange-400 to-red-500',
-      'from-blue-400 to-purple-500',
-      'from-[#022c22] to-emerald-800',
-      'from-pink-400 to-rose-500',
-      'from-yellow-400 to-orange-500',
-      'from-indigo-400 to-blue-500',
-    ];
-    return linears[index % linears.length];
-  };
+  // Top 3 latest videos for the featured section
+  const featuredVideos = videos.slice(0, 3);
 
   return (
     <div className='min-h-screen font-sans bg-[#f9fafb] relative'>
@@ -121,83 +121,134 @@ const Video = () => {
         </div>
       </div>
 
-      {/* Latest Sermons on YouTube */}
+      {/* Latest Sermons with Real Thumbnails */}
       <div className="max-w-[75rem] mx-auto px-4 sm:px-6 md:px-8 py-12">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-serif text-[#022c22]">Latest on YouTube</h2>
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-[#d4af37] font-semibold hover:underline flex items-center gap-2">
-            Visit FGGS Channel &rarr;
+          <div>
+            <h2 className="text-3xl font-serif text-[#022c22]">Latest on YouTube</h2>
+            <p className="text-sm text-gray-500 mt-1">Watch our most recent services and teachings</p>
+          </div>
+          <a
+            href="https://www.youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#d4af37] font-semibold hover:underline flex items-center gap-1.5 text-sm"
+          >
+            <span>Visit FGGS Channel</span>
+            <ExternalLink className="w-4 h-4" />
           </a>
         </div>
         
-        {/* Placeholder Embeds */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[1, 2, 3].map((_, idx) => (
-            <div key={idx} className="bg-gray-200 rounded-2xl aspect-video w-full flex flex-col items-center justify-center text-gray-500 shadow-md">
-              <PlayCircle className="w-12 h-12 mb-2 opacity-50" />
-              <p className="text-sm">YouTube Video Embed {idx + 1}</p>
-            </div>
-          ))}
-        </div>
+        {featuredVideos.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredVideos.map((item, idx) => {
+              const thumb = getVideoThumbnail(item.url, item.thumbnail, item.thumbnailType);
+              return (
+                <a
+                  key={`feat-${item.id || idx}`}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+                >
+                  <div className="relative aspect-video w-full overflow-hidden bg-slate-900">
+                    <img
+                      src={thumb}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                      <div className="w-14 h-14 rounded-full bg-[#d4af37] text-[#022c22] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <PlayCircle className="w-8 h-8 fill-current" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-semibold text-gray-900 group-hover:text-[#d4af37] transition-colors line-clamp-2 text-base">
+                      {item.title}
+                    </h3>
+                    <span className="text-xs text-[#022c22] font-medium mt-3 inline-flex items-center gap-1">
+                      Watch Video &rarr;
+                    </span>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center">
+                <PlayCircle className="w-12 h-12 text-[#d4af37] mx-auto mb-3 opacity-60" />
+                <h4 className="font-semibold text-gray-800 text-sm">Sunday Worship Sermon</h4>
+                <p className="text-xs text-gray-400 mt-1">Visit our YouTube channel for weekly livestreams</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Dynamic Videos (from backend) */}
+      {/* Dynamic Videos (All Broadcasts) */}
       <div className='max-w-[75rem] mx-auto px-4 sm:px-6 md:px-8 py-12 pb-24'>
-        <h2 className="text-3xl font-serif text-[#022c22] mb-8 border-t border-gray-200 pt-12">Special Event Series</h2>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {videos.map((video, index) => (
-            <motion.div
-              key={video.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Link to={`/${video.url}`} className='block group'>
-                <div className='bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 h-full flex flex-col'>
-                  <div className='relative h-56 overflow-hidden bg-gray-200'>
-                    {video.thumbnail ? (
-                      <img
-                        src={video.thumbnailType === 'base64'
-                          ? `data:image/jpeg;base64,${video.thumbnail}`
-                          : video.thumbnail
-                        }
-                        alt={video.title}
-                        className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700'
-                      />
-                    ) : (
-                      <div className={`w-full h-full bg-gradient-to-br ${getlinear(index)} flex items-center justify-center`}>
-                        <div className='text-8xl font-bold text-white/90 group-hover:scale-110 transition-transform duration-500'>
-                          {video.title.charAt(0).toUpperCase()}
+        <h2 className="text-3xl font-serif text-[#022c22] mb-8 border-t border-gray-200 pt-12">
+          All Devotional Sermons ({videos.length})
+        </h2>
+
+        {loading ? (
+          <div className="text-center py-16">
+            <p className="text-gray-400">Loading sermon messages...</p>
+          </div>
+        ) : videos.length > 0 ? (
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+            {videos.map((video, index) => {
+              const thumb = getVideoThumbnail(video.url, video.thumbnail, video.thumbnailType);
+              return (
+                <motion.div
+                  key={video.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <a
+                    href={video.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className='block group h-full'
+                  >
+                    <div className='bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 h-full flex flex-col'>
+                      <div className='relative aspect-video w-full overflow-hidden bg-gray-200'>
+                        <img
+                          src={thumb}
+                          alt={video.title}
+                          className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700'
+                        />
+
+                        <div className='absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-all duration-300'>
+                          <div className='w-14 h-14 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:scale-110 shadow-lg'>
+                            <PlayCircle className="w-8 h-8 text-[#022c22] ml-0.5" />
+                          </div>
                         </div>
                       </div>
-                    )}
 
-                    <div className='absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-all duration-300'>
-                      <div className='w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:scale-110'>
-                        <PlayCircle className="w-8 h-8 text-[#022c22] ml-1" />
+                      <div className='p-6 flex-1 flex flex-col justify-between'>
+                        <h2 className='text-lg font-semibold text-gray-800 group-hover:text-[#d4af37] transition-colors duration-300 line-clamp-2'>
+                          {video.title}
+                        </h2>
+                        <div className='flex items-center gap-2 pt-4 text-[#022c22] text-xs font-bold uppercase tracking-wider'>
+                          <span>Watch Broadcast</span>
+                          <span className='group-hover:translate-x-1 transition-transform duration-300'>&rarr;</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-
-                  <div className='p-6 flex-1 flex flex-col'>
-                    <h2 className='text-xl font-semibold text-gray-800 group-hover:text-[#d4af37] transition-colors duration-300 line-clamp-2'>
-                      {video.title}
-                    </h2>
-                    <div className='flex items-center gap-2 mt-auto pt-4 text-gray-500 text-sm font-semibold uppercase tracking-wider'>
-                      <span>Watch now</span>
-                      <span className='group-hover:translate-x-1 transition-transform duration-300'>&rarr;</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-
-        {videos.length === 0 && (
+                  </a>
+                </motion.div>
+              );
+            })}
+          </div>
+        ) : (
           <div className='text-center py-16 bg-white rounded-3xl border border-gray-100 shadow-sm'>
             <PlayCircle className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-            <p className='text-gray-500 text-lg'>No special series available yet</p>
+            <p className='text-gray-500 text-lg'>No sermon videos published yet.</p>
           </div>
         )}
       </div>
