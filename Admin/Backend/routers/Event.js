@@ -1,10 +1,9 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const Image = require('../models/Event');
+const db = require('../db');
 
 const router = express.Router();
-
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
@@ -19,10 +18,23 @@ const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
   limits: {
-    fileSize: 10 * 1024 * 1024 
+    fileSize: 10 * 1024 * 1024
   }
 });
 
+const formatImage = (row) => ({
+  id: row.id,
+  _id: row.id,
+  name: row.name,
+  originalName: row.original_name,
+  mimeType: row.mime_type,
+  size: row.size,
+  base64Data: row.base64_data,
+  uploadPath: row.upload_path,
+  uploadedAt: row.uploaded_at,
+  createdAt: row.created_at,
+  updatedAt: row.updated_at
+});
 
 router.post('/upload', upload.single('image'), async (req, res) => {
   try {
@@ -34,40 +46,34 @@ router.post('/upload', upload.single('image'), async (req, res) => {
     }
 
     const file = req.file;
-    
-
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     const fileName = file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname);
-    
- 
     const base64Data = file.buffer.toString('base64');
 
-    const newImage = new Image({
-      name: fileName,
-      originalName: file.originalname,
-      mimeType: file.mimetype,
-      size: file.size,
-      base64Data: base64Data,
-      uploadPath: `memory-${fileName}` 
-    });
+    const result = await db.query(
+      `INSERT INTO event_images (name, original_name, mime_type, size, base64_data, upload_path)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING *`,
+      [fileName, file.originalname, file.mimetype, file.size, base64Data, `memory-${fileName}`]
+    );
 
-    const savedImage = await newImage.save();
+    const saved = formatImage(result.rows[0]);
 
     res.status(201).json({
       success: true,
       message: 'Image uploaded successfully',
       data: {
-        id: savedImage._id,
-        name: savedImage.name,
-        originalName: savedImage.originalName,
-        mimeType: savedImage.mimeType,
-        size: savedImage.size,
-        uploadedAt: savedImage.uploadedAt
+        id: saved.id,
+        _id: saved.id,
+        name: saved.name,
+        originalName: saved.originalName,
+        mimeType: saved.mimeType,
+        size: saved.size,
+        uploadedAt: saved.uploadedAt
       }
     });
   } catch (error) {
     console.error('Error storing image:', error);
-
     res.status(500).json({
       success: false,
       message: 'Failed to store image',
@@ -76,11 +82,14 @@ router.post('/upload', upload.single('image'), async (req, res) => {
   }
 });
 
-
 router.get('/event', async (req, res) => {
   try {
-    const images = await Image.find().sort({ createdAt: -1 });
-    
+    const result = await db.query(
+      `SELECT * FROM event_images ORDER BY created_at DESC`
+    );
+
+    const images = result.rows.map(formatImage);
+
     res.status(200).json({
       success: true,
       count: images.length,
@@ -96,34 +105,28 @@ router.get('/event', async (req, res) => {
   }
 });
 
-
 router.get('/event/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    
-    const image = await Image.findById(id);
-    
-    if (!image) {
+
+    const result = await db.query(
+      `SELECT * FROM event_images WHERE id = $1`,
+      [id]
+    );
+
+    if (result.rowCount === 0) {
       return res.status(404).json({
         success: false,
         message: 'Image not found'
       });
     }
-    
+
     res.status(200).json({
       success: true,
-      data: image
+      data: formatImage(result.rows[0])
     });
   } catch (error) {
     console.error('Error fetching image:', error);
-    
-    if (error.name === 'CastError') {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid image ID format'
-      });
-    }
-    
     res.status(500).json({
       success: false,
       message: 'Failed to fetch image',
@@ -132,24 +135,26 @@ router.get('/event/:id', async (req, res) => {
   }
 });
 
-
 router.get('/serve/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    
-    const image = await Image.findById(id);
-    
-    if (!image) {
+
+    const result = await db.query(
+      `SELECT base64_data, mime_type FROM event_images WHERE id = $1`,
+      [id]
+    );
+
+    if (result.rowCount === 0) {
       return res.status(404).json({
         success: false,
         message: 'Image not found'
       });
     }
-    
 
-    const imageBuffer = Buffer.from(image.base64Data, 'base64');
-    
-    res.setHeader('Content-Type', image.mimeType);
+    const image = result.rows[0];
+    const imageBuffer = Buffer.from(image.base64_data, 'base64');
+
+    res.setHeader('Content-Type', image.mime_type);
     res.setHeader('Content-Length', imageBuffer.length);
     res.setHeader('Cache-Control', 'public, max-age=31536000');
     res.send(imageBuffer);

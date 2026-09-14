@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const mongoose = require('mongoose');
+const db = require('./db');
 const VideoRoute = require('./routers/Video');
 const EventRoute = require('./routers/Event');
 const PromiseRoute = require('./routers/Promise');
@@ -59,7 +59,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
 
 
 app.use(express.json({ limit: '50mb' }));
@@ -67,11 +66,9 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-mongoose.connect(process.env.MONGO_URI).then(() => {
-    console.log("MongoDB Connected")
-}).catch((err) => {
-    console.log("MongoDB Not Connected", err)
-})
+db.initDb().catch((err) => {
+    console.error("NeonDB Initialization Failed", err);
+});
 
 
 app.get('/', (req, res) => {

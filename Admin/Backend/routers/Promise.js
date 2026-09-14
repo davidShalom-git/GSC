@@ -1,10 +1,9 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const English = require('../models/Promise');
+const db = require('../db');
 
 const router = express.Router();
-
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
@@ -21,6 +20,20 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }
 });
 
+const formatPromise = (row) => ({
+  id: row.id,
+  _id: row.id,
+  name: row.name,
+  originalName: row.original_name,
+  mimeType: row.mime_type,
+  size: row.size,
+  base64Data: row.base64_data,
+  uploadPath: row.upload_path,
+  uploadedAt: row.uploaded_at,
+  createdAt: row.created_at,
+  updatedAt: row.updated_at,
+  imageUrl: `/api/promise/serve/${row.id}`
+});
 
 router.post('/pro', upload.single('image'), async (req, res) => {
   try {
@@ -36,29 +49,26 @@ router.post('/pro', upload.single('image'), async (req, res) => {
     const fileName = file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname);
     const base64Data = file.buffer.toString('base64');
 
-    const newImage = new English({
-      name: fileName,
-      originalName: file.originalname,
-      mimeType: file.mimetype,
-      size: file.size,
-      base64Data: base64Data,
-      uploadPath: `memory-${fileName}`,
+    const result = await db.query(
+      `INSERT INTO promise_words (name, original_name, mime_type, size, base64_data, upload_path)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING *`,
+      [fileName, file.originalname, file.mimetype, file.size, base64Data, `memory-${fileName}`]
+    );
 
-    });
-
-    const savedImage = await newImage.save();
+    const saved = formatPromise(result.rows[0]);
 
     res.status(201).json({
       success: true,
       message: 'Image uploaded successfully',
       data: {
-        id: savedImage._id,
-        name: savedImage.name,
-        originalName: savedImage.originalName,
-        mimeType: savedImage.mimeType,
-        size: savedImage.size,
-        uploadedAt: savedImage.uploadedAt,
-       
+        id: saved.id,
+        _id: saved.id,
+        name: saved.name,
+        originalName: saved.originalName,
+        mimeType: saved.mimeType,
+        size: saved.size,
+        uploadedAt: saved.uploadedAt
       }
     });
   } catch (error) {
@@ -71,12 +81,14 @@ router.post('/pro', upload.single('image'), async (req, res) => {
   }
 });
 
-
-
 router.get('/pro', async (req, res) => {
   try {
-    const images = await English.find().sort({ createdAt: -1 });
-    
+    const result = await db.query(
+      `SELECT * FROM promise_words ORDER BY created_at DESC`
+    );
+
+    const images = result.rows.map(formatPromise);
+
     res.status(200).json({
       success: true,
       count: images.length,
@@ -92,34 +104,28 @@ router.get('/pro', async (req, res) => {
   }
 });
 
-
 router.get('/eng/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    
-    const image = await English.findById(id);
-    
-    if (!image) {
+
+    const result = await db.query(
+      `SELECT * FROM promise_words WHERE id = $1`,
+      [id]
+    );
+
+    if (result.rowCount === 0) {
       return res.status(404).json({
         success: false,
         message: 'Image not found'
       });
     }
-    
+
     res.status(200).json({
       success: true,
-      data: image
+      data: formatPromise(result.rows[0])
     });
   } catch (error) {
     console.error('Error fetching image:', error);
-    
-    if (error.name === 'CastError') {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid image ID format'
-      });
-    }
-    
     res.status(500).json({
       success: false,
       message: 'Failed to fetch image',
@@ -128,26 +134,28 @@ router.get('/eng/:id', async (req, res) => {
   }
 });
 
-
 router.get('/serve/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    
-    const image = await English.findById(id);
-    
-    if (!image) {
+
+    const result = await db.query(
+      `SELECT base64_data, mime_type FROM promise_words WHERE id = $1`,
+      [id]
+    );
+
+    if (result.rowCount === 0) {
       return res.status(404).json({
         success: false,
         message: 'Image not found'
       });
     }
-    
-    
-    const imageBuffer = Buffer.from(image.base64Data, 'base64');
-    
-    res.setHeader('Content-Type', image.mimeType);
+
+    const image = result.rows[0];
+    const imageBuffer = Buffer.from(image.base64_data, 'base64');
+
+    res.setHeader('Content-Type', image.mime_type);
     res.setHeader('Content-Length', imageBuffer.length);
-    res.setHeader('Cache-Control', 'public, max-age=31536000'); 
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
     res.send(imageBuffer);
   } catch (error) {
     console.error('Error serving image:', error);
