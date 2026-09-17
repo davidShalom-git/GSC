@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, Sparkles, Eye, X } from 'lucide-react';
-import { API_ENDPOINTS } from '../lib/api';
+import { API_ENDPOINTS, getMediaImageUrl } from '../lib/api';
 
 interface PromiseData {
   id?: string | number;
+  _id?: string | number;
   name?: string;
   originalName?: string;
   mimeType?: string;
@@ -17,6 +18,8 @@ const PromiseWordBanner = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchPromiseWord = async () => {
       try {
         let res = await fetch(API_ENDPOINTS.promiseUrl);
@@ -26,8 +29,12 @@ const PromiseWordBanner = () => {
         if (res.ok) {
           const data = await res.json();
           const list = Array.isArray(data) ? data : data.data || [];
-          if (list.length > 0) {
-            setPromise(list[0]); // latest active promise word
+          if (isMounted) {
+            if (list.length > 0) {
+              setPromise(list[0]); // latest active promise word
+            } else {
+              setPromise(null);
+            }
           }
         }
       } catch (err) {
@@ -36,11 +43,21 @@ const PromiseWordBanner = () => {
     };
 
     fetchPromiseWord();
+
+    // Re-fetch when user refocuses tab (e.g. after uploading in admin panel)
+    const handleFocus = () => fetchPromiseWord();
+    window.addEventListener('focus', handleFocus);
+    const interval = setInterval(fetchPromiseWord, 10000);
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener('focus', handleFocus);
+      clearInterval(interval);
+    };
   }, []);
 
-  const promiseImageSrc = promise?.base64Data
-    ? `data:${promise.mimeType || 'image/jpeg'};base64,${promise.base64Data}`
-    : promise?.imageUrl || null;
+  const promiseImageSrc = getMediaImageUrl(promise || undefined, 'promise');
+
 
   return (
     <div className="relative w-full max-w-[75rem] mx-auto px-4 sm:px-6 md:px-8 mt-14 mb-14">

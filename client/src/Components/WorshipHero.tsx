@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Radio, PlayCircle, Music } from 'lucide-react';
+import { ArrowUpRight, Radio, PlayCircle } from 'lucide-react';
 
 const services = [
   {
@@ -15,13 +15,6 @@ const services = [
     description: "Watch or listen to past messages",
     icon: <PlayCircle className="w-5 h-5 text-[#022c22]" />,
     href: "/videos",
-  },
-  {
-    title: "Worship Songs",
-    image: "/Hero/3.jpeg",
-    description: "Listen to our choir worship playlists",
-    icon: <Music className="w-5 h-5 text-[#022c22]" />,
-    href: "#",
   },
 ];
 
@@ -87,7 +80,7 @@ export function WorshipHero() {
       </div>
 
       {/* ── Category-Style Services Grid below the Hero ── */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[75rem] mx-auto mt-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[75rem] mx-auto mt-16">
         {services.map((service, index) => (
           <motion.div
             key={service.title}

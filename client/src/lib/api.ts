@@ -1,29 +1,72 @@
 // API Endpoint Resolvers and Media Helpers
 
 export const API_ENDPOINTS = {
+  get baseUrl() {
+    if (import.meta.env.VITE_API_BASE) return import.meta.env.VITE_API_BASE;
+    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+      return 'http://localhost:1995';
+    }
+    return 'https://api.fggschurch.com';
+  },
+
   get videoUrl() {
     if (import.meta.env.VITE_URL) return import.meta.env.VITE_URL;
-    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-      return 'http://localhost:1995/api/video/url';
-    }
-    return 'https://api.fggschurch.com/api/video/url';
+    return `${this.baseUrl}/api/video/url`;
   },
 
   get eventUrl() {
     if (import.meta.env.VITE_EVENT) return import.meta.env.VITE_EVENT;
-    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-      return 'http://localhost:1995/api/event/event';
-    }
-    return 'https://api.fggschurch.com/api/event/event';
+    return `${this.baseUrl}/api/event/event`;
   },
 
   get promiseUrl() {
     if (import.meta.env.VITE_PROMISE) return import.meta.env.VITE_PROMISE;
-    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-      return 'http://localhost:1995/api/promise/pro';
-    }
-    return 'https://api.fggschurch.com/api/promise/pro';
+    return `${this.baseUrl}/api/promise/pro`;
+  },
+
+  eventServeUrl: (id: string | number) => {
+    const base = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
+      ? 'http://localhost:1995'
+      : 'https://api.fggschurch.com';
+    return `${base}/api/event/serve/${id}`;
+  },
+
+  promiseServeUrl: (id: string | number) => {
+    const base = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
+      ? 'http://localhost:1995'
+      : 'https://api.fggschurch.com';
+    return `${base}/api/promise/serve/${id}`;
   }
+};
+
+/**
+ * Resolves a full usable image URL for uploaded Event or Promise items.
+ * Handles base64 data strings, relative server paths, and fallback serve endpoints.
+ */
+export const getMediaImageUrl = (
+  item?: { id?: string | number; _id?: string | number; base64Data?: string; mimeType?: string; imageUrl?: string },
+  type: 'event' | 'promise' = 'event'
+): string | null => {
+  if (!item) return null;
+
+  if (item.base64Data) {
+    return `data:${item.mimeType || 'image/jpeg'};base64,${item.base64Data}`;
+  }
+
+  if (item.imageUrl) {
+    if (item.imageUrl.startsWith('http://') || item.imageUrl.startsWith('https://') || item.imageUrl.startsWith('data:')) {
+      return item.imageUrl;
+    }
+    const base = API_ENDPOINTS.baseUrl;
+    return `${base}${item.imageUrl.startsWith('/') ? '' : '/'}${item.imageUrl}`;
+  }
+
+  const itemId = item.id || item._id;
+  if (itemId) {
+    return type === 'event' ? API_ENDPOINTS.eventServeUrl(itemId) : API_ENDPOINTS.promiseServeUrl(itemId);
+  }
+
+  return null;
 };
 
 /**
@@ -53,3 +96,4 @@ export const getVideoThumbnail = (
 
   return '/Hero/3.jpeg';
 };
+

@@ -2,6 +2,7 @@
 import HeroSection from '../Components/HeroSection'
 import PromiseWordBanner from '../Components/PromiseWordBanner'
 import ChurchFeatures from '../Components/ChurchFeatures'
+import HomeEventsSection from '../Components/HomeEventsSection'
 import AboutUsTeaser from '../Components/AboutUsTeaser'
 import LatestSermons from '../Components/LatestSermons'
 import Prayers from '../Components/Prayers'
@@ -30,6 +31,11 @@ const Home = () => {
       {/* Flat top ChurchFeatures */}
       <div className="relative z-[48] bg-white">
         <ChurchFeatures />
+      </div>
+
+      {/* Dynamic Church Events & Uploaded Posters Section */}
+      <div className="relative z-[48] bg-[#f8fafc] border-t border-gray-100">
+        <HomeEventsSection />
       </div>
       
       {/* Flat top, curved bottom overlapping LatestSermons */}
